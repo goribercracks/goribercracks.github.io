@@ -28,6 +28,120 @@
             margin: 0 auto;
         }
 
+        /* ─── PASSWORD OVERLAY ─── */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            background: #171717;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            transition: opacity 0.5s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay-box {
+            text-align: center;
+            max-width: 340px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .overlay-box h2 {
+            font-weight: 600;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .overlay-box input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #222;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            margin-bottom: 12px;
+        }
+
+        .overlay-box input:focus {
+            border-color: #5e17eb;
+        }
+
+        .overlay-box .btn {
+            padding: 12px 28px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #5e17eb;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .overlay-box .btn:hover {
+            background: #6f2ff0;
+        }
+
+        .overlay-box .error {
+            color: #f55;
+            display: none;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .loading-view {
+            display: none;
+        }
+
+        .loading-view .loader-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .loading-view .loader-wrap .label {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #ddd;
+        }
+
+        .loading-view .loader-wrap .label strong {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ─── MAIN CONTENT (hidden until unlocked) ─── */
+        #page-content {
+            display: none;
+        }
+
         /* ─── TOP NAV BAR ─── */
         .top-nav {
             display: flex;
@@ -529,48 +643,69 @@
 </head>
 <body>
 
-    <div class="container">
-
-        <!-- ─── TOP NAV ─── -->
-        <div class="top-nav">
-            <a href="https://goribercracks.github.io/browsergames.html" class="btn-games-wrapper">
-                <button class="btn-games">Games in Browser</button>
-            </a>
-
-            <a href="https://goribercracks.github.io/gamerequest.html" class="nav-purple-btn">Game Request ></a>
-
-            <a href="https://goribercracks.github.io/goriberos.html" class="nav-purple-btn">Goriber OS ></a>
-        </div>
-
-        <!-- ─── CONTROLLER WARNING CARD ─── -->
-        <div class="card-spotlight" id="spotlightCard">
-            <div class="icon-wrapper">
-                <img src="https://goribercracks.weebly.com/uploads/1/4/7/4/147490656/icons8-controller-100_orig.png" alt="Gamepad icon" />
+    <!-- ─── PASSWORD OVERLAY ─── -->
+    <div id="overlay">
+        <div class="overlay-box">
+            <div id="prompt-view">
+                <h2>Enter Password</h2>
+                <input type="password" id="pw-input" placeholder="Password" autofocus />
+                <button class="btn" id="unlock-btn">Unlock</button>
+                <p class="error" id="error-msg">Wrong password. Try again.</p>
             </div>
-            <div class="spotlight-content">
-                <p>Games under this section <span class="highlight">require a controller</span>.</p>
-                <div class="link-wrapper">
-                    No controller? Use your phone via
-                    <a href="https://www.monect.com/" target="_blank">Monect</a> &gt;
+            <div class="loading-view" id="loading-view">
+                <div class="loader-wrap">
+                    <div class="spinner"></div>
+                    <p class="label"><strong>Logging in…</strong></p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- ─── GAME GRID ─── -->
-        <h2 style="font-size:1.8rem; font-weight:700; margin-bottom:0.5rem; color:#fff;">Games</h2>
-        <p style="color:#999; margin-bottom:1.5rem;">Click Play to start downloading or playing</p>
+    <!-- ─── MAIN CONTENT (hidden until unlocked) ─── -->
+    <div id="page-content">
+        <div class="container">
 
-        <div class="games-grid" id="gamesGrid">
-            <!-- Games will be added here -->
+            <!-- TOP NAV -->
+            <div class="top-nav">
+                <a href="https://goribercracks.github.io/browsergames.html" class="btn-games-wrapper">
+                    <button class="btn-games">Games in Browser</button>
+                </a>
+
+                <a href="https://goribercracks.github.io/gamerequest.html" class="nav-purple-btn">Game Request ></a>
+
+                <a href="https://goribercracks.github.io/goriberos.html" class="nav-purple-btn">Goriber OS ></a>
+            </div>
+
+            <!-- CONTROLLER WARNING CARD -->
+            <div class="card-spotlight" id="spotlightCard">
+                <div class="icon-wrapper">
+                    <img src="https://goribercracks.weebly.com/uploads/1/4/7/4/147490656/icons8-controller-100_orig.png" alt="Gamepad icon" />
+                </div>
+                <div class="spotlight-content">
+                    <p>Games under this section <span class="highlight">require a controller</span>.</p>
+                    <div class="link-wrapper">
+                        No controller? Use your phone via
+                        <a href="https://www.monect.com/" target="_blank">Monect</a> &gt;
+                    </div>
+                </div>
+            </div>
+
+            <!-- GAME GRID -->
+            <h2 style="font-size:1.8rem; font-weight:700; margin-bottom:0.5rem; color:#fff;">Games</h2>
+            <p style="color:#999; margin-bottom:1.5rem;">Click Play to start downloading or playing</p>
+
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be added here -->
+            </div>
+
+            <!-- GORIBER VAULT -->
+            <div class="vault-section">
+                <a href="https://goribercracks.github.io/vault-1.html" class="hacker-btn">
+                    <span class="hacker-text">Goriber Vault &gt;</span>
+                </a>
+            </div>
+
         </div>
-
-        <!-- ─── GORIBER VAULT ─── -->
-        <div class="vault-section">
-            <a href="https://goribercracks.github.io/vault-1.html" class="hacker-btn">
-                <span class="hacker-text">Goriber Vault &gt;</span>
-            </a>
-        </div>
-
     </div>
 
     <!-- ─── SPOTLIGHT MOUSE TRACKER ─── -->
@@ -586,6 +721,102 @@
                 card.style.setProperty('--mouse-x', x + 'px');
                 card.style.setProperty('--mouse-y', y + 'px');
             });
+        })();
+    </script>
+
+    <!-- ─── PASSWORD SCRIPT ─── -->
+    <script>
+        (function() {
+            'use strict';
+
+            const PASSWORD = '5678';
+            const STORAGE_KEY = 'site_password';
+
+            const overlay = document.getElementById('overlay');
+            const pageContent = document.getElementById('page-content');
+            const promptView = document.getElementById('prompt-view');
+            const loadingView = document.getElementById('loading-view');
+            const pwInput = document.getElementById('pw-input');
+            const unlockBtn = document.getElementById('unlock-btn');
+            const errorMsg = document.getElementById('error-msg');
+
+            function showView(viewId) {
+                promptView.style.display = viewId === 'prompt' ? 'block' : 'none';
+                loadingView.style.display = viewId === 'loading' ? 'block' : 'none';
+            }
+
+            function showError(show) {
+                errorMsg.style.display = show ? 'block' : 'none';
+            }
+
+            function unlockPage() {
+                overlay.classList.add('hidden');
+                pageContent.style.display = 'block';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 600);
+            }
+
+            function savePassword(pw) {
+                try { localStorage.setItem(STORAGE_KEY, pw); } catch (_) {}
+            }
+
+            function loadSavedPassword() {
+                try { return localStorage.getItem(STORAGE_KEY); } catch (_) { return null; }
+            }
+
+            function attemptLogin(inputPw, fromSaved) {
+                const pw = (inputPw || '').trim();
+                showView('loading');
+
+                const delay = fromSaved ? 800 : 1400;
+                setTimeout(() => {
+                    if (pw === PASSWORD) {
+                        savePassword(pw);
+                        unlockPage();
+                    } else {
+                        if (fromSaved) {
+                            try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+                            showView('prompt');
+                            pwInput.value = '';
+                            pwInput.focus();
+                            showError(true);
+                        } else {
+                            showView('prompt');
+                            pwInput.value = '';
+                            pwInput.focus();
+                            showError(true);
+                        }
+                    }
+                }, delay);
+            }
+
+            function handleSubmit() {
+                const val = pwInput.value.trim();
+                if (!val) { pwInput.focus(); return; }
+                showError(false);
+                attemptLogin(val, false);
+            }
+
+            function init() {
+                const saved = loadSavedPassword();
+                if (saved) {
+                    showView('loading');
+                    attemptLogin(saved, true);
+                } else {
+                    showView('prompt');
+                    pwInput.focus();
+                    showError(false);
+                }
+            }
+
+            unlockBtn.addEventListener('click', handleSubmit);
+            pwInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    handleSubmit(); }
+            });
+
+            init();
         })();
     </script>
 
