@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goriber Cracks - Games</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ─── RESET ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0d0d0d;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ─── TOP NAV BAR ─── */
+        .top-nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.8rem;
+            width: 100%;
+            padding: 0.25rem 0.5rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* Games in Browser - animated button */
+        .btn-games {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            outline: none;
+            color: #FFF;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 50px;
+            white-space: nowrap;
+            background: transparent;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .btn-games::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(46, 46, 46);
+            left: 0;
+            top: 0;
+            border-radius: 50px;
+            transition: background 0.3s;
+        }
+
+        .btn-games::before {
+            content: "";
+            background: linear-gradient(45deg,
+                    #FF0000, #002BFF, #FF00C8, #002BFF,
+                    #FF0000, #002BFF, #FF00C8, #002BFF);
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            background-size: 600%;
+            z-index: -1;
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            filter: blur(8px);
+            animation: glowing 20s linear infinite;
+            transition: opacity 0.3s ease-in-out;
+            border-radius: 50px;
+            opacity: 0;
+        }
+
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        .btn-games:hover::before {
+            opacity: 1;
+        }
+
+        .btn-games:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-games:active::after {
+            background: transparent;
+        }
+
+        .btn-games:active {
+            color: #000;
+            font-weight: bold;
+            transform: scale(0.96) translateY(0);
+        }
+
+        .btn-games-wrapper {
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .nav-purple-btn {
+            padding: 0.5rem 0.8rem;
+            border-radius: 50px;
+            border: 2px solid #5e17eb;
+            background: #5e17eb;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(94, 23, 235, 0.3);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: center;
+            user-select: none;
+            white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-purple-btn:hover {
+            background: #7a3cf0;
+            border-color: #7a3cf0;
+            box-shadow: 0 0 14px rgba(94, 23, 235, 0.5), 0 0 30px rgba(94, 23, 235, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-purple-btn:active {
+            transform: scale(0.96) translateY(0);
+        }
+
+        /* ─── CONTROLLER WARNING CARD ─── */
+        .card-spotlight {
+            --spotlight-color: rgba(192, 132, 252, 0.25);
+            position: relative;
+            background: #171717;
+            border-radius: 24px;
+            padding: 14px 20px;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            cursor: default;
+            isolation: isolate;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: box-shadow 0.3s ease;
+            margin: 1.5rem 0;
+        }
+
+        .card-spotlight:hover {
+            box-shadow: 0 4px 28px rgba(192, 132, 252, 0.15);
+        }
+
+        .card-spotlight::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                var(--spotlight-color) 0%,
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: inherit;
+        }
+
+        .card-spotlight:hover::before {
+            opacity: 1;
+        }
+
+        .icon-wrapper {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.2s ease, background 0.2s ease;
+            z-index: 2;
+        }
+
+        .card-spotlight:hover .icon-wrapper {
+            transform: scale(1.05);
+            background: rgba(192, 132, 252, 0.08);
+        }
+
+        .icon-wrapper img {
+            width: 28px;
+            height: 28px;
+            display: block;
+        }
+
+        .spotlight-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 8px;
+            line-height: 1.5;
+        }
+
+        .spotlight-content p {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 400;
+            color: #e0e0e0;
+        }
+
+        .spotlight-content .highlight {
+            font-weight: 600;
+            color: #c084fc;
+        }
+
+        .spotlight-content .link-wrapper {
+            font-size: 14px;
+            font-weight: 400;
+            color: #e0e0e0;
+        }
+
+        .spotlight-content a {
+            color: #c084fc;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(192, 132, 252, 0.25);
+            transition: border-color 0.2s ease, color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .spotlight-content a:hover {
+            color: #d8b4fe;
+            border-bottom-color: #c084fc;
+        }
+
+        /* ─── GAME GRID ─── */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .game-card {
+            background: #171717;
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            border-color: #5e17eb;
+            box-shadow: 0 8px 30px rgba(94, 23, 235, 0.15);
+        }
+
+        .game-card .game-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 0.8rem;
+            background: #2a2a2a;
+        }
+
+        .game-card .game-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .game-card .game-desc {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 0.8rem;
+        }
+
+        .game-card .play-btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            background: #5e17eb;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .game-card .play-btn:hover {
+            background: #7a3cf0;
+            box-shadow: 0 0 20px rgba(94, 23, 235, 0.4);
+        }
+
+        /* ─── GORIBER VAULT BUTTON ─── */
+        .vault-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #222222;
+            border-radius: 4px;
+            padding: 20px 0;
+            perspective: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 2rem;
+        }
+
+        .hacker-btn {
+            position: relative;
+            padding: 16px 32px;
+            background: linear-gradient(45deg, #5e17eb, #7b3ff2);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            transform: rotateX(0deg) rotateY(0deg);
+            box-shadow:
+                0 0 20px rgba(94, 23, 235, 0.4),
+                0 0 10px rgba(0, 229, 255, 0.2);
+            animation: terminal-pulse 2.5s infinite ease-in-out;
+            font-family: "Courier New", monospace;
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+            display: inline-block;
+            text-decoration: none;
+            user-select: none;
+            white-space: nowrap;
+            color: inherit;
+        }
+
+        .hacker-btn .hacker-text {
+            position: relative;
+            z-index: 3;
+            color: #d4b0ff;
+            font-family: "Courier New", monospace;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transform: translateZ(10px);
+            filter: drop-shadow(0 0 4px rgba(94, 23, 235, 0.6));
+            animation: text-flicker 1s infinite steps(8);
+            pointer-events: none;
+        }
+
+        .hacker-btn::before {
+            content: "Goriber Vault >";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(15px);
+            color: rgba(94, 23, 235, 0.5);
+            font-family: "Courier New", monospace;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0;
+            pointer-events: none;
+            animation: glitch-overlay-1 1.5s infinite steps(4);
+        }
+
+        .hacker-btn::after {
+            content: "Goriber Vault >";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(15px);
+            color: rgba(0, 229, 255, 0.4);
+            font-family: "Courier New", monospace;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0;
+            pointer-events: none;
+            animation: glitch-overlay-2 1.8s infinite steps(6);
+        }
+
+        .hacker-btn:hover {
+            transform: rotateX(10deg) rotateY(10deg) translateZ(-20px);
+            box-shadow:
+                0 15px 30px rgba(20, 5, 40, 0.6),
+                0 0 40px rgba(94, 23, 235, 0.5),
+                0 0 20px rgba(0, 229, 255, 0.3);
+            animation: terminal-pulse 0.8s infinite ease-in-out;
+        }
+
+        .hacker-btn:hover .hacker-text {
+            color: #00e5ff;
+            transform: translateZ(25px);
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+        }
+
+        .hacker-btn:active {
+            transform: rotateX(5deg) rotateY(5deg) translateZ(0px);
+            transition: all 0.2s ease;
+            box-shadow: 0 5px 15px rgba(20, 5, 40, 0.4), 0 0 20px rgba(94, 23, 235, 0.3);
+        }
+
+        /* ─── KEYFRAMES ─── */
+        @keyframes terminal-pulse {
+            0% { box-shadow: 0 0 20px rgba(94, 23, 235, 0.4), 0 0 10px rgba(0, 229, 255, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(94, 23, 235, 0.5), 0 0 15px rgba(0, 229, 255, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(94, 23, 235, 0.4), 0 0 10px rgba(0, 229, 255, 0.2); }
+        }
+
+        @keyframes text-flicker {
+            0% { transform: translateZ(10px); opacity: 1; }
+            5% { transform: translateZ(10px) translateX(-2px); opacity: 0.8; }
+            10% { transform: translateZ(10px) translateX(2px); opacity: 0.6; }
+            15% { opacity: 0.9; }
+            100% { transform: translateZ(10px); opacity: 1; }
+        }
+
+        @keyframes glitch-overlay-1 {
+            0% { opacity: 0.4; transform: translate(-50%, -50%) translateZ(15px) translateX(-3px); }
+            20% { opacity: 0.2; transform: translate(-50%, -50%) translateZ(15px) translateX(3px); }
+            25% { opacity: 0; }
+            50% { opacity: 0.3; transform: translate(-50%, -50%) translateZ(15px) translateY(-2px); }
+            55% { opacity: 0; }
+            100% { opacity: 0.4; transform: translate(-50%, -50%) translateZ(15px) translateX(-1px); }
+        }
+
+        @keyframes glitch-overlay-2 {
+            0% { opacity: 0.3; transform: translate(-50%, -50%) translateZ(15px) translateX(4px); }
+            15% { opacity: 0.1; transform: translate(-50%, -50%) translateZ(15px) translateX(-4px); }
+            20% { opacity: 0; }
+            40% { opacity: 0.2; transform: translate(-50%, -50%) translateZ(15px) translateY(3px); }
+            45% { opacity: 0; }
+            100% { opacity: 0.3; transform: translate(-50%, -50%) translateZ(15px) translateX(2px); }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 640px) {
+            .top-nav {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .btn-games {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.9rem;
+            }
+            .nav-purple-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.7rem;
+            }
+            .card-spotlight {
+                flex-wrap: wrap;
+                padding: 16px;
+                gap: 10px;
+                border-radius: 20px;
+            }
+            .icon-wrapper {
+                width: 44px;
+                height: 44px;
+            }
+            .icon-wrapper img {
+                width: 24px;
+                height: 24px;
+            }
+            .spotlight-content p,
+            .spotlight-content .link-wrapper {
+                font-size: 13px;
+            }
+            .games-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .hacker-btn {
+                padding: 14px 22px;
+            }
+            .hacker-btn .hacker-text {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            .hacker-btn {
+                padding: 12px 18px;
+            }
+            .hacker-btn .hacker-text {
+                font-size: 13px;
+            }
+            .hacker-btn::before,
+            .hacker-btn::after {
+                font-size: 13px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ─── TOP NAV ─── -->
+        <div class="top-nav">
+            <a href="https://goribercracks.github.io/browsergames.html" class="btn-games-wrapper">
+                <button class="btn-games">Games in Browser</button>
+            </a>
+
+            <a href="https://goribercracks.github.io/gamerequest.html" class="nav-purple-btn">Game Request ></a>
+
+            <a href="https://goribercracks.github.io/goriberos.html" class="nav-purple-btn">Goriber OS ></a>
+        </div>
+
+        <!-- ─── CONTROLLER WARNING CARD ─── -->
+        <div class="card-spotlight" id="spotlightCard">
+            <div class="icon-wrapper">
+                <img src="https://goribercracks.weebly.com/uploads/1/4/7/4/147490656/icons8-controller-100_orig.png" alt="Gamepad icon" />
+            </div>
+            <div class="spotlight-content">
+                <p>Games under this section <span class="highlight">require a controller</span>.</p>
+                <div class="link-wrapper">
+                    No controller? Use your phone via
+                    <a href="https://www.monect.com/" target="_blank">Monect</a> &gt;
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── GAME GRID ─── -->
+        <h2 style="font-size:1.8rem; font-weight:700; margin-bottom:0.5rem; color:#fff;">Games</h2>
+        <p style="color:#999; margin-bottom:1.5rem;">Click Play to start downloading or playing</p>
+
+        <div class="games-grid" id="gamesGrid">
+            <!-- Games will be added here -->
+        </div>
+
+        <!-- ─── GORIBER VAULT ─── -->
+        <div class="vault-section">
+            <a href="https://goribercracks.github.io/vault-1.html" class="hacker-btn">
+                <span class="hacker-text">Goriber Vault &gt;</span>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ─── SPOTLIGHT MOUSE TRACKER ─── -->
+    <script>
+        (function() {
+            var card = document.getElementById('spotlightCard');
+            if (!card) return;
+
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', x + 'px');
+                card.style.setProperty('--mouse-y', y + 'px');
+            });
+        })();
+    </script>
+
+    <!-- ─── GAME DATA ─── -->
+    <script>
+        // Add your games here
+        const games = [
+            // Example game entry:
+            // {
+            //     name: "Game Name",
+            //     desc: "Short description",
+            //     icon: "https://example.com/icon.png",
+            //     link: "https://example.com/download"
+            // }
+        ];
+
+        const grid = document.getElementById('gamesGrid');
+
+        if (games.length === 0) {
+            grid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:3rem 0; color:#666;">
+                    <p style="font-size:1.2rem;">No games added yet.</p>
+                    <p style="font-size:0.9rem;">Check back soon!</p>
+                </div>
+            `;
+        } else {
+            games.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.innerHTML = `
+                    <img src="${game.icon}" alt="${game.name}" class="game-icon" onerror="this.src='https://placehold.co/80x80/2a2a2a/5e17eb?text=🎮'">
+                    <div class="game-name">${game.name}</div>
+                    <div class="game-desc">${game.desc}</div>
+                    <a href="${game.link}" class="play-btn" target="_blank">Play</a>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+
+</body>
+</html>
