@@ -6,6 +6,7 @@
     <title>Goriber Cracks - Games</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
         /* ─── RESET ─── */
@@ -20,12 +21,35 @@
             background: #0d0d0d;
             color: #ffffff;
             min-height: 100vh;
-            padding: 1rem;
+            padding: 0;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 1rem 1rem;
+        }
+
+        /* ─── HEADER WITH LOGO ─── */
+        .site-header {
+            width: 100%;
+            padding: 1.2rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .site-header .logo {
+            max-height: 55px;
+            width: auto;
+            display: block;
         }
 
         /* ─── PASSWORD OVERLAY ─── */
@@ -145,16 +169,52 @@
         /* ─── TOP NAV BAR ─── */
         .top-nav {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0.75rem 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .top-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .top-nav-left .pc-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            letter-spacing: 0.03em;
+        }
+
+        .top-nav-left .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .top-nav-left .social-icons a {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+
+        .top-nav-left .social-icons a:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .top-nav-right {
+            display: flex;
             align-items: center;
             gap: 0.8rem;
-            width: 100%;
-            padding: 0.25rem 0.5rem;
-            margin-top: 0.75rem;
             flex-wrap: wrap;
         }
 
-        /* Games in Browser - animated button */
         .btn-games {
             padding: 0.5rem 1.2rem;
             border: none;
@@ -264,133 +324,42 @@
             transform: scale(0.96) translateY(0);
         }
 
-        /* ─── CONTROLLER WARNING CARD ─── */
-        .card-spotlight {
-            --spotlight-color: rgba(192, 132, 252, 0.25);
-            position: relative;
-            background: #171717;
-            border-radius: 24px;
-            padding: 14px 20px;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            cursor: default;
-            isolation: isolate;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: box-shadow 0.3s ease;
-            margin: 1.5rem 0;
+        /* ─── SECTION TITLES ─── */
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #fff;
         }
 
-        .card-spotlight:hover {
-            box-shadow: 0 4px 28px rgba(192, 132, 252, 0.15);
+        .section-sub {
+            color: #999;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
         }
 
-        .card-spotlight::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(
-                circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                var(--spotlight-color) 0%,
-                transparent 60%
-            );
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            pointer-events: none;
-            z-index: 1;
-            border-radius: inherit;
-        }
-
-        .card-spotlight:hover::before {
-            opacity: 1;
-        }
-
-        .icon-wrapper {
-            flex-shrink: 0;
-            width: 48px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: transform 0.2s ease, background 0.2s ease;
-            z-index: 2;
-        }
-
-        .card-spotlight:hover .icon-wrapper {
-            transform: scale(1.05);
-            background: rgba(192, 132, 252, 0.08);
-        }
-
-        .icon-wrapper img {
-            width: 28px;
-            height: 28px;
-            display: block;
-        }
-
-        .spotlight-content {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            gap: 4px 8px;
-            line-height: 1.5;
-        }
-
-        .spotlight-content p {
-            margin: 0;
-            font-size: 14px;
-            font-weight: 400;
-            color: #e0e0e0;
-        }
-
-        .spotlight-content .highlight {
-            font-weight: 600;
-            color: #c084fc;
-        }
-
-        .spotlight-content .link-wrapper {
-            font-size: 14px;
-            font-weight: 400;
-            color: #e0e0e0;
-        }
-
-        .spotlight-content a {
-            color: #c084fc;
-            font-weight: 600;
-            text-decoration: none;
-            border-bottom: 1.5px solid rgba(192, 132, 252, 0.25);
-            transition: border-color 0.2s ease, color 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .spotlight-content a:hover {
-            color: #d8b4fe;
-            border-bottom-color: #c084fc;
+        .section-divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 2rem 0 1.5rem;
         }
 
         /* ─── GAME GRID ─── */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1.5rem;
-            margin: 2rem 0;
+            margin: 0 0 2rem;
         }
 
         .game-card {
             background: #171717;
             border-radius: 16px;
-            padding: 1.2rem;
+            padding: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.06);
             transition: all 0.3s ease;
             text-align: center;
+            cursor: pointer;
         }
 
         .game-card:hover {
@@ -400,29 +369,237 @@
         }
 
         .game-card .game-icon {
-            width: 80px;
-            height: 80px;
+            width: 100%;
+            aspect-ratio: 2 / 3;
             border-radius: 12px;
             object-fit: cover;
-            margin-bottom: 0.8rem;
+            margin: 0 auto 0.6rem;
             background: #2a2a2a;
+            display: block;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
         .game-card .game-name {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
+            line-height: 1.2;
         }
 
         .game-card .game-desc {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #999;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0;
         }
 
-        .game-card .play-btn {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
+        .game-card.hidden {
+            display: none;
+        }
+
+        /* ─── NO RESULTS ─── */
+        .no-results {
+            display: none;
+            text-align: center;
+            color: #555;
+            font-size: 1rem;
+            font-weight: 500;
+            width: 100%;
+            padding: 40px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        /* ─── SEARCH HIGHLIGHT ─── */
+        .game-card.search-highlight {
+            border-color: #5e17eb;
+            box-shadow: 0 0 30px rgba(94, 23, 235, 0.6);
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+
+        /* ─── GAME DETAIL MODAL ─── */
+        .game-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: modalFade 0.3s ease;
+        }
+
+        .game-modal.active {
+            display: flex;
+        }
+
+        @keyframes modalFade {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .game-modal-content {
+            background: #1a1a1a;
+            border-radius: 24px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .game-modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .game-modal-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .game-modal-content::-webkit-scrollbar-thumb {
+            background: #5e17eb;
+            border-radius: 4px;
+        }
+
+        .game-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .game-modal-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .game-modal-cover {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .game-modal-cover .blur-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px) brightness(0.4);
+            transform: scale(1.1);
+            z-index: 0;
+        }
+
+        .game-modal-cover .cover-img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .game-modal-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .game-modal-body .poster-row {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-modal-body .poster-row .poster {
+            width: 160px;
+            height: 213px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 3px solid #1a1a1a;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            flex-shrink: 0;
+            background: #2a2a2a;
+        }
+
+        .game-modal-body .poster-row .info {
+            flex: 1;
+            padding-top: 0.5rem;
+        }
+
+        .game-modal-body .poster-row .info h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .game-modal-body .poster-row .info .sub {
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-modal-body .poster-row .info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .game-modal-body .poster-row .info .tags span {
+            font-size: 0.65rem;
+            background: rgba(94, 23, 235, 0.2);
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(94, 23, 235, 0.3);
+            color: #c084fc;
+        }
+
+        .game-modal-body .description {
+            margin-top: 1rem;
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .game-modal-body .download-section {
+            margin-top: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .game-modal-body .download-section .dl-label {
+            font-size: 0.7rem;
+            color: #888;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .game-modal-body .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1.8rem;
             border-radius: 50px;
             background: #5e17eb;
             color: #fff;
@@ -430,11 +607,94 @@
             font-weight: 600;
             font-size: 0.85rem;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: fit-content;
         }
 
-        .game-card .play-btn:hover {
+        .game-modal-body .download-btn:hover {
             background: #7a3cf0;
-            box-shadow: 0 0 20px rgba(94, 23, 235, 0.4);
+            box-shadow: 0 0 30px rgba(94, 23, 235, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .game-modal-body .download-btn i {
+            font-size: 1rem;
+        }
+
+        .game-modal-body .download-btn-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .game-modal-body .close-modal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .game-modal-body .close-modal-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .game-modal-body .extreme-section {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .game-modal-body .extreme-section .extreme-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .game-modal-body .extreme-section .extreme-desc {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+            line-height: 1.5;
+            margin-bottom: 0.6rem;
+        }
+
+        .game-modal-body .extreme-section .extreme-dl {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            background: #2a2a2a;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin: 0.2rem 0.4rem 0.2rem 0;
+        }
+
+        .game-modal-body .extreme-section .extreme-dl:hover {
+            background: #3a3a3a;
+            border-color: #5e17eb;
+        }
+
+        .game-modal-body .extreme-section .extreme-dl-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.2rem;
         }
 
         /* ─── GORIBER VAULT BUTTON ─── */
@@ -580,11 +840,297 @@
             100% { opacity: 0.3; transform: translate(-50%, -50%) translateZ(15px) translateX(2px); }
         }
 
+        /* ─── GLASS DOCK ─── */
+        .dock-wrapper {
+            position: fixed;
+            bottom: 2rem;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            pointer-events: none;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.35s ease;
+            transform: translateY(0);
+            opacity: 1;
+            z-index: 999;
+        }
+
+        .dock-wrapper.hidden {
+            transform: translateY(calc(100% + 2rem));
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .glass-dock {
+            background: rgba(23, 23, 23, 0.88);
+            backdrop-filter: blur(16px) saturate(1.5);
+            -webkit-backdrop-filter: blur(16px) saturate(1.5);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            border-radius: 2rem;
+            padding: 0.6rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            pointer-events: auto;
+            position: relative;
+            transition: padding 0.15s ease;
+        }
+
+        .dock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #b0b0b0;
+            transition: color 0.2s, background 0.2s, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            padding: 0.3rem 0.5rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid transparent;
+            outline: none;
+            min-width: 2.8rem;
+            transform-origin: bottom center;
+            will-change: transform;
+            z-index: 1;
+        }
+
+        .dock-item svg {
+            width: 1.6rem;
+            height: 1.6rem;
+            display: block;
+            transition: color 0.2s;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .dock-item.active {
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: none;
+        }
+
+        .dock-item.active svg {
+            color: #ffffff;
+        }
+
+        .dock-item:hover {
+            transform: scale(1.2);
+            z-index: 10;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: transparent;
+        }
+
+        .dock-item:hover.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .dock-item.clicked {
+            transform: scale(0.9) !important;
+            transition: transform 0.1s ease !important;
+        }
+
+        .tooltip {
+            position: absolute;
+            top: -2.8rem;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            padding: 0.3rem 0.9rem;
+            border-radius: 0.5rem;
+            background: #f0f0f0;
+            color: #171717;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .dock-item:hover .tooltip {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -0.35rem;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 0.5rem;
+            height: 0.5rem;
+            background: inherit;
+            border-radius: 1px;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .dock-divider {
+            width: 1px;
+            height: 2rem;
+            background: rgba(255, 255, 255, 0.10);
+            margin: 0 0.2rem;
+            align-self: center;
+        }
+
+        /* ─── Search toggle (dock) ─── */
+        .search-toggle {
+            background: rgba(23, 23, 23, 0.88);
+            backdrop-filter: blur(16px) saturate(1.5);
+            -webkit-backdrop-filter: blur(16px) saturate(1.5);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 9999px;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #b0b0b0;
+            transition: all 0.25s ease;
+            pointer-events: auto;
+            flex-shrink: 0;
+            position: relative;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .search-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .search-toggle svg {
+            width: 1.4rem;
+            height: 1.4rem;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* ─── Search popup (dock) ─── */
+        .search-popup {
+            position: fixed;
+            bottom: 6.5rem;
+            right: 50%;
+            transform: translateX(50%) scale(0.9) translateY(10px);
+            background: rgba(23, 23, 23, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem;
+            min-width: 280px;
+            max-width: 320px;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 30;
+        }
+
+        .search-popup.open {
+            opacity: 1;
+            transform: translateX(50%) scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        .search-popup input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-popup input:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .search-popup input::placeholder {
+            color: #888;
+        }
+
+        .search-results {
+            margin-top: 0.8rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0.6rem;
+            border-radius: 0.6rem;
+            background: rgba(255, 255, 255, 0.04);
+            margin-bottom: 0.3rem;
+            transition: background 0.15s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .search-result-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-result-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 0.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .search-result-item .game-name {
+            color: #e0e0e0;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .search-no-results {
+            color: #777;
+            font-size: 0.8rem;
+            padding: 0.5rem 0;
+            text-align: center;
+        }
+
         /* ─── RESPONSIVE ─── */
         @media (max-width: 640px) {
             .top-nav {
-                justify-content: center;
-                gap: 0.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+            .top-nav-left {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .top-nav-right {
+                width: 100%;
+                justify-content: flex-start;
             }
             .btn-games {
                 font-size: 0.75rem;
@@ -594,27 +1140,12 @@
                 font-size: 0.75rem;
                 padding: 0.4rem 0.7rem;
             }
-            .card-spotlight {
-                flex-wrap: wrap;
-                padding: 16px;
-                gap: 10px;
-                border-radius: 20px;
-            }
-            .icon-wrapper {
-                width: 44px;
-                height: 44px;
-            }
-            .icon-wrapper img {
-                width: 24px;
-                height: 24px;
-            }
-            .spotlight-content p,
-            .spotlight-content .link-wrapper {
-                font-size: 13px;
-            }
             .games-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
                 gap: 1rem;
+            }
+            .game-card .game-name {
+                font-size: 0.85rem;
             }
             .hacker-btn {
                 padding: 14px 22px;
@@ -622,11 +1153,88 @@
             .hacker-btn .hacker-text {
                 font-size: 15px;
             }
+            .game-modal-body {
+                padding: 1rem;
+            }
+            .game-modal-body .poster-row {
+                flex-direction: column;
+                align-items: center;
+                margin-top: -30px;
+            }
+            .game-modal-body .poster-row .poster {
+                width: 140px;
+                height: 186px;
+            }
+            .game-modal-body .poster-row .info {
+                text-align: center;
+            }
+            .game-modal-body .poster-row .info .tags {
+                justify-content: center;
+            }
+            .game-modal-cover {
+                height: 180px;
+            }
+            .game-modal-body .download-btn-wrap {
+                justify-content: center;
+            }
+            .game-modal-body .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .glass-dock {
+                padding: 0.4rem 0.7rem;
+                gap: 0.1rem;
+                border-radius: 1.5rem;
+                max-width: 78vw;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+            .dock-item {
+                min-width: 2.2rem;
+                padding: 0.2rem 0.3rem;
+                border-radius: 0.6rem;
+            }
+            .dock-item:hover {
+                transform: scale(1.15);
+            }
+            .dock-item svg {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+            .dock-divider {
+                height: 1.5rem;
+            }
+            .tooltip {
+                font-size: 0.55rem;
+                padding: 0.2rem 0.6rem;
+                top: -2.4rem;
+            }
+            .search-toggle {
+                width: 2.4rem;
+                height: 2.4rem;
+            }
+            .search-toggle svg {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+            .search-popup {
+                min-width: 200px;
+                right: 1rem;
+                transform: scale(0.9) translateY(10px);
+                bottom: 5.5rem;
+            }
+            .search-popup.open {
+                transform: scale(1) translateY(0);
+            }
         }
 
         @media (max-width: 420px) {
             .games-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.8rem;
+            }
+            .game-card .game-name {
+                font-size: 0.75rem;
             }
             .hacker-btn {
                 padding: 12px 18px;
@@ -638,6 +1246,21 @@
             .hacker-btn::after {
                 font-size: 13px !important;
             }
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5e17eb;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7a3cf0;
         }
     </style>
 </head>
@@ -661,42 +1284,57 @@
         </div>
     </div>
 
-    <!-- ─── MAIN CONTENT (hidden until unlocked) ─── -->
+    <!-- ─── MAIN CONTENT ─── -->
     <div id="page-content">
+
+        <!-- ─── HEADER WITH LOGO ─── -->
+        <header class="site-header">
+            <img
+            class="logo"
+            src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/goribercrackslogo.png"
+            alt="Goriber Cracks Logo"
+            />
+        </header>
+
         <div class="container">
 
             <!-- TOP NAV -->
             <div class="top-nav">
-                <a href="https://goribercracks.github.io/browsergames.html" class="btn-games-wrapper">
-                    <button class="btn-games">Games in Browser</button>
-                </a>
-
-                <a href="https://goribercracks.github.io/gamerequest.html" class="nav-purple-btn">Game Request ></a>
-
-                <a href="https://goribercracks.github.io/goriberos.html" class="nav-purple-btn">Goriber OS ></a>
-            </div>
-
-            <!-- CONTROLLER WARNING CARD -->
-            <div class="card-spotlight" id="spotlightCard">
-                <div class="icon-wrapper">
-                    <img src="https://goribercracks.weebly.com/uploads/1/4/7/4/147490656/icons8-controller-100_orig.png" alt="Gamepad icon" />
-                </div>
-                <div class="spotlight-content">
-                    <p>Games under this section <span class="highlight">require a controller</span>.</p>
-                    <div class="link-wrapper">
-                        No controller? Use your phone via
-                        <a href="https://www.monect.com/" target="_blank">Monect</a> &gt;
+                <div class="top-nav-left">
+                    <span class="pc-label">PC Games</span>
+                    <div class="social-icons">
+                        <a href="https://discord.gg/eqTFkDPyXE" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61581322430615" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
                     </div>
                 </div>
+                <div class="top-nav-right">
+                    <a href="https://goribercracks.github.io/browsergames.html" class="btn-games-wrapper">
+                        <button class="btn-games">Games in Browser</button>
+                    </a>
+                    <a href="https://goribercracks.github.io/gamerequest.html" class="nav-purple-btn">Game Request ></a>
+                    <a href="https://goribercracks.github.io/goriberos.html" class="nav-purple-btn">Goriber OS ></a>
+                </div>
             </div>
 
-            <!-- GAME GRID -->
-            <h2 style="font-size:1.8rem; font-weight:700; margin-bottom:0.5rem; color:#fff;">Games</h2>
-            <p style="color:#999; margin-bottom:1.5rem;">Click Play to start downloading or playing</p>
+            <!-- GAME GRID - ALL GAMES -->
+            <div class="games-grid" id="gamesGrid"></div>
 
-            <div class="games-grid" id="gamesGrid">
-                <!-- Games will be added here -->
-            </div>
+            <div class="no-results" id="noResults">No games match your search.</div>
+
+            <!-- ─── CONTROLLER REQUIRED SECTION ─── -->
+            <div class="section-title" style="margin-top: 0.5rem;">Controller Required</div>
+            <p class="section-sub">These games require a gamepad or controller to play</p>
+            <div class="games-grid" id="controllerGrid"></div>
+
+            <!-- ─── UPCOMING GAMES SECTION ─── -->
+            <hr class="section-divider" />
+            <div class="section-title">Upcoming Games</div>
+            <p class="section-sub">Coming soon to Goriber Cracks</p>
+            <div class="games-grid" id="upcomingGrid"></div>
 
             <!-- GORIBER VAULT -->
             <div class="vault-section">
@@ -708,21 +1346,104 @@
         </div>
     </div>
 
-    <!-- ─── SPOTLIGHT MOUSE TRACKER ─── -->
-    <script>
-        (function() {
-            var card = document.getElementById('spotlightCard');
-            if (!card) return;
+    <!-- ─── GAME DETAIL MODAL ─── -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-modal-content">
+            <button class="game-modal-close" id="modalCloseBtn">✕</button>
+            <div class="game-modal-cover" id="modalCover">
+                <div class="blur-bg" id="modalBlurBg"></div>
+                <img class="cover-img" id="modalCoverImg" src="" alt="Cover" />
+            </div>
+            <div class="game-modal-body">
+                <div class="poster-row">
+                    <img class="poster" id="modalPoster" src="" alt="Poster" />
+                    <div class="info">
+                        <h2 id="modalTitle">Game Title</h2>
+                        <div class="sub" id="modalSub">Publisher / Year</div>
+                        <div class="tags" id="modalTags"></div>
+                    </div>
+                </div>
+                <div class="description" id="modalDesc">Description goes here.</div>
+                <div class="download-section" id="modalDownloadSection">
+                    <div class="dl-label">Download</div>
+                    <div class="download-btn-wrap" id="modalDownloadWrap"></div>
+                </div>
+                <!-- ─── EXTREME SECTION (only for gtabanglavc) ─── -->
+                <div class="extreme-section" id="extremeSection" style="display:none;">
+                    <div class="extreme-title">▸ GTA Vice City Extreme</div>
+                    <div class="extreme-desc">Remember Hridoy Khan, Minar, Balam Tracks? This is That Version (Extreme). Both versions has some differences first version is main but that doesn't come with these tracks.</div>
+                    <div class="extreme-dl-wrap">
+                        <a href="https://drive.google.com/file/d/1DYOzqPpgTatEIaHPYuZD-3W4S-0c27Ug/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="extreme-dl">Part 1</a>
+                        <a href="https://drive.google.com/file/d/1DYOzqPpgTatEIaHPYuZD-3W4S-0c27Ug/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="extreme-dl">Part 2</a>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                    <button class="close-modal-btn" id="modalCloseBtn2">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            card.addEventListener('mousemove', function(e) {
-                var rect = card.getBoundingClientRect();
-                var x = e.clientX - rect.left;
-                var y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', x + 'px');
-                card.style.setProperty('--mouse-y', y + 'px');
-            });
-        })();
-    </script>
+    <!-- ─── GLASS DOCK ─── -->
+    <div class="dock-wrapper" id="dockWrapper">
+        <nav class="glass-dock" id="glassDock" role="navigation" aria-label="Main navigation">
+
+            <!-- HOME -->
+            <a href="https://goribercracks.github.io/wgames.html" class="dock-item active" data-label="Home">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="tooltip">Home</span>
+            </a>
+
+            <!-- MOBILE MODE -->
+            <a href="https://goribercracks.github.io/agames.html" class="dock-item" data-label="Mobile Mode">
+                <svg viewBox="0 0 24 24">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                    <line x1="12" y1="18" x2="12.01" y2="18" />
+                </svg>
+                <span class="tooltip">Mobile Mode</span>
+            </a>
+
+            <span class="dock-divider" aria-hidden="true"></span>
+
+            <!-- REFRESH -->
+            <a href="https://goribercracks.github.io/wgames.html" class="dock-item" data-label="Refresh" onclick="location.reload(); return false;">
+                <svg viewBox="0 0 24 24">
+                    <path d="M23 4v6h-6" />
+                    <path d="M1 20v-6h6" />
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                </svg>
+                <span class="tooltip">Refresh</span>
+            </a>
+
+            <!-- LOG OUT -->
+            <a href="https://goribercracks.github.io/" class="dock-item" data-label="Log out">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                <span class="tooltip">Log out</span>
+            </a>
+        </nav>
+
+        <!-- ─── SEARCH TOGGLE (dock) ─── -->
+        <div class="search-toggle" id="searchToggle" aria-label="Search games">
+            <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- ─── SEARCH POPUP (dock) ─── -->
+    <div class="search-popup" id="searchPopup">
+        <input type="text" id="searchInputDock" placeholder="Search games..." autocomplete="off" />
+        <div class="search-results" id="searchResultsDock">
+            <div class="search-no-results" style="display:none;">No results</div>
+        </div>
+    </div>
 
     <!-- ─── PASSWORD SCRIPT ─── -->
     <script>
@@ -820,41 +1541,693 @@
         })();
     </script>
 
-    <!-- ─── GAME DATA ─── -->
+    <!-- ─── GAME DATA & LOGIC ─── -->
     <script>
-        // Add your games here
-        const games = [
-            // Example game entry:
-            // {
-            //     name: "Game Name",
-            //     desc: "Short description",
-            //     icon: "https://example.com/icon.png",
-            //     link: "https://example.com/download"
-            // }
+        // ─── ALL GAME DATA ───
+        // MAIN GAMES
+        const mainGameIds = [
+            'vcop2', 'houseofthe', 'alienshooter', 'roadrash', 'win7defaultgames',
+            'igi1-2', 'spacecadet', 'gtabanglavc', 'cricket07', 'hercules',
+            'apacheair', 'nfsmw', 'maxpayne1', 'maxpayne2', 'maxpayne3',
+            'rdr1', 'gtavc', 'gta3', 'gtavcstories', 'gtasapng',
+            'gtalsc', 'bully', 'sleepingdogs', 'saintsrow3', 'nfshp2010',
+            'nfsmw2012', 'burnoutparadise', 'blasphemous',
+            'GTAbackstabbersblues', 'midnightclub2', 'pop3d', 'nfscarbon'
         ];
 
-        const grid = document.getElementById('gamesGrid');
+        // CONTROLLER GAMES
+        const controllerGameIds = [
+            'PES16', 'pes06', 'fifa15', 'mortalkombat9', 'SFxTEKKEN', 'Mugen', 'bombsquad'
+        ];
 
-        if (games.length === 0) {
-            grid.innerHTML = `
-                <div style="grid-column:1/-1; text-align:center; padding:3rem 0; color:#666;">
-                    <p style="font-size:1.2rem;">No games added yet.</p>
-                    <p style="font-size:0.9rem;">Check back soon!</p>
-                </div>
-            `;
-        } else {
-            games.forEach(game => {
-                const card = document.createElement('div');
-                card.className = 'game-card';
-                card.innerHTML = `
-                    <img src="${game.icon}" alt="${game.name}" class="game-icon" onerror="this.src='https://placehold.co/80x80/2a2a2a/5e17eb?text=🎮'">
-                    <div class="game-name">${game.name}</div>
-                    <div class="game-desc">${game.desc}</div>
-                    <a href="${game.link}" class="play-btn" target="_blank">Play</a>
+        // UPCOMING GAMES
+        const upcomingGameIds = [
+            'SF4', 'GTA4', 'Masseffect', 'Xmenorigins'
+        ];
+
+        // ─── GAME METADATA ───
+        const gameNames = {
+            'vcop2': 'Virtua Cop 2',
+            'houseofthe': 'House of The Dead Collection',
+            'alienshooter': 'Alien Shooter',
+            'roadrash': 'Road Rash',
+            'win7defaultgames': 'Windows 7 Default Games',
+            'igi1-2': 'IGI Collection (1-2)',
+            'spacecadet': '3D Pinball Space Cadet',
+            'gtabanglavc': 'GTA Bangla Vice City',
+            'cricket07': 'Cricket 07',
+            'hercules': 'Disney Hercules Action Game',
+            'apacheair': 'Apache Air Assault',
+            'nfsmw': 'NFS Most Wanted Black Edition',
+            'maxpayne1': 'Max Payne',
+            'maxpayne2': 'Max Payne 2',
+            'maxpayne3': 'Max Payne 3',
+            'rdr1': 'Red Dead Redemption 1',
+            'gtavc': 'GTA Vice City',
+            'gta3': 'GTA 3',
+            'gtavcstories': 'GTA Vice City Stories',
+            'gtasapng': 'GTA San Andreas',
+            'gtalsc': 'GTA Liberty City Stories',
+            'bully': 'Bully Scholarship Edition',
+            'sleepingdogs': 'Sleeping Dogs',
+            'saintsrow3': 'Saints Row The Third',
+            'nfshp2010': 'NFS Hot Pursuit 2010',
+            'nfsmw2012': 'NFS Most Wanted 2012',
+            'burnoutparadise': 'Burnout Paradise',
+            'blasphemous': 'Blasphemous',
+            'GTAbackstabbersblues': 'GTA Backstabbers Blues',
+            'midnightclub2': 'Midnight Club 2',
+            'pop3d': 'Prince of Persia 3D',
+            'nfscarbon': 'NFS Carbon',
+            'PES16': 'PES 16',
+            'pes06': 'PES 06',
+            'fifa15': 'FIFA 15',
+            'mortalkombat9': 'Mortal Kombat 9',
+            'SFxTEKKEN': 'Street Fighter X Tekken',
+            'Mugen': 'M.U.G.E.N',
+            'bombsquad': 'Bomb Squad PC',
+            'SF4': 'Street Fighter 4',
+            'GTA4': 'GTA 4',
+            'Masseffect': 'Mass Effect',
+            'Xmenorigins': 'X-Men Origins: Wolverine'
+        };
+
+        const gameDescs = {
+            'vcop2': 'A classic light gun arcade shooter developed by Sega. Step into the shoes of an elite police officer and take down criminals in fast-paced action stages.',
+            'houseofthe': 'A legendary light gun arcade shooter series. Fight through hordes of undead creatures in this classic horror shooter collection.',
+            'alienshooter': 'A top-down sci-fi shooter where you battle hordes of alien creatures in a research facility overrun by monsters.',
+            'roadrash': 'A classic motorcycle racing game with combat elements. Race through scenic routes while fighting rival bikers with chains and fists.',
+            'win7defaultgames': 'The classic collection of Windows 7 default games including Solitaire, Minesweeper, Hearts, and more.',
+            'igi1-2': 'A tactical first-person shooter series where you play as an IGI operative completing stealth and combat missions worldwide.',
+            'spacecadet': 'The classic 3D Pinball game that came with Windows. Launch the ball, hit bumpers, and score big in this timeless arcade classic.',
+            'gtabanglavc': 'A Bangladeshi mod of GTA Vice City with new storylines, characters, and locations based on Bangladesh culture.',
+            'cricket07': 'The iconic cricket simulation game by EA Sports. Play as your favorite team and compete in international cricket tournaments.',
+            'hercules': 'An action-adventure game based on the Disney animated film. Fight mythical creatures and complete heroic tasks.',
+            'apacheair': 'A helicopter combat simulation where you pilot an Apache gunship through various war zones and missions.',
+            'nfsmw': 'The legendary racing game where you race through the city while evading the police and becoming the most wanted racer.',
+            'maxpayne1': 'A noir-style third-person shooter following the story of Max Payne, a detective seeking revenge for his family.',
+            'maxpayne2': 'The sequel continues the dark noir story with improved bullet-time mechanics and intense shootouts.',
+            'maxpayne3': 'The final chapter in the trilogy takes Max to Brazil for a gritty, action-packed conclusion to his story.',
+            'rdr1': 'An open-world Western action-adventure following John Marston as he hunts down his former gang members.',
+            'gtavc': 'The iconic open-world crime game set in 1980s Miami. Build your criminal empire from the ground up.',
+            'gta3': 'The game that revolutionized open-world gaming. Play as a criminal in Liberty City in this 3D classic.',
+            'gtavcstories': 'A prequel to GTA Vice City, following the story of Victor Vance in the criminal underworld of 1980s Vice City.',
+            'gtasapng': 'The legendary open-world crime saga set in 1990s Los Santos, San Fierro, and Las Venturas.',
+            'gtalsc': 'A portable GTA experience set in Liberty City, following the story of Toni Cipriani in the mafia underworld.',
+            'bully': 'An open-world action game set in a boarding school. Navigate school life while dealing with bullies and completing missions.',
+            'sleepingdogs': 'An open-world action game set in Hong Kong. Play as an undercover cop infiltrating the Triad.',
+            'saintsrow3': 'An over-the-top open-world crime game with insane weapons, vehicles, and missions in the city of Steelport.',
+            'nfshp2010': 'A high-speed racing game where you can play as both racer and cop in intense pursuits.',
+            'nfsmw2012': 'A reboot of the Most Wanted franchise set in Fairhaven City with a focus on street racing and police chases.',
+            'burnoutparadise': 'A racing game set in Paradise City with open-world exploration and physics-defying crashes.',
+            'blasphemous': 'A dark gothic action-platformer where you play as The Penitent One in a cursed land.',
+            'GTAbackstabbersblues': 'A GTA mod that adds new storylines and characters with a focus on betrayal and crime.',
+            'midnightclub2': 'A street racing game set in various world cities with fast-paced illegal races and customization.',
+            'pop3d': 'A 3D action-adventure game in the Prince of Persia series with platforming and combat elements.',
+            'nfscarbon': 'A racing game focused on canyon duels and territory control in the city of Carbon.',
+            'PES16': 'The Pro Evolution Soccer 2016 game with realistic football gameplay and updated teams.',
+            'pes06': 'The Pro Evolution Soccer 2006 game, a classic football simulation with iconic players.',
+            'fifa15': 'The EA Sports FIFA 2015 game with realistic football gameplay and authentic teams.',
+            'mortalkombat9': 'The 2011 reboot of Mortal Kombat with classic characters and brutal fatalities.',
+            'SFxTEKKEN': 'A crossover fighting game between the Street Fighter and Tekken franchises.',
+            'Mugen': 'M.U.G.E.N is a freeware 2D fighting game engine that allows users to create and customize their own fighting games using characters from various franchises.',
+            'bombsquad': 'A multiplayer party game with explosive battles, various game modes, and physics-based combat.',
+            'SF4': 'The Street Fighter 4 game with iconic characters and deep fighting mechanics.',
+            'GTA4': 'The open-world crime game set in Liberty City with a new engine and dark story.',
+            'Masseffect': 'An epic sci-fi RPG where you command the Normandy and save the galaxy from the Reapers.',
+            'Xmenorigins': 'An action game based on the X-Men Origins: Wolverine movie.'
+        };
+
+        const gameCovers = {
+            'vcop2': 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Virtua_Cop_2_Cover.jpg/800px-Virtua_Cop_2_Cover.jpg',
+            'houseofthe': 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8e/House_of_the_Dead_2_Cover.png/800px-House_of_the_Dead_2_Cover.png',
+            'alienshooter': 'https://upload.wikimedia.org/wikipedia/vi/2/2b/Alien_Shooter_CD_cover.jpg',
+            'roadrash': 'https://upload.wikimedia.org/wikipedia/ru/0/0a/Road_Rash_3.jpg',
+            'win7defaultgames': 'https://upload.wikimedia.org/wikipedia/en/8/8c/Windows_7_games_screenshot.png',
+            'igi1-2': 'https://upload.wikimedia.org/wikipedia/ru/4/49/IGI_2_Covert_Strike.jpg',
+            'spacecadet': 'https://upload.wikimedia.org/wikipedia/en/5/5a/3D_Pinball_Space_Cadet_screenshot.png',
+            'gtabanglavc': 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Grand_Theft_Auto_Vice_City_cover.jpg/800px-Grand_Theft_Auto_Vice_City_cover.jpg',
+            'cricket07': 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/Cricket_07_Cover.jpg/800px-Cricket_07_Cover.jpg',
+            'hercules': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Hercules_Action_Game.jpg/800px-Hercules_Action_Game.jpg',
+            'apacheair': 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Apache_Air_Assault_Cover.jpg/800px-Apache_Air_Assault_Cover.jpg',
+            'nfsmw': 'https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Need_for_Speed_Most_Wanted_2005_Cover.jpg/800px-Need_for_Speed_Most_Wanted_2005_Cover.jpg',
+            'maxpayne1': 'https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Max_Payne_Cover.jpg/800px-Max_Payne_Cover.jpg',
+            'maxpayne2': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Max_Payne_2_Cover.jpg/800px-Max_Payne_2_Cover.jpg',
+            'maxpayne3': 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Max_Payne_3_Cover.jpg/800px-Max_Payne_3_Cover.jpg',
+            'rdr1': 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Red_Dead_Redemption_cover.jpg/800px-Red_Dead_Redemption_cover.jpg',
+            'gtavc': 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Grand_Theft_Auto_Vice_City_cover.jpg/800px-Grand_Theft_Auto_Vice_City_cover.jpg',
+            'gta3': 'https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Grand_Theft_Auto_III_cover.jpg/800px-Grand_Theft_Auto_III_cover.jpg',
+            'gtavcstories': 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/Grand_Theft_Auto_Vice_City_Stories_cover.jpg/800px-Grand_Theft_Auto_Vice_City_Stories_cover.jpg',
+            'gtasapng': 'https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Grand_Theft_Auto_San_Andreas_cover.jpg/800px-Grand_Theft_Auto_San_Andreas_cover.jpg',
+            'gtalsc': 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Grand_Theft_Auto_Liberty_City_Stories_cover.jpg/800px-Grand_Theft_Auto_Liberty_City_Stories_cover.jpg',
+            'bully': 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6c/Bully_Cover.jpg/800px-Bully_Cover.jpg',
+            'sleepingdogs': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a2/Sleeping_Dogs_cover.jpg/800px-Sleeping_Dogs_cover.jpg',
+            'saintsrow3': 'https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Saints_Row_The_Third_cover.jpg/800px-Saints_Row_The_Third_cover.jpg',
+            'nfshp2010': 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/Need_for_Speed_Hot_Pursuit_2010_Cover.jpg/800px-Need_for_Speed_Hot_Pursuit_2010_Cover.jpg',
+            'nfsmw2012': 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/Need_for_Speed_Most_Wanted_2012_Cover.jpg/800px-Need_for_Speed_Most_Wanted_2012_Cover.jpg',
+            'burnoutparadise': 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Burnout_Paradise_Cover.jpg/800px-Burnout_Paradise_Cover.jpg',
+            'blasphemous': 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Blasphemous_cover_art.jpg/800px-Blasphemous_cover_art.jpg',
+            'GTAbackstabbersblues': 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Grand_Theft_Auto_Vice_City_cover.jpg/800px-Grand_Theft_Auto_Vice_City_cover.jpg',
+            'midnightclub2': 'https://upload.wikimedia.org/wikipedia/en/thumb/1/10/Midnight_Club_2_Cover.jpg/800px-Midnight_Club_2_Cover.jpg',
+            'pop3d': 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Prince_of_Persia_3D_Cover.jpg/800px-Prince_of_Persia_3D_Cover.jpg',
+            'nfscarbon': 'https://upload.wikimedia.org/wikipedia/en/thumb/6/65/Need_for_Speed_Carbon_Cover.jpg/800px-Need_for_Speed_Carbon_Cover.jpg',
+            'PES16': 'https://upload.wikimedia.org/wikipedia/en/thumb/6/64/Pro_Evolution_Soccer_2016_Cover.jpg/800px-Pro_Evolution_Soccer_2016_Cover.jpg',
+            'pes06': 'https://upload.wikimedia.org/wikipedia/en/thumb/e/ef/Pro_Evolution_Soccer_6_Cover.jpg/800px-Pro_Evolution_Soccer_6_Cover.jpg',
+            'fifa15': 'https://upload.wikimedia.org/wikipedia/en/thumb/0/03/FIFA_15_Cover.jpg/800px-FIFA_15_Cover.jpg',
+            'mortalkombat9': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Mortal_Kombat_2011_Cover.jpg/800px-Mortal_Kombat_2011_Cover.jpg',
+            'SFxTEKKEN': 'https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Street_Fighter_X_Tekken_Cover.jpg/800px-Street_Fighter_X_Tekken_Cover.jpg',
+            'Mugen': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/45/M.U.G.E.N_Logo.png/800px-M.U.G.E.N_Logo.png',
+            'bombsquad': 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Blasphemous_cover_art.jpg/800px-Blasphemous_cover_art.jpg',
+            'SF4': 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Street_Fighter_IV_Cover.jpg/800px-Street_Fighter_IV_Cover.jpg',
+            'GTA4': 'https://upload.wikimedia.org/wikipedia/en/thumb/6/69/Grand_Theft_Auto_IV_cover.jpg/800px-Grand_Theft_Auto_IV_cover.jpg',
+            'Masseffect': 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1d/Mass_Effect_cover.jpg/800px-Mass_Effect_cover.jpg',
+            'Xmenorigins': 'https://upload.wikimedia.org/wikipedia/en/thumb/1/18/X-Men_Origins_Wolverine_cover.jpg/800px-X-Men_Origins_Wolverine_cover.jpg'
+        };
+
+        const gamePublishers = {
+            'vcop2': 'Sega',
+            'houseofthe': 'Sega',
+            'alienshooter': 'Sigma Team',
+            'roadrash': 'EA Sports',
+            'win7defaultgames': 'Microsoft',
+            'igi1-2': 'Codemasters',
+            'spacecadet': 'Microsoft',
+            'gtabanglavc': 'Mod Community',
+            'cricket07': 'EA Sports',
+            'hercules': 'Disney',
+            'apacheair': 'Activision',
+            'nfsmw': 'EA Games',
+            'maxpayne1': 'Rockstar Games',
+            'maxpayne2': 'Rockstar Games',
+            'maxpayne3': 'Rockstar Games',
+            'rdr1': 'Rockstar Games',
+            'gtavc': 'Rockstar Games',
+            'gta3': 'Rockstar Games',
+            'gtavcstories': 'Rockstar Games',
+            'gtasapng': 'Rockstar Games',
+            'gtalsc': 'Rockstar Games',
+            'bully': 'Rockstar Games',
+            'sleepingdogs': 'Square Enix',
+            'saintsrow3': 'THQ',
+            'nfshp2010': 'EA Games',
+            'nfsmw2012': 'EA Games',
+            'burnoutparadise': 'EA Games',
+            'blasphemous': 'Team17',
+            'GTAbackstabbersblues': 'Mod Community',
+            'midnightclub2': 'Rockstar Games',
+            'pop3d': 'Ubisoft',
+            'nfscarbon': 'EA Games',
+            'PES16': 'Konami',
+            'pes06': 'Konami',
+            'fifa15': 'EA Sports',
+            'mortalkombat9': 'NetherRealm',
+            'SFxTEKKEN': 'Capcom',
+            'Mugen': 'Open Source',
+            'bombsquad': 'Eric Froemling',
+            'SF4': 'Capcom',
+            'GTA4': 'Rockstar Games',
+            'Masseffect': 'BioWare',
+            'Xmenorigins': 'Activision'
+        };
+
+        const gameYears = {
+            'vcop2': '1995',
+            'houseofthe': '1996-2002',
+            'alienshooter': '2003',
+            'roadrash': '1996',
+            'win7defaultgames': '2009',
+            'igi1-2': '2000-2003',
+            'spacecadet': '1995',
+            'gtabanglavc': '2006',
+            'cricket07': '2006',
+            'hercules': '1997',
+            'apacheair': '2010',
+            'nfsmw': '2005',
+            'maxpayne1': '2001',
+            'maxpayne2': '2003',
+            'maxpayne3': '2012',
+            'rdr1': '2010',
+            'gtavc': '2002',
+            'gta3': '2001',
+            'gtavcstories': '2006',
+            'gtasapng': '2004',
+            'gtalsc': '2005',
+            'bully': '2006',
+            'sleepingdogs': '2012',
+            'saintsrow3': '2011',
+            'nfshp2010': '2010',
+            'nfsmw2012': '2012',
+            'burnoutparadise': '2008',
+            'blasphemous': '2019',
+            'GTAbackstabbersblues': '2006',
+            'midnightclub2': '2003',
+            'pop3d': '1999',
+            'nfscarbon': '2006',
+            'PES16': '2015',
+            'pes06': '2005',
+            'fifa15': '2014',
+            'mortalkombat9': '2011',
+            'SFxTEKKEN': '2012',
+            'Mugen': '1999',
+            'bombsquad': '2016',
+            'SF4': '2008',
+            'GTA4': '2008',
+            'Masseffect': '2007',
+            'Xmenorigins': '2009'
+        };
+
+        const gameTags = {
+            'vcop2': ['Arcade', 'Shooter', 'Light Gun'],
+            'houseofthe': ['Arcade', 'Shooter', 'Horror', 'Light Gun'],
+            'alienshooter': ['Action', 'Shooter', 'Sci-Fi'],
+            'roadrash': ['Racing', 'Combat'],
+            'win7defaultgames': ['Classic', 'Puzzle', 'Cards'],
+            'igi1-2': ['Action', 'Stealth', 'Shooter'],
+            'spacecadet': ['Classic', 'Arcade', 'Pinball'],
+            'gtabanglavc': ['Action', 'Open World', 'Mod'],
+            'cricket07': ['Sports', 'Cricket'],
+            'hercules': ['Action', 'Adventure', 'Disney'],
+            'apacheair': ['Simulation', 'Combat', 'Helicopter'],
+            'nfsmw': ['Racing', 'Action', 'Police Chase'],
+            'maxpayne1': ['Action', 'Shooter', 'Noir'],
+            'maxpayne2': ['Action', 'Shooter', 'Noir'],
+            'maxpayne3': ['Action', 'Shooter', 'Noir'],
+            'rdr1': ['Action', 'Open World', 'Western'],
+            'gtavc': ['Action', 'Open World', 'Crime'],
+            'gta3': ['Action', 'Open World', 'Crime'],
+            'gtavcstories': ['Action', 'Open World', 'Crime'],
+            'gtasapng': ['Action', 'Open World', 'Crime'],
+            'gtalsc': ['Action', 'Open World', 'Crime'],
+            'bully': ['Action', 'Open World', 'School'],
+            'sleepingdogs': ['Action', 'Open World', 'Fighting'],
+            'saintsrow3': ['Action', 'Open World', 'Comedy'],
+            'nfshp2010': ['Racing', 'Action', 'Police'],
+            'nfsmw2012': ['Racing', 'Action', 'Police Chase'],
+            'burnoutparadise': ['Racing', 'Open World', 'Crash'],
+            'blasphemous': ['Action', 'Platformer', 'Dark Fantasy'],
+            'GTAbackstabbersblues': ['Action', 'Open World', 'Mod'],
+            'midnightclub2': ['Racing', 'Street Racing'],
+            'pop3d': ['Action', 'Adventure', 'Platformer'],
+            'nfscarbon': ['Racing', 'Tuner', 'Police'],
+            'PES16': ['Sports', 'Football'],
+            'pes06': ['Sports', 'Football'],
+            'fifa15': ['Sports', 'Football'],
+            'mortalkombat9': ['Fighting', 'Arcade'],
+            'SFxTEKKEN': ['Fighting', 'Arcade', 'Crossover'],
+            'Mugen': ['Fighting', 'Custom', 'Arcade'],
+            'bombsquad': ['Action', 'Party', 'Multiplayer'],
+            'SF4': ['Fighting', 'Arcade'],
+            'GTA4': ['Action', 'Open World', 'Crime'],
+            'Masseffect': ['RPG', 'Sci-Fi', 'Action'],
+            'Xmenorigins': ['Action', 'Adventure', 'Marvel']
+        };
+
+        // ─── DOWNLOAD LINKS ───
+        const gameDownloads = {
+            'vcop2': [{ label: 'Download Virtua Cop 2', url: 'https://drive.google.com/file/d/1KsdbFiL6h-Yhimm3t_FNF9GBmFHonfw9/view?usp=drivesdk' }],
+            'houseofthe': [
+                { label: 'House of the Dead 1', url: 'https://drive.google.com/file/d/1OZAQMqqmeeFGs2YTCQxGoWEyDKYtKXL5/view' },
+                { label: 'House of the Dead 2', url: 'https://dri.me/1O2w2CXgPHWw0emeqTX2ygkrCNW3eB' },
+                { label: 'House of the Dead 3', url: 'https://dri.me/qhYU53Io3lVBhFjeMOC16kXSiXcvq8' }
+            ],
+            'alienshooter': [{ label: 'Download Alien Shooter', url: 'https://media.rawg.io/media/resize/1280/-/screenshots/78b/78b8ac91dc915973611ef64e91efc4e0.jpg' }],
+            'roadrash': [{ label: 'Download Road Rash', url: 'https://drive.google.com/file/d/15dMd52LMlMN104XoB_nWTIqrRHaeTOjD/view?usp=sharing' }],
+            'win7defaultgames': [{ label: 'Play Windows 7 Games', url: 'https://win7games.com/#games' }],
+            'igi1-2': [
+                { label: 'IGI 1', url: 'https://drive.google.com/file/d/1Lvaqrzksu-ojKJZG2idmmgFIJngTYF4A/view?usp=sharing' },
+                { label: 'IGI 2', url: 'https://drive.google.com/file/d/1NYK4hG-Q-ecTYp2Dh1etWS4jdmMF1tKd/view?usp=sharing' }
+            ],
+            'spacecadet': [{ label: 'Download 3D Pinball', url: 'https://dri.me/p7SCDNVy14cT0IgavNuZW4aaW3yUtq' }],
+            'gtabanglavc': [{ label: 'Play GTA Bangla VC', url: 'https://goribercracks.weebly.com/gta-bangla-vice-city.html' }],
+            'cricket07': [{ label: 'Download Cricket 07', url: 'https://dri.me/LQgu2xoEZynlmk0azJmApl49u29jzY' }],
+            'hercules': [{ label: 'Download Hercules', url: 'https://dri.me/wrED0WMEPgAns7D9T369UAxCy4RwlL' }],
+            'apacheair': [{ label: 'Download Apache Air Assault', url: 'https://dri.me/P5aI8VBehWI3SwLWhWYnQ2oZMmnEba' }],
+            'nfsmw': [{ label: 'Download NFS Most Wanted', url: 'https://drive.google.com/file/d/1t-TS_yAfRYlJr1SVpfF4zn13Ka_C1k1w/view?usp=sharing' }],
+            'maxpayne1': [{ label: 'Download Max Payne', url: 'https://drive.google.com/file/d/1u_zK7IaFCRVl8hxQU2A9J_bEBxd5ZSSi/view?usp=sharing' }],
+            'maxpayne2': [{ label: 'Download Max Payne 2', url: 'https://drive.google.com/file/d/1-4zP-X7wSOSGf3g-G-tPIU2VjGZ0FV8R/view?usp=sharing' }],
+            'maxpayne3': [{ label: 'Download Max Payne 3', url: 'https://dri.me/vDX9qtz6nDx3ePFY8JPzkogU5geqTv' }],
+            'rdr1': [{ label: 'Download RDR 1', url: 'https://dri.me/0nRM4Md8VrEWrftbUx4bI9tZ0SEGnA' }],
+            'gtavc': [{ label: 'Download GTA Vice City', url: 'https://drive.google.com/file/d/1lR5HTt08rZyqCAA_838_LqgSwIMnIB5b/view?usp=sharing' }],
+            'gta3': [{ label: 'Download GTA 3', url: 'https://drive.google.com/file/d/1q5h25bu3AQAVO5jQHVIoO4W3ieNeAEMu/view?usp=sharing' }],
+            'gtavcstories': [{ label: 'Download GTA Vice City Stories', url: 'https://drive.google.com/file/d/1ampW15wRt2KGzEhpUFEDWD94xqI8y0LT/view?usp=sharing' }],
+            'gtasapng': [{ label: 'Download GTA San Andreas', url: 'https://drive.google.com/file/d/1hI-cyW1CkjIpaZQQFuX8eUuNR0yIeJEx/view?usp=sharing' }],
+            'gtalsc': [{ label: 'Download GTA Liberty City Stories', url: 'https://drive.google.com/file/d/1E_Qi75wUOoC66RA3HhVr3xHNeTC6-7WG/view?usp=drive_link' }],
+            'bully': [{ label: 'Download Bully', url: 'https://drive.google.com/file/d/1MdgNmJ8OQ1x8B7xtiBNGXNEjfxwyD4SL/view?usp=sharing' }],
+            'sleepingdogs': [{ label: 'Download Sleeping Dogs', url: 'https://drive.google.com/file/d/1NR0NsNUqDUB8zQTc5f9TL2_IaTvf1Ghe/view?usp=sharing' }],
+            'saintsrow3': [{ label: 'Download Saints Row The Third', url: 'https://drive.google.com/file/d/1mRd0FnYOy5ght9Hj3MJWsXQWo9PcOVZ8/view?usp=sharing' }],
+            'nfshp2010': [{ label: 'Download NFS Hot Pursuit', url: 'https://drive.google.com/file/d/1Df_CwJkYtQjDwzWrzwXwm0xGqrviTxyG/view?usp=sharing' }],
+            'nfsmw2012': [{ label: 'Download NFS Most Wanted 2012', url: 'https://drive.google.com/file/d/1N2MzoqYFX1S5oW2rhMTeVTtfJ6hJOe2T/view?usp=sharing' }],
+            'burnoutparadise': [{ label: 'Download Burnout Paradise', url: 'https://dri.me/wtaomlY5OCikKfly5vZq5aop621g86' }],
+            'blasphemous': [{ label: 'Download Blasphemous', url: 'https://drive.google.com/file/d/1A6xD3BL3B_HaoCQKpcZBEv8p9hRn8G_l/view' }],
+            'GTAbackstabbersblues': [{ label: 'Download GTA Backstabbers Blues', url: 'https://dri.me/eSi1XxggsbpjYVMkRkJENrFvy1DOsn' }],
+            'midnightclub2': [{ label: 'Download Midnight Club 2', url: 'https://dri.me/Pxaz9e5qgD3TPz2zeXlBc9GSjWlsuz' }],
+            'pop3d': [{ label: 'Download Prince of Persia 3D', url: 'https://www.playbook.com/s/goribercracks/53R863ojbEsq8cS27djmEEpE?assetToken=zyeR1DyTACgX6eEe5t554bo5' }],
+            'nfscarbon': [{ label: 'Download NFS Carbon', url: '#' }],
+            'PES16': [{ label: 'Download PES 16', url: 'https://dri.me/Q3tRlFAQXgb8Cwjl7gzdz1VkC34xMM' }],
+            'pes06': [{ label: 'Download PES 06', url: 'https://drive.google.com/file/d/1N2MzoqYFX1S5oW2rhMTeVTtfJ6hJOe2T/view?usp=sharing' }],
+            'fifa15': [{ label: 'Download FIFA 15', url: '#' }],
+            'mortalkombat9': [{ label: 'Download Mortal Kombat 9', url: 'https://drive.google.com/file/d/1xUc_dFEc8c5vsaPP-nn_DKZQRX6LGeGt/view?usp=sharing' }],
+            'SFxTEKKEN': [{ label: 'Download Street Fighter X Tekken', url: 'https://drive.google.com/file/d/1UHtsusdGvG-KRd4BQYfde9idFuoFHNzY/view?usp=sharing' }],
+            'Mugen': [
+                { label: 'Download M.U.G.E.N', url: 'https://dri.me/g0sUZr50uIeqSPM2xrhcuWrKHjWT3I' },
+                { label: 'Characters (MUGEN Archive)', url: 'https://mugenarchive.com/forums/downloads.php?do=cat&id=1-characters' }
+            ],
+            'bombsquad': [{ label: 'Download Bomb Squad', url: 'https://dri.me/Sy5qvZUli4xOcMiVunQnNSYg0L374O' }],
+            'SF4': [{ label: 'Download Street Fighter 4', url: '#' }],
+            'GTA4': [{ label: 'Download GTA 4', url: '#' }],
+            'Masseffect': [{ label: 'Download Mass Effect', url: '#' }],
+            'Xmenorigins': [{ label: 'Download X-Men Origins', url: '#' }]
+        };
+
+        // ─── Build game objects ───
+        function buildGameObject(id) {
+            return {
+                id: id,
+                name: gameNames[id] || id,
+                altName: gameNames[id] || id,
+                publisher: gamePublishers[id] || 'Various',
+                year: gameYears[id] || 'Unknown',
+                tags: gameTags[id] || ['Game'],
+                poster: 'https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/' + id + '.png',
+                cover: gameCovers[id] || 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Grand_Theft_Auto_Vice_City_cover.jpg/800px-Grand_Theft_Auto_Vice_City_cover.jpg',
+                description: gameDescs[id] || 'A classic game available on Goriber Cracks.',
+                downloadLinks: gameDownloads[id] || [{ label: 'Download ' + (gameNames[id] || id), url: '#' }],
+                hasExtreme: id === 'gtabanglavc' // Flag to show extreme section
+            };
+        }
+
+        // ─── Build all games ───
+        const allGames = mainGameIds.map(buildGameObject);
+        const controllerGames = controllerGameIds.map(buildGameObject);
+        const upcomingGames = upcomingGameIds.map(buildGameObject);
+
+        // ─── DOM refs ───
+        const mainGrid = document.getElementById('gamesGrid');
+        const controllerGrid = document.getElementById('controllerGrid');
+        const upcomingGrid = document.getElementById('upcomingGrid');
+        const noResults = document.getElementById('noResults');
+
+        const modal = document.getElementById('gameModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalCloseBtn2 = document.getElementById('modalCloseBtn2');
+        const modalBlurBg = document.getElementById('modalBlurBg');
+        const modalCoverImg = document.getElementById('modalCoverImg');
+        const modalPoster = document.getElementById('modalPoster');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSub = document.getElementById('modalSub');
+        const modalTags = document.getElementById('modalTags');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalDownloadWrap = document.getElementById('modalDownloadWrap');
+        const extremeSection = document.getElementById('extremeSection');
+
+        // ─── Dock search ───
+        const searchToggle = document.getElementById('searchToggle');
+        const searchPopup = document.getElementById('searchPopup');
+        const searchInputDock = document.getElementById('searchInputDock');
+        const searchResultsDock = document.getElementById('searchResultsDock');
+
+        let searchOpen = false;
+
+        // ─── Build search index ───
+        const allGameList = [...allGames, ...controllerGames, ...upcomingGames];
+        const searchIndex = allGameList.map(game => ({
+            id: game.id,
+            name: game.name,
+            altName: game.altName || '',
+            image: game.poster,
+            // Add "Extreme" as a searchable keyword for gtabanglavc
+            searchKeywords: game.id === 'gtabanglavc' ? 'extreme gta vice city extreme' : ''
+        }));
+
+        // ─── Dock search logic ───
+        function performDockSearch(query) {
+            const q = query.trim().toLowerCase();
+            let filtered = [];
+            if (q === '') {
+                filtered = searchIndex.slice(0, 10);
+            } else {
+                filtered = searchIndex.filter(item => {
+                    const nameMatch = item.name.toLowerCase().includes(q);
+                    const altMatch = item.altName.toLowerCase().includes(q);
+                    const keywordMatch = item.searchKeywords ? item.searchKeywords.toLowerCase().includes(q) : false;
+                    return nameMatch || altMatch || keywordMatch;
+                });
+            }
+
+            searchResultsDock.innerHTML = '';
+            if (filtered.length === 0) {
+                const noResult = document.createElement('div');
+                noResult.className = 'search-no-results';
+                noResult.textContent = 'No games found';
+                searchResultsDock.appendChild(noResult);
+                return;
+            }
+
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                const game = allGameList.find(g => g.id === item.id);
+                const imgSrc = game ? game.poster : item.image;
+                div.innerHTML = `
+                    <img src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'" />
+                    <span class="game-name">${item.name}</span>
                 `;
-                grid.appendChild(card);
+                div.addEventListener('click', function() {
+                    // Close search popup
+                    searchPopup.classList.remove('open');
+                    searchOpen = false;
+                    searchInputDock.value = '';
+                    searchResultsDock.innerHTML = '';
+                    // Scroll to the game card, highlight it, but DO NOT open modal
+                    scrollToGame(item.id);
+                });
+                searchResultsDock.appendChild(div);
             });
         }
+
+        // ─── Scroll to game and highlight (no modal open) ───
+        function scrollToGame(gameId) {
+            // Find the card in any grid
+            const allCards = document.querySelectorAll('.game-card');
+            let targetCard = null;
+            allCards.forEach(card => {
+                if (card.dataset.id === gameId) {
+                    targetCard = card;
+                }
+            });
+
+            if (targetCard) {
+                // Remove previous highlights
+                allCards.forEach(c => c.classList.remove('search-highlight'));
+                // Add highlight to target
+                targetCard.classList.add('search-highlight');
+                // Scroll to it
+                targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Remove highlight after 3 seconds
+                setTimeout(() => {
+                    targetCard.classList.remove('search-highlight');
+                }, 3000);
+            } else {
+                // If not found, try to find the game in any grid and highlight it
+                // This is a fallback - just scroll to the section
+                const grids = document.querySelectorAll('.games-grid');
+                grids.forEach(grid => {
+                    const cards = grid.querySelectorAll('.game-card');
+                    cards.forEach(card => {
+                        if (card.dataset.id === gameId) {
+                            targetCard = card;
+                        }
+                    });
+                });
+                if (targetCard) {
+                    targetCard.classList.add('search-highlight');
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => {
+                        targetCard.classList.remove('search-highlight');
+                    }, 3000);
+                }
+            }
+        }
+
+        // ─── Dock search toggle ───
+        searchToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchOpen = !searchOpen;
+            searchPopup.classList.toggle('open', searchOpen);
+            if (searchOpen) {
+                searchInputDock.focus();
+                performDockSearch('');
+            } else {
+                searchInputDock.value = '';
+                searchResultsDock.innerHTML = '';
+            }
+        });
+
+        searchInputDock.addEventListener('input', function() {
+            performDockSearch(this.value);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (searchOpen &&
+                !searchPopup.contains(e.target) &&
+                e.target !== searchToggle &&
+                !searchToggle.contains(e.target)) {
+                searchPopup.classList.remove('open');
+                searchOpen = false;
+                searchInputDock.value = '';
+                searchResultsDock.innerHTML = '';
+            }
+        });
+
+        // ─── Render function ───
+        function renderGrid(gridElement, gamesArray, filter) {
+            const query = (filter || '').trim().toLowerCase();
+            let visibleCount = 0;
+
+            gridElement.innerHTML = '';
+            gamesArray.forEach(game => {
+                const searchText = (game.name + ' ' + game.altName + ' ' + game.publisher + ' ' + game.tags.join(' ') + (game.id === 'gtabanglavc' ? ' extreme' : '')).toLowerCase();
+                const matches = query === '' || searchText.includes(query);
+
+                if (!matches) return;
+
+                visibleCount++;
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.dataset.id = game.id;
+                card.innerHTML = `
+                    <img src="${game.poster}" alt="${game.name}" class="game-icon" onerror="this.src='https://placehold.co/200x300/2a2a2a/5e17eb?text=${game.name.charAt(0)}'">
+                    <div class="game-name">${game.name}</div>
+                    <div class="game-desc">${game.publisher} · ${game.year}</div>
+                `;
+                card.addEventListener('click', function() {
+                    openModal(game.id);
+                });
+                gridElement.appendChild(card);
+            });
+
+            return visibleCount;
+        }
+
+        // ─── Render all ───
+        function renderAll(filter) {
+            const query = (filter || '').trim().toLowerCase();
+
+            const mainCount = renderGrid(mainGrid, allGames, query);
+            const controllerCount = renderGrid(controllerGrid, controllerGames, query);
+            const upcomingCount = renderGrid(upcomingGrid, upcomingGames, query);
+
+            const totalVisible = mainCount + controllerCount + upcomingCount;
+
+            if (totalVisible === 0 && query !== '') {
+                noResults.classList.add('show');
+            } else {
+                noResults.classList.remove('show');
+            }
+        }
+
+        // ─── Open modal ───
+        function openModal(gameId) {
+            const allGameList = [...allGames, ...controllerGames, ...upcomingGames];
+            const game = allGameList.find(g => g.id === gameId);
+            if (!game) return;
+
+            modalBlurBg.style.backgroundImage = `url('${game.cover}')`;
+            modalCoverImg.src = game.cover;
+            modalCoverImg.alt = game.name;
+
+            modalPoster.src = game.poster;
+            modalPoster.alt = game.name;
+
+            modalTitle.textContent = game.name;
+            modalSub.textContent = game.publisher + ' · ' + game.year;
+            modalTags.innerHTML = game.tags.map(t => `<span>${t}</span>`).join('');
+            modalDesc.textContent = game.description;
+
+            modalDownloadWrap.innerHTML = '';
+            game.downloadLinks.forEach(link => {
+                const a = document.createElement('a');
+                a.className = 'download-btn';
+                a.href = link.url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.innerHTML = `<i class="fas fa-download"></i> ${link.label}`;
+                modalDownloadWrap.appendChild(a);
+            });
+
+            // Show/hide extreme section
+            if (game.id === 'gtabanglavc') {
+                extremeSection.style.display = 'block';
+            } else {
+                extremeSection.style.display = 'none';
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ─── Close modal ───
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ─── Modal event listeners ───
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalCloseBtn2.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ─── Glass dock scroll hide ───
+        const dockWrapper = document.getElementById('dockWrapper');
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        function handleScroll() {
+            const currentScrollY = window.scrollY;
+            const threshold = 30;
+            if (Math.abs(currentScrollY - lastScrollY) > threshold) {
+                if (currentScrollY > lastScrollY) {
+                    dockWrapper.classList.add('hidden');
+                } else {
+                    dockWrapper.classList.remove('hidden');
+                }
+                lastScrollY = currentScrollY;
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // ─── Dock item click squish ───
+        document.querySelectorAll('.dock-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (this.classList.contains('clicked')) return;
+                this.classList.add('clicked');
+                setTimeout(() => {
+                    this.classList.remove('clicked');
+                }, 150);
+            });
+        });
+
+        // ─── Init ───
+        renderAll();
+        dockWrapper.classList.remove('hidden');
     </script>
 
 </body>
