@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Goriber Cracks - Sign Up</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #171717;
+            font-family: 'Lato', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+        }
+
+        /* ─── HEADER WITH LOGO ─── */
+        .site-header {
+            width: 100%;
+            padding: 1.2rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .site-header .logo {
+            max-height: 60px;
+            width: auto;
+            display: block;
+        }
+
+        /* ─── MAIN WRAPPER ─── */
+        .signup-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ─── TEXT SECTION ─── */
+        .signup-text {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .signup-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .signup-text .sub {
+            font-size: 1rem;
+            color: #b0b0b0;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ─── IMAGE ─── */
+        .signup-image {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .signup-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ─── SIGNUP BUTTON ─── */
+        .discord-btn-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0 30px 0;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 420px;
+            box-sizing: border-box;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .discord-btn {
+            display: block;
+            position: relative;
+            width: 100%;
+            padding: 16px 22px;
+            background: #222222;
+            border-radius: 16px;
+            border: 2px solid #5e17eb;
+            box-shadow: 0 8px 25px rgba(94, 23, 235, 0.25);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: #7a3beb;
+            box-shadow: 0 16px 40px rgba(94, 23, 235, 0.45);
+            background: #1e1e1e;
+        }
+
+        .discord-btn:active {
+            transform: scale(0.96) translateY(0);
+            transition-duration: 0.1s;
+        }
+
+        .discord-btn .shine {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.08),
+                    transparent);
+            transform: translateX(-100%);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 16px;
+        }
+
+        .discord-btn:hover .shine {
+            transform: translateX(100%);
+        }
+
+        .discord-btn .glow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%,
+                    rgba(94, 23, 235, 0.25),
+                    transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 16px;
+        }
+
+        .discord-btn:hover .glow-overlay {
+            opacity: 1;
+        }
+
+        .discord-btn .content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .discord-btn .icon-wrap {
+            flex-shrink: 0;
+            padding: 10px;
+            border-radius: 14px;
+            background: #5e17eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(94, 23, 235, 0.3);
+        }
+
+        .discord-btn:hover .icon-wrap {
+            transform: scale(1.08) rotate(-4deg);
+            box-shadow: 0 6px 20px rgba(94, 23, 235, 0.5);
+        }
+
+        .discord-btn .icon-wrap svg {
+            width: 28px;
+            height: 28px;
+            fill: #ffffff;
+            display: block;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .discord-btn:hover .icon-wrap svg {
+            transform: scale(1.05);
+        }
+
+        .discord-btn .text-area {
+            flex: 1;
+            text-align: left;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .discord-btn .title {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1.3;
+            margin: 0;
+            letter-spacing: 0.5px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .discord-btn .subtitle {
+            color: #a0a0a0;
+            font-weight: 400;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .discord-btn:hover .subtitle {
+            color: #d0d0d0;
+        }
+
+        .discord-btn .arrow {
+            flex-shrink: 0;
+            color: #5e17eb;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 4px;
+        }
+
+        .discord-btn:hover .arrow {
+            opacity: 1;
+            transform: translateX(6px);
+            color: #8a4cf5;
+        }
+
+        .discord-btn .arrow svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            display: block;
+        }
+
+        /* ─── FAQ SECTION ─── */
+        .faq-wrapper {
+            font-family: 'Lato', sans-serif;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            padding: 0 1rem;
+            width: 100%;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .faq-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .faq-item {
+            border-bottom: 2px solid #3a3a3a;
+            transition: border-color 0.2s;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item.active {
+            border-bottom-color: #555;
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            min-height: 60px;
+            padding: 1rem 1rem 1rem 3.5rem;
+            border: none;
+            border-left: 6px solid #555;
+            background: transparent;
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: #bbb;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+            position: relative;
+            outline: none;
+        }
+
+        .faq-question:hover {
+            background: #2a2a2a;
+            border-left-color: #777;
+            color: #fff;
+        }
+
+        .faq-item.active .faq-question {
+            background: #2e2e2e;
+            border-left-color: #fff;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .faq-toggle {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #777;
+            transition: color 0.2s, transform 0.2s;
+            line-height: 1;
+        }
+
+        .faq-item.active .faq-toggle {
+            color: #fff;
+            font-size: 2.2rem;
+        }
+
+        .faq-chevron {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(133deg);
+            width: 10px;
+            height: 10px;
+            border-top: 3px solid #777;
+            border-right: 3px solid #777;
+            transition: transform 0.25s ease, border-color 0.25s;
+        }
+
+        .faq-item.active .faq-chevron {
+            transform: translateY(-50%) rotate(-44deg);
+            border-color: #fff;
+        }
+
+        .faq-answer-wrap {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease;
+            border-left: 6px solid #555;
+            background: transparent;
+        }
+
+        .faq-item.active .faq-answer-wrap {
+            grid-template-rows: 1fr;
+            border-left-color: #fff;
+            background: #2e2e2e;
+        }
+
+        .faq-answer-inner {
+            overflow: hidden;
+        }
+
+        .faq-answer {
+            padding: 0.5rem 1rem 1.5rem 3.5rem;
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .faq-item.active .faq-answer {
+            opacity: 1;
+        }
+
+        /* ─── BACK TO HOME ─── */
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #5e17eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Lato', sans-serif;
+            transition: color 0.2s;
+            text-align: center;
+            width: 100%;
+            padding-bottom: 1rem;
+        }
+
+        .back-link:hover {
+            color: #7a3cf0;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 480px) {
+            .signup-wrapper {
+                padding: 20px 15px;
+            }
+            .site-header .logo {
+                max-height: 45px;
+            }
+            .discord-btn-wrapper {
+                padding: 20px 12px;
+            }
+            .discord-btn {
+                padding: 14px 16px;
+            }
+            .discord-btn .content {
+                gap: 12px;
+            }
+            .discord-btn .icon-wrap {
+                padding: 8px;
+            }
+            .discord-btn .icon-wrap svg {
+                width: 24px;
+                height: 24px;
+            }
+            .discord-btn .title {
+                font-size: 1rem;
+            }
+            .discord-btn .subtitle {
+                font-size: 0.75rem;
+            }
+            .discord-btn .arrow svg {
+                width: 18px;
+                height: 18px;
+            }
+            .signup-text h1 {
+                font-size: 1.5rem;
+            }
+            .signup-text .sub {
+                font-size: 0.85rem;
+            }
+            .faq-title {
+                font-size: 1.4rem;
+            }
+            .faq-question {
+                font-size: 0.9rem;
+                padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+            }
+            .faq-answer {
+                padding: 0.5rem 0.8rem 1rem 2.8rem;
+                font-size: 0.85rem;
+            }
+            .faq-toggle {
+                left: 0.6rem;
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── HEADER WITH LOGO ─── -->
+    <header class="site-header">
+        <img
+        class="logo"
+        src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/goribercrackslogo.png"
+        alt="Goriber Cracks Logo"
+        />
+    </header>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <div class="signup-wrapper">
+
+        <!-- TEXT SECTION -->
+        <div class="signup-text">
+            <h1>Sign-up is Easier Than Ever!</h1>
+            <p class="sub">
+                Just Join Our Discord Server, You'll get access That's it, No Email Nothing,<br />
+                But if you don't have a discord account then you have to create one.
+            </p>
+        </div>
+
+        <!-- IMAGE -->
+        <div class="signup-image">
+            <img src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/signup.jpg" alt="Discord Signup Tutorial" loading="lazy" onerror="this.src='https://placehold.co/600x400/222222/5e17eb?text=Discord+Tutorial'" />
+        </div>
+
+        <!-- SIGNUP BUTTON (changed text) -->
+        <div class="discord-btn-wrapper">
+            <a href="https://discord.gg/eqTFkDPyXE" target="_blank" rel="noopener noreferrer" class="discord-btn">
+                <span class="shine"></span>
+                <span class="glow-overlay"></span>
+                <span class="content">
+                    <span class="icon-wrap">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                            <path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485.065 485.065 0 0 0 404.081 32.03a1.816 1.816 0 0 0-1.923.91 337.461 337.461 0 0 0-14.9 30.6 447.848 447.848 0 0 0-134.426 0 309.541 309.541 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.689 483.689 0 0 0-119.688 37.107 1.712 1.712 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.016 2.016 0 0 0 .765 1.375 487.666 487.666 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348.2 348.2 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321.173 321.173 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251.047 251.047 0 0 0 9.109-7.137 1.819 1.819 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.812 1.812 0 0 1 1.924.233 234.533 234.533 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.407 301.407 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391.055 391.055 0 0 0 30.014 48.815 1.864 1.864 0 0 0 2.063.7A486.048 486.048 0 0 0 610.7 405.729a1.882 1.882 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541zM222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241zm195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.820 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241z" />
+                        </svg>
+                    </span>
+                    <span class="text-area">
+                        <span class="title">Sign-up</span>
+                        <span class="subtitle">by joining the discord community</span>
+                    </span>
+                    <span class="arrow">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                </span>
+            </a>
+        </div>
+
+        <!-- ─── FAQ ─── -->
+        <div class="faq-wrapper">
+            <h2 class="faq-title">Frequently Asked Questions</h2>
+            <ul class="faq-list">
+                <li class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span class="faq-toggle">+</span>
+                        What's The Login Password?
+                        <span class="faq-chevron"></span>
+                    </button>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer-inner">
+                            <div class="faq-answer">
+                                Login Password is Always in discord #passwords section. (but it can change anytime and u will be notified in discord if it happens)
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span class="faq-toggle">+</span>
+                        Should I have to use My email for Sign-up?
+                        <span class="faq-chevron"></span>
+                    </button>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer-inner">
+                            <div class="faq-answer">
+                                No You dont have to use ur email for sign up just joining our discord server is the formality of signup
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span class="faq-toggle">+</span>
+                        What's The Zip File Password?
+                        <span class="faq-chevron"></span>
+                    </button>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer-inner">
+                            <div class="faq-answer">
+                                Again, Zip file Password is Always in discord #passwords section.
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span class="faq-toggle">+</span>
+                        Is there any way to get in without discord?
+                        <span class="faq-chevron"></span>
+                    </button>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer-inner">
+                            <div class="faq-answer">
+                                Currently, No But if u have better community friendly app suggestion, let us know !
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span class="faq-toggle">+</span>
+                        Why this Password Bullshit? Why it can't be 100% Open?
+                        <span class="faq-chevron"></span>
+                    </button>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer-inner">
+                            <div class="faq-answer">
+                                Simple, it's because of Website take downs, Hackers, and many more problems, so we didn't have any other way we really are sorry for inconvenience.
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span class="faq-toggle">+</span>
+                        How can i Request games?
+                        <span class="faq-chevron"></span>
+                    </button>
+                    <div class="faq-answer-wrap">
+                        <div class="faq-answer-inner">
+                            <div class="faq-answer">
+                                once u signed up u can do it via discord or request game section after login.
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ─── BACK TO HOME ─── -->
+        <a href="https://goribercracks.github.io/" class="back-link">← Back to Home</a>
+
+    </div>
+
+    <!-- ─── FAQ SCRIPT ─── -->
+    <script>
+        (function() {
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(function(item) {
+                const btn = item.querySelector('.faq-question');
+                btn.addEventListener('click', function() {
+                    const isActive = item.classList.contains('active');
+                    items.forEach(function(other) {
+                        if (other !== item && other.classList.contains('active')) {
+                            other.classList.remove('active');
+                            other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                    if (isActive) {
+                        item.classList.remove('active');
+                        btn.setAttribute('aria-expanded', 'false');
+                    } else {
+                        item.classList.add('active');
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+        })();
+    </script>
+
+</body>
+</html>
