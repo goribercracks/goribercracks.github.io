@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+    <title>Goriber OS · Windows Optimization Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ─── ROOT ─── */
+        :root {
+            --bg-deep: #05080f;
+            --bg-card: #0b0f1a;
+            --bg-elevated: #111827;
+            --bg-code: #080c16;
+            --accent: #6b3ff5;
+            --accent-bright: #8b5fff;
+            --accent-glow: rgba(107, 63, 245, 0.35);
+            --accent-subtle: rgba(107, 63, 245, 0.12);
+            --text: #e8ecf4;
+            --text-secondary: #a5b3d4;
+            --text-muted: #6b7a9e;
+            --warning: #e8a030;
+            --warning-bg: rgba(232, 160, 48, 0.10);
+            --danger: #e05555;
+            --danger-bg: rgba(224, 85, 85, 0.10);
+            --success: #3cb878;
+            --success-bg: rgba(60, 184, 120, 0.10);
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.12);
+            --radius-sm: 0.75rem;
+            --radius: 1.25rem;
+            --radius-lg: 1.75rem;
+            --shadow-card: 0 20px 50px -15px rgba(0, 0, 0, 0.55);
+            --shadow-glow: 0 0 40px -8px rgba(107, 63, 245, 0.25);
+            --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(ellipse at 30% 15%, #0d111f 0%, #05080f 55%, #020408 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            line-height: 1.55;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .site-header {
+            width: 100%;
+            max-width: 920px;
+            padding: 1.2rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+            margin-bottom: 1rem;
+        }
+        .site-header .logo {
+            max-height: 60px;
+            width: auto;
+            display: block;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 850px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ─── SECTION CARDS ─── */
+        .section-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+            margin-bottom: 1.5rem;
+        }
+        .section-inner {
+            padding: 2rem 2rem 1.5rem;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--accent-bright);
+            letter-spacing: -0.02em;
+        }
+        .section-title i {
+            font-size: 1.4rem;
+        }
+
+        /* ─── COLLAPSIBLE HEADER ─── */
+        .section-header-collapsible {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        .section-header-collapsible .status-badge {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            background: var(--bg-elevated);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            font-weight: 400;
+            white-space: nowrap;
+        }
+        .section-header-collapsible .status-badge .highlight {
+            color: var(--accent-bright);
+            font-weight: 600;
+        }
+
+        .toggle-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .toggle-btn:hover {
+            background: #7c52ff;
+            box-shadow: 0 4px 18px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+        .toggle-btn .icon {
+            transition: transform 0.3s;
+        }
+        .toggle-btn .icon.open {
+            transform: rotate(180deg);
+        }
+
+        .section-body {
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            padding-top: 0;
+            will-change: max-height;
+        }
+        .section-body.open {
+            max-height: 5000px;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width:600px) {
+            .section-inner { padding: 1.4rem 1.2rem; }
+            .section-title { font-size: 1.2rem; }
+            .section-header-collapsible .status-badge { font-size: 0.6rem; padding: 0.15rem 0.6rem; }
+            .toggle-btn { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
+        }
+
+        /* ─── STEPPER ─── */
+        .stepper-container {
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+        }
+        .stepper-slide {
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+        .stepper-slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateX(30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .stepper-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            gap: 1rem;
+        }
+        .stepper-nav .step-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .stepper-nav .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #1e2640;
+            transition: 0.3s;
+        }
+        .stepper-nav .step-dot.active {
+            background: var(--accent-bright);
+            box-shadow: 0 0 10px var(--accent-glow);
+            width: 26px;
+            border-radius: 14px;
+        }
+        .stepper-nav .step-dot.done {
+            background: var(--success);
+        }
+        .stepper-nav.hidden {
+            display: none;
+        }
+
+        .stepper-btn {
+            background: #151d30;
+            border: 1px solid var(--border-strong);
+            padding: 0.55rem 1.3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.02em;
+        }
+        .stepper-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .stepper-btn:not(:disabled):hover {
+            background: #1f2c4a;
+            border-color: var(--accent);
+            box-shadow: 0 0 16px -4px var(--accent-glow);
+        }
+        .stepper-btn.primary {
+            background: var(--accent);
+            border: none;
+        }
+        .stepper-btn.primary:hover {
+            background: #7c52ff;
+        }
+        .stepper-btn.success {
+            background: var(--success);
+            border: none;
+        }
+        .stepper-btn.success:hover {
+            background: #2ea86a;
+        }
+
+        /* ─── OS CARDS ─── */
+        .os-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .os-card {
+            background: var(--bg-elevated);
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border-strong);
+            padding: 1.5rem 1.2rem;
+            flex: 1;
+            min-width: 180px;
+            max-width: 240px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+        }
+        .os-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px -8px rgba(107, 63, 245, 0.25);
+            background: #151d30;
+        }
+        .os-card.selected {
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 28px var(--accent-glow);
+        }
+        .os-card .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-bright);
+        }
+        .os-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.01em;
+        }
+        .os-card p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .os-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .os-label strong {
+            color: #fff;
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn-dl {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .btn-dl:hover {
+            background: #7c52ff;
+            box-shadow: 0 6px 22px var(--accent-glow);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: transparent;
+            border: 1.5px solid var(--border-strong);
+            color: var(--text);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-decoration: none;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+            color: #fff;
+        }
+
+        .download-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: center;
+            margin: 0.6rem 0;
+        }
+
+        .note-box {
+            padding: 0.7rem 1rem;
+            border-radius: var(--radius-sm);
+            margin: 0.7rem 0;
+            font-size: 0.78rem;
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-start;
+            line-height: 1.45;
+        }
+        .note-box i {
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-size: 0.85rem;
+        }
+        .note-warn {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning);
+            color: #f5d78c;
+        }
+        .note-warn i { color: var(--warning); }
+        .note-info {
+            background: var(--accent-subtle);
+            border-left: 3px solid var(--accent);
+            color: #c7d2fe;
+        }
+        .note-info i { color: var(--accent-bright); }
+        .note-success-box {
+            background: var(--success-bg);
+            border-left: 3px solid var(--success);
+            color: #8ed4b0;
+        }
+        .note-success-box i { color: var(--success); }
+
+        /* ─── SUCCESS / INSTALLED STATE ─── */
+        .success-animation {
+            display: none;
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+        .success-animation.active {
+            display: block;
+        }
+        .success-animation .checkmark {
+            font-size: 4rem;
+            color: var(--success);
+            animation: pop 0.5s ease;
+        }
+        @keyframes pop {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .success-animation h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-top: 0.5rem;
+        }
+        .success-animation p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .installed-state {
+            display: none;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .installed-state.active {
+            display: block;
+        }
+        .installed-state .checkmark {
+            font-size: 3rem;
+            color: var(--success);
+        }
+        .installed-state h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 0.3rem;
+        }
+        .installed-state p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin: 0.3rem 0 0.8rem;
+        }
+
+        .stepper-hidden {
+            display: none !important;
+        }
+
+        /* ─── REVIOS (hidden until clicked) ─── */
+        .revios-section {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .revios-section.active {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        .not-supported-link {
+            color: var(--accent-bright);
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .not-supported-link:hover {
+            color: #a87cff;
+        }
+
+        /* ─── COMMANDS ─── */
+        .commands-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+        .command-card {
+            background: var(--bg-elevated);
+            border-radius: var(--radius);
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--border-strong);
+            transition: var(--transition);
+        }
+        .command-card:hover {
+            border-color: var(--accent);
+        }
+        .command-card .cmd-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.4rem;
+        }
+        .command-card .cmd-header i {
+            color: var(--accent-bright);
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+        .command-card .cmd-header h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .command-card .cmd-code {
+            background: var(--bg-code);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.4rem 0.8rem;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.75rem;
+            color: #c7d2fe;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.3rem;
+        }
+        .command-card .cmd-code code {
+            word-break: break-all;
+            flex: 1;
+            min-width: 140px;
+        }
+        .btn-copy-sm {
+            flex-shrink: 0;
+            background: #1e2640;
+            border: 1px solid var(--border-strong);
+            color: var(--text-secondary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.65rem;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            border: none;
+        }
+        .btn-copy-sm:hover {
+            background: #2c3655;
+            color: #fff;
+        }
+        .btn-copy-sm.copied {
+            background: var(--success);
+            color: #fff;
+            pointer-events: none;
+        }
+
+        /* ─── APPS GRID (Optimizer + App Store) ─── */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .app-card {
+            background: var(--bg-elevated);
+            border-radius: var(--radius);
+            padding: 1.2rem 1rem;
+            border: 1px solid var(--border-strong);
+            text-align: center;
+            transition: var(--transition);
+        }
+        .app-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px -8px rgba(107, 63, 245, 0.15);
+        }
+        .app-card .app-icon {
+            font-size: 2rem;
+            color: var(--accent-bright);
+            margin-bottom: 0.4rem;
+        }
+        .app-card .app-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+        .app-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+        .app-card p {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.6rem;
+        }
+        .app-card .btn-dl,
+        .app-card .btn-outline {
+            font-size: 0.7rem;
+            padding: 0.3rem 1rem;
+        }
+
+        /* ─── OFFICE ─── */
+        .office-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        .office-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius);
+            padding: 1.2rem 1.2rem 1rem;
+            transition: var(--transition);
+        }
+        .office-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px -8px rgba(107, 63, 245, 0.15);
+        }
+        .office-card .office-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+        }
+        .office-card .office-header img {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            object-fit: contain;
+            background: #1a1f30;
+            padding: 4px;
+        }
+        .office-card .office-header h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .office-card .office-header .badge {
+            font-size: 0.6rem;
+            background: var(--accent-subtle);
+            color: var(--accent-bright);
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .office-card .office-header .badge.gold {
+            background: rgba(232, 160, 48, 0.2);
+            color: var(--warning);
+        }
+        .office-card .office-header .badge.green {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+        .office-card .office-body {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .office-card .office-body i {
+            color: var(--text-muted);
+            width: 14px;
+        }
+        .office-card .office-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.4rem;
+        }
+        .office-card .office-actions .btn-dl,
+        .office-card .office-actions .btn-outline {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.9rem;
+        }
+
+        .site-footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            padding-bottom: 1rem;
+        }
+        .site-footer a {
+            color: var(--accent-bright);
+            text-decoration: none;
+        }
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width:600px) {
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+            .os-card {
+                min-width: 140px;
+                max-width: 180px;
+                padding: 1rem 0.8rem;
+            }
+            .section-inner {
+                padding: 1.2rem 1rem;
+            }
+            .stepper-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        @media (max-width:400px) {
+            .os-card {
+                min-width: 120px;
+                max-width: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <img
+        class="logo"
+        src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/goribercrackslogo.png"
+        alt="Goriber Cracks Logo"
+        />
+    </header>
+
+    <div class="wrapper">
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- SECTION 1: GORIBER OS (COLLAPSIBLE)      -->
+        <!-- ════════════════════════════════════════ -->
+        <div class="section-card">
+            <div class="section-inner">
+
+                <div class="section-header-collapsible" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <i class="fas fa-microchip"></i> Goriber OS
+                        <span class="status-badge" id="statusBadge">
+                            <i class="fas fa-circle" style="color:#666; font-size:0.5rem;"></i>
+                            <span style="margin-left:4px;">Not installed</span>
+                        </span>
+                    </div>
+                    <button class="toggle-btn" id="toggleBtn" onclick="event.stopPropagation(); toggleSection(this.closest('.section-header-collapsible'));">
+                        <span id="toggleLabel">Install Goriber OS</span>
+                        <i class="fas fa-chevron-right icon" id="toggleIcon"></i>
+                    </button>
+                </div>
+
+                <div class="section-body" id="goriberOSBody">
+
+                    <div class="installed-state" id="installedState">
+                        <div class="checkmark"><i class="fas fa-check-circle"></i></div>
+                        <h3>Goriber OS is already installed</h3>
+                        <p id="installedMessage">Your Windows is optimized with Atlas.</p>
+                        <button class="stepper-btn" onclick="reinstallGoriberOS()">
+                            <i class="fas fa-undo-alt"></i> Reinstall Goriber OS
+                        </button>
+                    </div>
+
+                    <div id="stepperWrapper">
+
+                        <p style="color:var(--text-secondary); margin-bottom:1rem; font-size:0.9rem;">
+                            Select your Windows version and choose an optimization playbook.
+                        </p>
+
+                        <div class="stepper-container" id="stepperContainer">
+
+                            <div class="stepper-slide active" data-step="0">
+                                <div class="os-cards">
+                                    <div class="os-card" data-os="win10" onclick="selectOS('win10')">
+                                        <div class="card-icon"><i class="fab fa-windows"></i></div>
+                                        <h3>Windows 10</h3>
+                                        <p>Optimization for Windows 10</p>
+                                    </div>
+                                    <div class="os-card" data-os="win11" onclick="selectOS('win11')">
+                                        <div class="card-icon"><i class="fab fa-windows"></i></div>
+                                        <h3>Windows 11</h3>
+                                        <p>Optimization for Windows 11</p>
+                                    </div>
+                                </div>
+                                <p class="text-center" style="color:var(--text-muted); font-size:0.8rem; margin-top:0.5rem;">
+                                    <i class="fas fa-hand-pointer"></i> Click a card to select, then press Next
+                                </p>
+                            </div>
+
+                            <div class="stepper-slide" data-step="1">
+                                <div class="os-label">Selected: <strong id="selectedOSLabel">Windows 10</strong></div>
+                                <h4>Atlas OS — Optimize Windows Automatically</h4>
+                                <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:0.5rem;">
+                                    Atlas OS removes background services, telemetry, and bloatware to improve gaming performance.
+                                </p>
+
+                                <div class="note-box note-warn" id="win10Warning" style="display:none;">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span><strong>Windows 10 reached end of support</strong> – Atlas support for Windows 10 is also ending. Consider upgrading to Windows 11 for continued updates and support.</span>
+                                </div>
+
+                                <div class="note-box note-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>You need <strong>AME Wizard</strong> to apply the Atlas Playbook.</span>
+                                </div>
+
+                                <div class="download-row">
+                                    <a href="https://download.ameliorated.io/AME%20Wizard%20Beta.zip" class="btn-dl" target="_blank">
+                                        <i class="fas fa-download"></i> AME Wizard
+                                    </a>
+                                    <a href="#" id="atlasPlaybookLink" class="btn-dl" target="_blank">
+                                        <i class="fas fa-download"></i> Atlas Playbook
+                                    </a>
+                                </div>
+
+                                <div style="margin-top:0.8rem;">
+                                    <span class="not-supported-link" onclick="showReviOS()">
+                                        <i class="fas fa-question-circle"></i> Atlas not supported?
+                                    </span>
+                                </div>
+
+                                <div class="revios-section" id="reviosSection">
+                                    <div style="border-top:1px solid var(--border); padding-top:1rem; margin-top:0.5rem;">
+                                        <h4>ReviOS — Balanced Windows Optimization</h4>
+                                        <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:0.5rem;">
+                                            ReviOS is a more balanced optimization that keeps essential features while removing bloat and telemetry.
+                                        </p>
+
+                                        <div class="note-box note-info">
+                                            <i class="fas fa-info-circle"></i>
+                                            <span>You need <strong>AME Wizard</strong> to apply the ReviOS Playbook.</span>
+                                        </div>
+
+                                        <div class="download-row">
+                                            <a href="https://download.ameliorated.io/AME%20Wizard%20Beta.zip" class="btn-dl" target="_blank">
+                                                <i class="fas fa-download"></i> AME Wizard
+                                            </a>
+                                            <a href="https://github.com/meetrevision/playbook/releases/download/26.04/Revi-PB-26.04.apbx" class="btn-dl" target="_blank">
+                                                <i class="fas fa-download"></i> ReviOS Playbook
+                                            </a>
+                                        </div>
+
+                                        <div class="note-box note-success-box" style="margin-top:0.8rem;">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>ReviOS works on both Windows 10 and Windows 11.</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="download-row" style="margin-top:1rem; justify-content:center;">
+                                    <button class="stepper-btn primary" onclick="goToStep(2)">
+                                        Continue to Install <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="stepper-slide" data-step="2">
+                                <div style="text-align:center; padding:0.5rem 0;">
+                                    <p style="color:var(--text-secondary); font-size:1rem; margin-bottom:0.5rem;">
+                                        Have you downloaded the required files and are you ready to proceed?
+                                    </p>
+                                    <div style="display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-top:1rem;">
+                                        <button class="stepper-btn" style="background:#3a2040;border-color:#6b3050;" onclick="goToStep(1)">
+                                            <i class="fas fa-arrow-left"></i> No, go back
+                                        </button>
+                                        <button class="stepper-btn success" onclick="confirmInstall()">
+                                            <i class="fas fa-check"></i> Yes, I'm ready
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="success-animation" id="installSuccess">
+                                    <div class="checkmark"><i class="fas fa-check-circle"></i></div>
+                                    <h3>Goriber OS installed successfully!</h3>
+                                    <p id="successMessage">Your Windows is now optimized with Atlas.</p>
+                                </div>
+
+                                <div style="text-align:center; margin-top:1rem;">
+                                    <button class="stepper-btn" onclick="resetStepper()" id="startOverBtn" style="display:none;">
+                                        <i class="fas fa-undo-alt"></i> Start Over
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="stepper-nav" id="stepperNav">
+                                <div class="step-dots" id="stepDots">
+                                    <span class="step-dot active"></span>
+                                    <span class="step-dot"></span>
+                                    <span class="step-dot"></span>
+                                </div>
+                                <div style="display:flex; gap:0.6rem;">
+                                    <button class="stepper-btn" id="prevBtn" onclick="prevStep()" disabled>
+                                        <i class="fas fa-arrow-left"></i> Prev
+                                    </button>
+                                    <button class="stepper-btn primary" id="nextBtn" onclick="nextStep()">
+                                        Next <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- SECTION 2: COMMANDS                     -->
+        <!-- ════════════════════════════════════════ -->
+        <div class="section-card">
+            <div class="section-inner">
+                <div class="section-title">
+                    <i class="fas fa-terminal"></i> Commands
+                </div>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="cmd-header">
+                            <i class="fas fa-power-off"></i>
+                            <h4>Windows Activation</h4>
+                        </div>
+                        <div class="cmd-code">
+                            <code>irm https://get.activated.win | iex</code>
+                            <button class="btn-copy-sm" data-copy-text='irm https://get.activated.win | iex'>Copy</button>
+                        </div>
+                    </div>
+                    <div class="command-card">
+                        <div class="cmd-header">
+                            <i class="fas fa-wrench"></i>
+                            <h4>Chris Titus Windows Utility</h4>
+                        </div>
+                        <div class="cmd-code">
+                            <code>irm christitus.com/win | iex</code>
+                            <button class="btn-copy-sm" data-copy-text='irm christitus.com/win | iex'>Copy</button>
+                        </div>
+                    </div>
+                    <div class="command-card">
+                        <div class="cmd-header">
+                            <i class="fas fa-globe"></i>
+                            <h4>Just The Browser — Browser Debloat</h4>
+                        </div>
+                        <div class="cmd-code">
+                            <code style="font-size:0.68rem;">&amp; ([scriptblock]::Create((irm "https://raw.githubusercontent.com/corbindavenport/just-the-browser/main/main.ps1")))</code>
+                            <button class="btn-copy-sm" data-copy-text='&amp; ([scriptblock]::Create((irm "https://raw.githubusercontent.com/corbindavenport/just-the-browser/main/main.ps1")))'>Copy</button>
+                        </div>
+                        <p style="font-size:0.65rem; color:var(--text-muted); margin-top:0.4rem;">
+                            Removes AI features, telemetry, sponsored content, and other annoyances from Chrome, Edge, and other browsers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- SECTION 3: OPTIMIZER APPS               -->
+        <!-- ════════════════════════════════════════ -->
+        <div class="section-card">
+            <div class="section-inner">
+                <div class="section-title">
+                    <i class="fas fa-cubes"></i> Optimizer Apps
+                </div>
+                <div class="apps-grid">
+                    <div class="app-card">
+                        <div class="app-icon"><i class="fas fa-broom"></i></div>
+                        <h4>Kudu</h4>
+                        <p>Free system cleaner &amp; browser cache remover. Available on Windows, macOS, and Linux.</p>
+                        <a href="https://usekudu.com/download" target="_blank" class="btn-dl">
+                            <i class="fas fa-download"></i> Download Kudu
+                        </a>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-icon"><i class="fas fa-sliders-h"></i></div>
+                        <h4>WinHance</h4>
+                        <p>Open‑source Windows optimizer. Remove bloat, customize settings, and enhance performance.</p>
+                        <a href="https://winhance.net/" target="_blank" class="btn-dl">
+                            <i class="fas fa-download"></i> WinHance
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- SECTION 4: APP STORE                    -->
+        <!-- ════════════════════════════════════════ -->
+        <div class="section-card">
+            <div class="section-inner">
+                <div class="section-title">
+                    <i class="fas fa-store"></i> App Store
+                </div>
+                <div class="apps-grid">
+                    <div class="app-card">
+                        <div class="app-icon">
+                            <img src="https://winstall.app/assets/logo.svg" alt="Winstall" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-box\'></i>'" />
+                        </div>
+                        <h4>Winstall <span style="font-size:0.6rem; background:var(--success); padding:0.1rem 0.4rem; border-radius:20px; color:#000; font-weight:600;">recommended</span></h4>
+                        <p>Bulk install apps via winget with a beautiful UI. Create shareable lists.</p>
+                        <a href="https://winstall.app/" target="_blank" class="btn-dl">
+                            <i class="fas fa-external-link-alt"></i> Visit Winstall
+                        </a>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-icon"><i class="fas fa-download"></i></div>
+                        <h4>UniGetUI</h4>
+                        <p>Modern GUI for winget, chocolatey, scoop, and more. Manage all your packages.</p>
+                        <a href="https://devolutions.net/download-center/#unigetui" target="_blank" class="btn-dl">
+                            <i class="fas fa-download"></i> Download UniGetUI
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- SECTION 5: OFFICE SUITE                 -->
+        <!-- ════════════════════════════════════════ -->
+        <div class="section-card">
+            <div class="section-inner">
+                <div class="section-title">
+                    <i class="fas fa-gem"></i> Goriber Choice — Office Suite
+                </div>
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:1.2rem;">
+                    All download links available instantly — no installation required
+                </p>
+                <div class="office-grid">
+                    <div class="office-card" style="border-color:var(--success);">
+                        <div class="office-header">
+                            <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/onlyoffice.png" alt="OnlyOffice" />
+                            <h4>OnlyOffice <span class="badge green">Goriber Choice</span></h4>
+                        </div>
+                        <div class="office-body">
+                            <span><i class="fas fa-check"></i> Free</span>
+                            <span><i class="fas fa-check"></i> No activation</span>
+                            <span><i class="fas fa-check"></i> Highly recommended</span>
+                        </div>
+                        <div class="office-actions">
+                            <a href="https://www.onlyoffice.com/download-desktop" target="_blank" class="btn-dl">
+                                <i class="fas fa-download"></i> Download OnlyOffice
+                            </a>
+                        </div>
+                    </div>
+                    <div class="office-card">
+                        <div class="office-header">
+                            <img src="https://i.pinimg.com/originals/81/ad/ba/81adba43246071066b301111161db9fd.png" alt="Office" />
+                            <h4>MS Office 365 <span class="badge">Full</span></h4>
+                        </div>
+                        <div class="office-body">
+                            <span><i class="fas fa-check"></i> Access</span>
+                            <span><i class="fas fa-check"></i> Excel</span>
+                            <span><i class="fas fa-check"></i> Lync</span>
+                            <span><i class="fas fa-check"></i> OneNote</span>
+                            <span><i class="fas fa-check"></i> Outlook</span>
+                            <span><i class="fas fa-check"></i> PowerPoint</span>
+                            <span><i class="fas fa-check"></i> Publisher</span>
+                            <span><i class="fas fa-check"></i> Word</span>
+                            <span><i class="fas fa-check"></i> OneDrive</span>
+                        </div>
+                        <div class="office-actions">
+                            <a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365ProPlusRetail&amp;platform=x64&amp;language=en-us&amp;version=O16GA" target="_blank" class="btn-dl"><i class="fas fa-download"></i> x64</a>
+                            <a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365ProPlusRetail&amp;platform=x86&amp;language=en-us&amp;version=O16GA" target="_blank" class="btn-dl"><i class="fas fa-download"></i> x86</a>
+                            <a href="https://officecdn.microsoft.com/db/492350f6-3a01-4f97-b9c0-c7c6ddf67d60/media/en-us/O365ProPlusRetail.img" target="_blank" class="btn-outline"><i class="fas fa-hdd"></i> Offline (5GB)</a>
+                        </div>
+                    </div>
+                    <div class="office-card">
+                        <div class="office-header">
+                            <img src="https://i.pinimg.com/originals/81/ad/ba/81adba43246071066b301111161db9fd.png" alt="Office" />
+                            <h4>MS Office 365 <span class="badge gold">Standard</span></h4>
+                        </div>
+                        <div class="office-body">
+                            <span><i class="fas fa-check"></i> Excel</span>
+                            <span><i class="fas fa-check"></i> OneNote</span>
+                            <span><i class="fas fa-check"></i> PowerPoint</span>
+                            <span><i class="fas fa-check"></i> Word</span>
+                            <span><i class="fas fa-check"></i> OneDrive</span>
+                        </div>
+                        <div class="office-actions">
+                            <a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365ProPlusRetail&amp;platform=x64&amp;language=en-us&amp;version=O16GA" target="_blank" class="btn-dl"><i class="fas fa-download"></i> x64</a>
+                            <a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365ProPlusRetail&amp;platform=x86&amp;language=en-us&amp;version=O16GA" target="_blank" class="btn-dl"><i class="fas fa-download"></i> x86</a>
+                        </div>
+                    </div>
+                    <div class="office-card">
+                        <div class="office-header">
+                            <img src="https://i.pinimg.com/originals/81/ad/ba/81adba43246071066b301111161db9fd.png" alt="Office" />
+                            <h4>MS Office 2013 <span class="badge" style="background:rgba(0,120,215,0.2);color:#4da6ff;">Blue LITE</span></h4>
+                        </div>
+                        <div class="office-body">
+                            <span><i class="fas fa-check"></i> Home &amp; Student</span>
+                        </div>
+                        <div class="office-actions">
+                            <a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=HomeStudentRetail&amp;platform=x64&amp;language=en-us&amp;version=O15GA" target="_blank" class="btn-dl"><i class="fas fa-download"></i> x64</a>
+                            <a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=HomeStudentRetail&amp;platform=x86&amp;language=en-us&amp;version=O15GA" target="_blank" class="btn-dl"><i class="fas fa-download"></i> x86</a>
+                            <a href="https://officecdn.microsoft.com/db/39168d7e-077b-48e7-872c-b232c3e72675/media/en-us/HomeStudentRetail.img" target="_blank" class="btn-outline"><i class="fas fa-hdd"></i> Offline (2GB)</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center" style="font-size:0.7rem; color:var(--text-muted); margin-top:0.8rem;">
+                    <i class="fas fa-key"></i> Activation key available via standard tools
+                </div>
+            </div>
+        </div>
+
+        <div class="site-footer">
+            <i class="fas fa-shield-haltered"></i> Goriber OS — Curated optimization for advanced users &nbsp;|&nbsp;
+            <a href="https://goribercracks.github.io/" target="_blank">Main Site</a>
+        </div>
+
+    </div>
+
+    <script>
+        // ─── STATE ───
+        let currentStep = 0;
+        const totalSteps = 3;
+        let selectedOS = null;
+        let selectedPlaybook = null;
+        let installed = false;
+
+        // ─── DOM refs ───
+        const slides = document.querySelectorAll('.stepper-slide');
+        const dots = document.querySelectorAll('.step-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const stepperNav = document.getElementById('stepperNav');
+        const startOverBtn = document.getElementById('startOverBtn');
+        const stepperWrapper = document.getElementById('stepperWrapper');
+        const installedState = document.getElementById('installedState');
+        const statusBadge = document.getElementById('statusBadge');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const toggleLabel = document.getElementById('toggleLabel');
+        const toggleIcon = document.getElementById('toggleIcon');
+        const sectionBody = document.getElementById('goriberOSBody');
+
+        // ─── Check localStorage on load ───
+        function checkInstalled() {
+            try {
+                var saved = localStorage.getItem('goriber_os_installed');
+                if (saved === 'true') {
+                    installed = true;
+                    stepperWrapper.style.display = 'none';
+                    installedState.classList.add('active');
+
+                    var savedOS = localStorage.getItem('goriber_os_os') || 'Windows';
+                    var savedPlaybook = localStorage.getItem('goriber_os_playbook') || 'Atlas';
+                    document.getElementById('installedMessage').textContent =
+                        'Your ' + savedOS + ' is optimized with ' + savedPlaybook + '.';
+
+                    updateStatusBadge('Installed: ' + savedOS + ' | ' + savedPlaybook, true);
+                    toggleLabel.textContent = 'View Details';
+                    toggleIcon.className = 'fas fa-chevron-down icon';
+                    return true;
+                }
+            } catch (e) { /* ignore */ }
+            return false;
+        }
+
+        // ─── Load saved selections ───
+        function loadSavedSelections() {
+            try {
+                var savedOS = localStorage.getItem('goriber_os_selected_os');
+                var savedPlaybook = localStorage.getItem('goriber_os_selected_playbook');
+                if (savedOS) {
+                    selectedOS = savedOS;
+                    document.querySelectorAll('.os-card').forEach(function(c) {
+                        if (c.dataset.os === savedOS) {
+                            c.classList.add('selected');
+                        }
+                    });
+                    var label = savedOS === 'win10' ? 'Windows 10' : 'Windows 11';
+                    document.getElementById('selectedOSLabel').textContent = label;
+
+                    var link = document.getElementById('atlasPlaybookLink');
+                    if (savedOS === 'win10') {
+                        link.href = 'https://github.com/Atlas-OS/Atlas/releases/download/0.4.1/AtlasPlaybook_v0.4.1.apbx';
+                        document.getElementById('win10Warning').style.display = 'block';
+                    } else {
+                        link.href = 'https://github.com/Atlas-OS/Atlas/releases/download/0.5.0-hotfix/AtlasPlaybook_v0.5.0-hotfix.apbx';
+                        document.getElementById('win10Warning').style.display = 'none';
+                    }
+
+                    nextBtn.disabled = false;
+                    nextBtn.style.opacity = '1';
+                    nextBtn.style.cursor = 'pointer';
+                }
+                if (savedPlaybook) {
+                    selectedPlaybook = savedPlaybook;
+                    if (savedPlaybook === 'revios') {
+                        document.getElementById('reviosSection').classList.add('active');
+                    }
+                    updateStatusBadge((selectedOS === 'win10' ? 'Windows 10' : 'Windows 11') + ' | ' + (savedPlaybook === 'revios' ? 'ReviOS' : 'Atlas'), false);
+                }
+            } catch (e) { /* ignore */ }
+        }
+
+        // ─── Save selections ───
+        function saveSelections() {
+            try {
+                if (selectedOS) {
+                    localStorage.setItem('goriber_os_selected_os', selectedOS);
+                }
+                if (selectedPlaybook) {
+                    localStorage.setItem('goriber_os_selected_playbook', selectedPlaybook);
+                }
+            } catch (e) { /* ignore */ }
+        }
+
+        // ─── Update status badge ───
+        function updateStatusBadge(text, isInstalled) {
+            var color = isInstalled ? 'var(--success)' : 'var(--accent-bright)';
+            var icon = isInstalled ? 'fa-check-circle' : 'fa-circle';
+            statusBadge.innerHTML =
+                '<i class="fas ' + icon + '" style="color:' + color + '; font-size:0.5rem;"></i>' +
+                '<span style="margin-left:4px; color:var(--text-secondary);">' + text + '</span>';
+        }
+
+        // ─── OS selection ───
+        function selectOS(os) {
+            selectedOS = os;
+            document.querySelectorAll('.os-card').forEach(function(c) {
+                c.classList.toggle('selected', c.dataset.os === os);
+            });
+
+            var link = document.getElementById('atlasPlaybookLink');
+            if (os === 'win10') {
+                link.href = 'https://github.com/Atlas-OS/Atlas/releases/download/0.4.1/AtlasPlaybook_v0.4.1.apbx';
+                document.getElementById('win10Warning').style.display = 'block';
+            } else {
+                link.href = 'https://github.com/Atlas-OS/Atlas/releases/download/0.5.0-hotfix/AtlasPlaybook_v0.5.0-hotfix.apbx';
+                document.getElementById('win10Warning').style.display = 'none';
+            }
+
+            var label = os === 'win10' ? 'Windows 10' : 'Windows 11';
+            document.getElementById('selectedOSLabel').textContent = label;
+
+            var playbookLabel = selectedPlaybook === 'revios' ? 'ReviOS' : 'Atlas';
+            updateStatusBadge(label + ' | ' + playbookLabel, false);
+            saveSelections();
+
+            nextBtn.disabled = false;
+            nextBtn.style.opacity = '1';
+            nextBtn.style.cursor = 'pointer';
+        }
+
+        // ─── Show ReviOS ───
+        function showReviOS() {
+            var section = document.getElementById('reviosSection');
+            section.classList.toggle('active');
+            if (section.classList.contains('active')) {
+                selectedPlaybook = 'revios';
+                var osLabel = selectedOS === 'win10' ? 'Windows 10' : 'Windows 11';
+                updateStatusBadge(osLabel + ' | ReviOS', false);
+                saveSelections();
+                section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                selectedPlaybook = 'atlas';
+                var osLabel2 = selectedOS === 'win10' ? 'Windows 10' : 'Windows 11';
+                updateStatusBadge(osLabel2 + ' | Atlas', false);
+                saveSelections();
+            }
+        }
+
+        // ─── Navigation ───
+        function goToStep(step) {
+            if (step < 0 || step >= totalSteps) return;
+            if (installed) return;
+
+            slides.forEach(function(s) {
+                s.classList.remove('active');
+            });
+            slides[step].classList.add('active');
+
+            dots.forEach(function(d, i) {
+                d.classList.remove('active');
+                d.classList.remove('done');
+                if (i === step) d.classList.add('active');
+                else if (i < step) d.classList.add('done');
+            });
+
+            currentStep = step;
+            prevBtn.disabled = (step === 0);
+
+            if (step === 0) {
+                nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+                nextBtn.disabled = (selectedOS === null);
+                if (selectedOS === null) {
+                    nextBtn.style.opacity = '0.5';
+                    nextBtn.style.cursor = 'not-allowed';
+                } else {
+                    nextBtn.style.opacity = '1';
+                    nextBtn.style.cursor = 'pointer';
+                }
+            } else if (step === totalSteps - 1) {
+                nextBtn.innerHTML = 'Finish';
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                nextBtn.style.cursor = 'pointer';
+                nextBtn.style.display = 'inline-flex';
+            }
+        }
+
+        function nextStep() {
+            if (currentStep === 0 && selectedOS === null) return;
+            if (currentStep < totalSteps - 1) {
+                goToStep(currentStep + 1);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0 && !installed) {
+                if (currentStep === totalSteps - 1) {
+                    document.getElementById('installSuccess').classList.remove('active');
+                }
+                goToStep(currentStep - 1);
+            }
+        }
+
+        // ─── Confirm install ───
+        function confirmInstall() {
+            if (installed) return;
+            installed = true;
+
+            var successEl = document.getElementById('installSuccess');
+            var msg = document.getElementById('successMessage');
+
+            var osLabel = selectedOS === 'win10' ? 'Windows 10' : 'Windows 11';
+            var playbookLabel = selectedPlaybook === 'revios' ? 'ReviOS' : 'Atlas';
+            msg.textContent = 'Your ' + osLabel + ' is now optimized with ' + playbookLabel + '.';
+
+            try {
+                localStorage.setItem('goriber_os_installed', 'true');
+                localStorage.setItem('goriber_os_os', osLabel);
+                localStorage.setItem('goriber_os_playbook', playbookLabel);
+            } catch (e) { /* ignore */ }
+
+            successEl.classList.add('active');
+
+            stepperNav.classList.add('hidden');
+
+            slides.forEach(function(s, i) {
+                if (i !== currentStep) {
+                    s.classList.remove('active');
+                }
+            });
+
+            startOverBtn.style.display = 'inline-flex';
+
+            var btns = document.querySelectorAll('.stepper-btn.success');
+            btns.forEach(function(b) {
+                b.disabled = true;
+                b.style.opacity = '0.5';
+                b.style.cursor = 'not-allowed';
+            });
+
+            var noBtns = document.querySelectorAll('.stepper-btn[style*="background:#3a2040"]');
+            noBtns.forEach(function(b) {
+                b.style.display = 'none';
+            });
+
+            document.getElementById('reviosSection').classList.remove('active');
+
+            updateStatusBadge('Installed: ' + osLabel + ' | ' + playbookLabel, true);
+            toggleLabel.textContent = 'View Details';
+            toggleIcon.className = 'fas fa-chevron-down icon';
+        }
+
+        // ─── Reinstall ───
+        function reinstallGoriberOS() {
+            try {
+                localStorage.removeItem('goriber_os_installed');
+                localStorage.removeItem('goriber_os_os');
+                localStorage.removeItem('goriber_os_playbook');
+            } catch (e) { /* ignore */ }
+            installed = false;
+            installedState.classList.remove('active');
+            stepperWrapper.style.display = 'block';
+            resetStepper();
+            updateStatusBadge('Not installed', false);
+            toggleLabel.textContent = 'Install Goriber OS';
+            toggleIcon.className = 'fas fa-chevron-right icon';
+        }
+
+        // ─── Reset Stepper ───
+        function resetStepper() {
+            installed = false;
+            selectedOS = null;
+            selectedPlaybook = null;
+
+            document.querySelectorAll('.os-card').forEach(function(c) {
+                c.classList.remove('selected');
+            });
+
+            document.getElementById('installSuccess').classList.remove('active');
+            document.getElementById('reviosSection').classList.remove('active');
+
+            stepperNav.classList.remove('hidden');
+
+            document.querySelectorAll('.stepper-btn[style*="display:none"]').forEach(function(b) {
+                b.style.display = '';
+            });
+            document.querySelectorAll('.stepper-btn.success').forEach(function(b) {
+                b.disabled = false;
+                b.style.opacity = '1';
+                b.style.cursor = 'pointer';
+            });
+
+            nextBtn.style.display = 'inline-flex';
+            nextBtn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+            nextBtn.disabled = true;
+            nextBtn.style.opacity = '0.5';
+            nextBtn.style.cursor = 'not-allowed';
+
+            startOverBtn.style.display = 'none';
+
+            try {
+                localStorage.removeItem('goriber_os_selected_os');
+                localStorage.removeItem('goriber_os_selected_playbook');
+            } catch (e) { /* ignore */ }
+
+            updateStatusBadge('Not installed', false);
+            goToStep(0);
+        }
+
+        // ─── Toggle section ───
+        function toggleSection(header) {
+            var body = header.parentElement.querySelector('.section-body');
+            var isOpen = body.classList.contains('open');
+            if (isOpen) {
+                body.classList.remove('open');
+                toggleLabel.textContent = installed ? 'View Details' : 'Install Goriber OS';
+                toggleIcon.className = installed ? 'fas fa-chevron-down icon' : 'fas fa-chevron-right icon';
+            } else {
+                body.classList.add('open');
+                toggleLabel.textContent = 'Hide';
+                toggleIcon.className = 'fas fa-chevron-up icon';
+            }
+        }
+
+        // ─── Copy command ───
+        function setupCopyButtons() {
+            document.querySelectorAll('.btn-copy-sm[data-copy-text]').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var text = this.getAttribute('data-copy-text');
+                    copyTextToClipboard(text, this);
+                });
+            });
+        }
+
+        function copyTextToClipboard(text, btn) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopied(btn);
+                }).catch(function() {
+                    fallbackCopy(text, btn);
+                });
+            } else {
+                fallbackCopy(text, btn);
+            }
+        }
+
+        function fallbackCopy(text, btn) {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            ta.style.top = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                var success = document.execCommand('copy');
+                if (success) {
+                    showCopied(btn);
+                } else {
+                    alert('Failed to copy. Please copy manually.');
+                }
+            } catch (e) {
+                alert('Failed to copy. Please copy manually.');
+            }
+            document.body.removeChild(ta);
+        }
+
+        function showCopied(btn) {
+            var origHTML = btn.innerHTML;
+            btn.classList.add('copied');
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            setTimeout(function() {
+                btn.classList.remove('copied');
+                btn.innerHTML = origHTML;
+            }, 2000);
+        }
+
+        // ─── Init ───
+        var hasSaved = checkInstalled();
+        if (!hasSaved) {
+            loadSavedSelections();
+            goToStep(0);
+            if (selectedOS) {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                nextBtn.style.cursor = 'pointer';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', setupCopyButtons);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupCopyButtons);
+        } else {
+            setupCopyButtons();
+        }
+
+        console.log('□ Goriber OS loaded.');
+    </script>
+
+</body>
+</html>
