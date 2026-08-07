@@ -86,7 +86,8 @@
             flex-wrap: nowrap;
             white-space: nowrap;
             font-family: 'Poppins', sans-serif;
-            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            /* FIXED FONT SIZE – no longer grows with screen width */
+            font-size: 2.5rem;
             font-weight: 700;
             line-height: 1.3;
             color: #ffffff;
@@ -120,6 +121,7 @@
             white-space: nowrap;
         }
 
+        /* ─── PILL STYLES KEPT ─── */
         .char-el {
             display: inline-block;
             padding: 0.08em 0.18em;
@@ -142,6 +144,10 @@
         .char-el.active {
             transform: translateY(0%);
             opacity: 1;
+            background: #5e17eb;
+            background-image: linear-gradient(135deg, #5e17eb 0%, #7b2ff7 50%, #5e17eb 100%);
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite alternate;
         }
 
         .char-el.exit {
@@ -158,13 +164,6 @@
             opacity: 1 !important;
             pointer-events: none;
             box-shadow: none !important;
-        }
-
-        .char-el.active {
-            background: #5e17eb;
-            background-image: linear-gradient(135deg, #5e17eb 0%, #7b2ff7 50%, #5e17eb 100%);
-            background-size: 200% 200%;
-            animation: shimmer 3s ease-in-out infinite alternate;
         }
 
         @keyframes shimmer {
@@ -309,7 +308,7 @@
             line-height: 1.6;
         }
 
-        /* ─── RESPONSIVE ─── */
+        /* ─── RESPONSIVE – smaller fixed sizes for mobile ─── */
         @media (max-width: 640px) {
             .site-header .logo {
                 max-height: 45px;
@@ -319,11 +318,7 @@
                 padding: 2rem 1rem;
             }
             .rotating-wrapper {
-                font-size: clamp(1.6rem, 5vw, 2.8rem);
-            }
-            .char-el {
-                padding: 0.06em 0.12em;
-                border-radius: 0.25em;
+                font-size: 1.8rem;   /* fixed smaller size for tablets */
             }
             .rotate-container {
                 height: 1.5em;
@@ -340,11 +335,7 @@
                 padding: 1.5rem 0.8rem;
             }
             .rotating-wrapper {
-                font-size: clamp(1.2rem, 4.5vw, 2rem);
-            }
-            .char-el {
-                padding: 0.04em 0.08em;
-                border-radius: 0.2em;
+                font-size: 1.4rem;   /* fixed smallest size for phones */
             }
             .auth-btn {
                 font-size: 0.9rem;
@@ -378,7 +369,7 @@
             }
         }
 
-        /* ─── CHAT BOT STYLES ─── */
+        /* ─── CHAT BOT STYLES (unchanged) ─── */
         .chat-overlay {
             position: fixed;
             bottom: 6.5rem;
