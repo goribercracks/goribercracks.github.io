@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Goriber Cracks – Windows Tutorial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ─── RESET ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(ellipse at 15% 10%, rgba(108, 43, 217, 0.08) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(30, 20, 60, 0.3) 0%, transparent 55%),
+                radial-gradient(circle at 50% 50%, #0a0d16 0%, #030508 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #eef2ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ─── HEADER WITH LOGO ─── */
+        .site-header {
+            width: 100%;
+            padding: 1.2rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .site-header .logo {
+            max-height: 55px;
+            width: auto;
+            display: block;
+        }
+
+        /* ─── WRAPPER ─── */
+        .wrapper {
+            max-width: 920px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* ─── ORIGINAL TUTORIAL STYLES ─── */
+        :root {
+            --bg-deep: #04060b;
+            --bg-card: rgba(14, 19, 31, 0.92);
+            --bg-card-hover: rgba(18, 24, 38, 0.95);
+            --accent: #6c2bd9;
+            --accent-light: #8b5cf6;
+            --accent-glow: #a78bfa;
+            --accent-soft: rgba(108, 43, 217, 0.25);
+            --border: rgba(108, 43, 217, 0.45);
+            --border-hover: rgba(139, 92, 246, 0.7);
+            --text-primary: #eef2ff;
+            --text-secondary: #bcc3dd;
+            --text-muted: #7c83a6;
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --warning-border: #f59e0b;
+            --surface-alt: #111622;
+            --radius-lg: 1.25rem;
+            --radius-md: 0.85rem;
+            --radius-sm: 0.6rem;
+            --radius-full: 60px;
+            --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+            --shadow-glow: 0 0 35px rgba(108, 43, 217, 0.25);
+            --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .device-selector {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .device-selector h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, #eef2ff 0%, #c4b5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .device-selector .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        .device-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+        .device-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--border);
+            padding: 2.2rem 2rem;
+            width: 280px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            user-select: none;
+        }
+        .device-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(108, 43, 217, 0.06) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+            pointer-events: none;
+        }
+        .device-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+        }
+        .device-card:hover::before {
+            opacity: 1;
+        }
+        .device-card:active {
+            transform: translateY(-2px) scale(0.985);
+            transition: var(--transition-fast);
+        }
+        .device-card .card-icon-ring {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            transition: var(--transition-smooth);
+        }
+        .device-card:hover .card-icon-ring {
+            background: rgba(108, 43, 217, 0.35);
+            box-shadow: 0 0 30px rgba(108, 43, 217, 0.3);
+        }
+        .device-card i {
+            font-size: 2.4rem;
+            color: var(--accent-light);
+            transition: var(--transition-smooth);
+        }
+        .device-card:hover i {
+            color: var(--accent-glow);
+            transform: scale(1.08);
+        }
+        .device-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.01em;
+        }
+        .device-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .device-card .badge-row {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 0.8rem;
+        }
+        .device-card .mini-badge {
+            font-size: 0.68rem;
+            background: rgba(108, 43, 217, 0.2);
+            padding: 0.25rem 0.7rem;
+            border-radius: 40px;
+            color: var(--accent-glow);
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            border: 1px solid rgba(108, 43, 217, 0.3);
+        }
+
+        .slide-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: var(--radius-lg);
+            border: 1.5px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition-smooth);
+        }
+        .slide-content {
+            padding: 2rem 2.2rem;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.4rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .step-badge {
+            background: var(--accent);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .step-dots {
+            display: flex;
+            gap: 9px;
+            align-items: center;
+        }
+        .dot {
+            width: 9px;
+            height: 9px;
+            background: #2a2f48;
+            border-radius: 50%;
+            transition: var(--transition-smooth);
+        }
+        .dot.active {
+            background: var(--accent-glow);
+            width: 24px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.02em;
+        }
+        .step-title i {
+            color: var(--accent-light);
+            font-size: 1.5rem;
+            width: 36px;
+            height: 36px;
+            background: var(--accent-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-animation-wrapper {
+            overflow: hidden;
+            min-height: 120px;
+        }
+        .step-dynamic {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide-next {
+            animation: slideFromRight 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+        .slide-prev {
+            animation: slideFromLeft 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+        @keyframes slideFromRight {
+            0% { opacity: 0; transform: translateX(35px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideFromLeft {
+            0% { opacity: 0; transform: translateX(-35px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .image-container {
+            background: #06080f;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 0.6rem 0 0.9rem;
+            aspect-ratio: 16 / 9;
+            max-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .video-container {
+            background: #06080f;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 0.6rem 0 0.9rem;
+        }
+        .video-container iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+            display: block;
+        }
+
+        .big-password {
+            background: #13182b;
+            border-radius: var(--radius-md);
+            padding: 0.8rem 1.2rem;
+            margin: 0.9rem 0;
+            text-align: center;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+        .big-password strong {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .big-password span {
+            font-size: 1.4rem;
+            font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            color: #ffd966;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+        .big-password code {
+            font-size: 1rem;
+            font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            color: #ffd966;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 0.15rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .instruction-list {
+            list-style: none;
+            margin: 0.9rem 0;
+        }
+        .instruction-list li {
+            display: flex;
+            gap: 11px;
+            margin-bottom: 0.55rem;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            align-items: flex-start;
+        }
+        .instruction-list li i {
+            color: var(--accent-light);
+            width: 20px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin: 1rem 0;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #1a1f35;
+            padding: 0.6rem 1.3rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.82rem;
+            border: 1px solid rgba(108, 43, 217, 0.4);
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            user-select: none;
+        }
+        .btn:hover {
+            background: #222840;
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 18px rgba(108, 43, 217, 0.2);
+        }
+        .btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+        .btn-primary {
+            background: var(--accent);
+            border: none;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+        .btn-primary:hover {
+            background: #7c3aed;
+            box-shadow: 0 6px 24px rgba(108, 43, 217, 0.4);
+            transform: translateY(-3px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover {
+            background: rgba(108, 43, 217, 0.1);
+            border-color: var(--border-hover);
+        }
+        .btn-complete {
+            background: #10b981 !important;
+            border: none !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.04em !important;
+            animation: pulseComplete 2s infinite;
+        }
+        @keyframes pulseComplete {
+            0%,
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+        }
+        .btn-complete:hover {
+            background: #059669 !important;
+            box-shadow: 0 6px 28px rgba(16, 185, 129, 0.45) !important;
+        }
+
+        .warning-note {
+            background: var(--warning-bg);
+            border-left: 3px solid var(--warning-border);
+            padding: 0.65rem 0.9rem;
+            margin: 0.9rem 0;
+            font-size: 0.78rem;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            color: #fcd34d;
+            line-height: 1.5;
+        }
+        .warning-note i {
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .terms-box {
+            background: #0e1220;
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            margin: 0.9rem 0;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+        }
+        .terms-box p {
+            margin-bottom: 0.4rem;
+        }
+        .terms-box strong {
+            color: #f87171;
+        }
+        .agree-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .agree-buttons .btn {
+            min-width: 150px;
+            justify-content: center;
+            padding: 0.7rem 1.6rem;
+            font-size: 0.85rem;
+        }
+
+        .right-click-demo {
+            background: #0b0f1a;
+            border-radius: var(--radius-md);
+            padding: 1rem 1.2rem;
+            text-align: center;
+            border: 1.5px dashed var(--border);
+            margin: 0.9rem 0;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition-fast);
+            user-select: none;
+            font-weight: 500;
+        }
+        .right-click-demo:hover {
+            border-color: var(--border-hover);
+            background: #0f1424;
+        }
+        .right-click-demo i {
+            margin-right: 6px;
+            color: var(--accent-light);
+        }
+        .right-click-menu {
+            background: #1a1f35;
+            border-radius: 0.55rem;
+            width: 170px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 75%;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border);
+            display: none;
+            z-index: 20;
+            overflow: hidden;
+            animation: fadeInDown 0.2s ease-out;
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        .right-click-menu div {
+            padding: 0.5rem 1rem;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: background 0.12s;
+            color: #dde;
+        }
+        .right-click-menu div:hover {
+            background: #252b44;
+        }
+        .extract-here {
+            background: var(--accent) !important;
+            color: #fff !important;
+            font-weight: 600 !important;
+        }
+        .extract-here:hover {
+            background: #7c3aed !important;
+        }
+
+        .runtimes-card {
+            background: #0a0e18;
+            border-radius: var(--radius-md);
+            padding: 1rem 1.2rem;
+            text-align: center;
+            margin: 0.6rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .runtimes-card i {
+            font-size: 2rem;
+            color: var(--accent-light);
+        }
+        .runtimes-card .info-text {
+            text-align: left;
+            line-height: 1.5;
+        }
+        .runtimes-card .info-text strong {
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+        .runtimes-card .info-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .runtimes-card .btn {
+            flex-shrink: 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.8rem;
+            gap: 1rem;
+        }
+        .nav-btn {
+            background: #1a1f35;
+            border: 1.5px solid #353c58;
+            padding: 0.6rem 1.6rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: #fff;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            letter-spacing: 0.02em;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: #252c45;
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+        }
+        .nav-btn:active:not(:disabled) {
+            transform: translateY(0) scale(0.97);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            filter: grayscale(30%);
+        }
+
+        .switch-device {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 0.78rem;
+        }
+        .switch-link {
+            color: var(--accent-glow);
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+        .switch-link:hover {
+            color: #c4b5fd;
+            text-decoration-thickness: 2px;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.68rem;
+            margin-top: 1.4rem;
+            color: var(--text-muted);
+            letter-spacing: 0.03em;
+        }
+
+        .skip-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .skip-modal {
+            background: #1a1f35;
+            border-radius: var(--radius-lg);
+            padding: 1.6rem;
+            max-width: 340px;
+            width: 90%;
+            text-align: center;
+            border: 1.5px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+        .skip-modal p {
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .skip-modal .modal-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+        .skip-modal button {
+            padding: 0.55rem 1.4rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            border: none;
+            color: #fff;
+            transition: var(--transition-fast);
+            letter-spacing: 0.02em;
+        }
+        .skip-modal .btn-skip-no {
+            background: #2d3350;
+        }
+        .skip-modal .btn-skip-no:hover {
+            background: #3b4264;
+        }
+        .skip-modal .btn-skip-yes {
+            background: var(--accent);
+        }
+        .skip-modal .btn-skip-yes:hover {
+            background: #7c3aed;
+            box-shadow: 0 4px 20px rgba(108, 43, 217, 0.4);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+        .desc-text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0.6rem;
+        }
+
+        @media (max-width: 820px) {
+            .wrapper { padding: 1.5rem 1rem; }
+            .slide-content { padding: 1.4rem 1.3rem; }
+            .step-title { font-size: 1.3rem; }
+            .device-card { width: 240px; padding: 1.6rem 1.4rem; }
+            .device-card .card-icon-ring { width: 60px; height: 60px; }
+            .device-card i { font-size: 2rem; }
+            .device-selector h1 { font-size: 1.6rem; }
+            .image-container { max-height: 300px; }
+        }
+        @media (max-width: 550px) {
+            .device-cards { gap: 1rem; }
+            .device-card { width: 100%; max-width: 300px; padding: 1.4rem 1rem; }
+            .slide-content { padding: 1.1rem; }
+            .step-title { font-size: 1.15rem; gap: 8px; }
+            .step-title i { width: 30px; height: 30px; font-size: 1.1rem; }
+            .nav-btn { padding: 0.5rem 1rem; font-size: 0.75rem; }
+            .btn { padding: 0.5rem 1rem; font-size: 0.75rem; }
+            .image-container { max-height: 220px; }
+            .runtimes-card { flex-direction: column; text-align: center; }
+            .runtimes-card .info-text { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── HEADER WITH LOGO ─── -->
+    <header class="site-header">
+        <img
+        class="logo"
+        src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/goribercrackslogo.png"
+        alt="Goriber Cracks Logo"
+        />
+    </header>
+
+    <div class="wrapper">
+        <!-- Device Selection -->
+        <div id="deviceSelection" class="device-selector">
+            <h1>Select Your Device</h1>
+            <p class="subtitle">Choose your platform to view the tailored guide</p>
+            <div class="device-cards">
+                <div class="device-card" id="androidCard">
+                    <div class="card-icon-ring"><i class="fab fa-android"></i></div>
+                    <h3>Android</h3>
+                    <p>APK installation guide</p>
+                    <div class="badge-row"><span class="mini-badge">.apk</span><span class="mini-badge">mobile</span></div>
+                </div>
+                <div class="device-card" id="windowsCard">
+                    <div class="card-icon-ring"><i class="fab fa-windows"></i></div>
+                    <h3>Windows PC</h3>
+                    <p>Defender · Runtimes · ZIP</p>
+                    <div class="badge-row"><span class="mini-badge">.zip</span><span class="mini-badge">desktop</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Windows Tutorial -->
+        <div id="windowsTutorial" class="hidden">
+            <div class="slide-card">
+                <div class="slide-content">
+                    <div class="step-indicator">
+                        <span class="step-badge" id="stepCounter">Step 1 / 7</span>
+                        <div class="step-dots" id="stepDots"></div>
+                    </div>
+                    <div class="step-animation-wrapper">
+                        <div id="stepDynamicContent"></div>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="prevBtn" disabled>
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="nav-btn" id="nextBtn" disabled>
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="switch-device">
+                <span class="switch-link" id="switchDeviceBtn">
+                    <i class="fas fa-undo-alt"></i> Switch device
+                </span>
+            </div>
+            <footer>100% tested games • Direct play • No complex installers</footer>
+        </div>
+    </div>
+
+    <script>
+        const steps = [{
+            title: "What is Goriber Cracks?",
+            icon: "fas fa-shield-haltered",
+            content: `
+              <div class="image-container">
+                <img src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/tutorial.jpg" alt="Virus check testing result" />
+              </div>
+              <ul class="instruction-list">
+                <li><i class="fas fa-globe"></i> We <strong>collect from trusted sources</strong> across the web.</li>
+                <li><i class="fas fa-bolt"></i> <strong>Plug‑and‑play:</strong> extract the ZIP and launch.</li>
+                <li><i class="fas fa-vial"></i> Every game is <strong>virus-tested</strong> before upload.</li>
+              </ul>
+              <div class="warning-note">
+                <i class="fas fa-star"></i> No ISO mounting, no complex installers — just download, extract &amp; play.
+              </div>
+            `
+        }, {
+            title: "Terms & Conditions",
+            icon: "fas fa-file-contract",
+            content: `
+              <div class="terms-box">
+                <p><strong>1.</strong> We do <strong>NOT</strong> create cracks ourselves.</p>
+                <p><strong>2.</strong> We gather repacks from other sites and simplify the process.</p>
+                <p><strong>3.</strong> We do our best to ensure every file is virus-free.</p>
+                <p><strong>4.</strong> <strong style="color:#f87171;">IF any problem occurs — WE ARE NOT RESPONSIBLE.</strong></p>
+                <p style="text-align:center;margin-top:0.7rem;font-weight:600;">Do you agree to these terms?</p>
+              </div>
+              <div class="agree-buttons">
+                <button id="disagreeTermsBtn" class="btn btn-outline">No, go to main site</button>
+                <button id="agreeTermsBtn" class="btn btn-primary">Yes, I agree</button>
+              </div>
+            `,
+            isTerms: true
+        }, {
+            title: "Login Password",
+            icon: "fas fa-key",
+            content: `
+              <div class="big-password">
+                <strong>Current password:</strong>
+                <span>5678</span>
+              </div>
+              <ul class="instruction-list">
+                <li><i class="fab fa-discord"></i> Join our Discord <strong>#passwords</strong> channel for real‑time updates.</li>
+                <li><i class="fas fa-lock"></i> Use <strong>5678</strong> to log in to the game launcher.</li>
+              </ul>
+              <div class="button-group">
+                <a href="https://discord.gg/eqTFkDPyXE" target="_blank" class="btn btn-primary">
+                  <i class="fab fa-discord"></i> Join Discord
+                </a>
+              </div>
+              <div class="warning-note">
+                <i class="fas fa-sync-alt"></i> Password changes often — always check Discord for the latest.
+              </div>
+            `
+        }, {
+            title: "Turn Off Windows Defender",
+            icon: "fas fa-shield-virus",
+            content: `
+              <div class="video-container">
+                <iframe title="vimeo-player" src="https://player.vimeo.com/video/1128665190?h=18d8d68987" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+              </div>
+              <ul class="instruction-list">
+                <li><i class="fas fa-cog"></i> Open <strong>Settings → Windows Security → Virus &amp; threat protection</strong>.</li>
+                <li><i class="fas fa-toggle-off"></i> Turn <strong>OFF</strong> Real‑time protection.</li>
+              </ul>
+              <div class="warning-note">
+                <i class="fas fa-exclamation-triangle"></i> If you don't disable Defender, it will quarantine the crack files. These are <strong>false positives</strong> — not actual viruses.
+              </div>
+              <div class="button-group">
+                <button id="defenderGuide" class="btn btn-outline">
+                  <i class="fas fa-info-circle"></i> Manual Guide
+                </button>
+              </div>
+            `
+        }, {
+            title: "ZIP Extractor",
+            icon: "fas fa-file-archive",
+            content: `
+              <div class="big-password" style="background:#1f1638;">
+                <strong>ZIP password:</strong>
+                <span>goribercracks</span>
+              </div>
+              <ul class="instruction-list">
+                <li><i class="fas fa-download"></i> Install <strong>WinRAR</strong> or <strong>7-Zip</strong> (both are free).</li>
+                <li><i class="fas fa-key"></i> Use password: <code>goribercracks</code> when extracting.</li>
+              </ul>
+              <div class="button-group">
+                <a href="https://www.win-rar.com/start.html?&L=0" target="_blank" id="winrarLink" class="btn btn-primary">
+                  <i class="fas fa-download"></i> WinRAR
+                </a>
+                <a href="https://www.7-zip.org/" target="_blank" id="zip7Link" class="btn btn-primary">
+                  <i class="fas fa-download"></i> 7-Zip
+                </a>
+                <button id="zipSkip" class="btn btn-outline">Already installed? Skip</button>
+              </div>
+            `,
+            requireDownload: true,
+            downloadFlag: false
+        }, {
+            title: "Windows C++ Runtimes (AIO)",
+            icon: "fas fa-cubes",
+            content: `
+              <div class="runtimes-card">
+                <i class="fas fa-cubes"></i>
+                <div class="info-text">
+                  <strong>AIO Runtimes v2.5.0</strong>
+                  <span>C++ 2005–2022 · DirectX · .NET</span>
+                </div>
+                <a href="https://allinoneruntimes.org/files/aio-runtimes_v2.5.0.exe" id="aioLink" class="btn btn-primary" download>
+                  <i class="fas fa-download"></i> Download AIO
+                </a>
+                <button id="aioSkip" class="btn btn-outline">Skip</button>
+              </div>
+              <ul class="instruction-list">
+                <li><i class="fas fa-play-circle"></i> Run the installer <strong>as Administrator</strong> — wait ~10 minutes.</li>
+                <li><i class="fas fa-check-circle"></i> This installs ALL required C++ libraries in one go.</li>
+              </ul>
+            `,
+            requireDownload: true,
+            downloadFlag: false
+        }, {
+            title: "How to Download Games?",
+            icon: "fas fa-download",
+            content: `
+              <div class="desc-text">
+                Games are delivered as <strong>.zip</strong> files. Right‑click the file → <strong>Extract Here</strong> → enter the password.
+              </div>
+              <div class="right-click-demo" id="rcDemo">
+                <i class="fas fa-mouse-pointer"></i> <strong>Right-click</strong> on the .zip file
+                <div class="right-click-menu" id="rcMenu">
+                  <div>Open</div>
+                  <div class="extract-here">Extract Here</div>
+                  <div>Properties</div>
+                </div>
+              </div>
+              <ul class="instruction-list">
+                <li><i class="fas fa-mouse"></i> <strong>Right-click</strong> the .zip → <strong>Extract Here</strong></li>
+                <li><i class="fas fa-key"></i> Password: <code>goribercracks</code></li>
+                <li><i class="fas fa-play"></i> Launch the game from the extracted folder</li>
+              </ul>
+            `
+        }];
+
+        let cur = 0,
+            anim = false,
+            zipDone = false,
+            aioDone = false;
+        const contentDiv = document.getElementById("stepDynamicContent"),
+            stepSpan = document.getElementById("stepCounter"),
+            dotsDiv = document.getElementById("stepDots");
+        const prev = document.getElementById("prevBtn"),
+            next = document.getElementById("nextBtn"),
+            navDiv = document.querySelector(".nav-buttons");
+
+        function updateDots() {
+            dotsDiv.innerHTML = steps.map((_, i) =>
+                `<div class="dot ${i === cur ? 'active' : ''}"></div>`
+            ).join('');
+        }
+
+        function enableNext() {
+            const s = steps[cur];
+            if (s.requireDownload) {
+                if (cur === 4) next.disabled = !zipDone;
+                else if (cur === 5) next.disabled = !aioDone;
+                else next.disabled = false;
+            } else {
+                next.disabled = false;
+            }
+            if (cur === steps.length - 1) {
+                next.innerHTML = '<i class="fas fa-check-circle"></i> Complete';
+                next.classList.add('btn-complete');
+            } else {
+                next.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+                next.classList.remove('btn-complete');
+            }
+        }
+
+        function showSkipConfirm(cb) {
+            const ov = document.createElement('div');
+            ov.className = 'skip-overlay';
+            ov.innerHTML = `
+            <div class="skip-modal">
+              <p><i class="fas fa-question-circle" style="font-size:1.8rem;color:#f59e0b;display:block;margin-bottom:0.6rem;"></i>
+              Are you sure you want to skip?<br><small style="color:#9ca3af;">Only skip if you already have this installed.</small></p>
+              <div class="modal-buttons">
+                <button class="btn-skip-no">No, go back</button>
+                <button class="btn-skip-yes">Yes, skip it</button>
+              </div>
+            </div>`;
+            document.body.appendChild(ov);
+            ov.querySelector('.btn-skip-no').onclick = () => ov.remove();
+            ov.querySelector('.btn-skip-yes').onclick = () => { ov.remove();
+                cb(); };
+            ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
+        }
+
+        function render(a) {
+            const s = steps[cur];
+            let h = `<div class="step-title"><i class="${s.icon}"></i>${s.title}</div>${s.content}`;
+            if (a) contentDiv.classList.add(a);
+            contentDiv.innerHTML = h;
+            if (a) setTimeout(() => contentDiv.classList.remove(a), 320);
+            stepSpan.innerText = `Step ${cur + 1} / ${steps.length}`;
+            updateDots();
+            prev.disabled = cur === 0;
+
+            if (s.isTerms) {
+                navDiv.style.display = 'none';
+            } else {
+                navDiv.style.display = 'flex';
+                enableNext();
+            }
+
+            if (s.isTerms) {
+                document.getElementById('disagreeTermsBtn').onclick = () =>
+                    window.location.href = 'https://goribercracks.github.io/';
+                document.getElementById('agreeTermsBtn').onclick = () => {
+                    if (!anim && cur + 1 < steps.length) {
+                        anim = true;
+                        cur++;
+                        render('slide-next');
+                        setTimeout(() => anim = false, 340);
+                    }
+                };
+            }
+
+            if (cur === 3) {
+                document.getElementById('defenderGuide')?.addEventListener('click', () =>
+                    alert(
+                        "Open Windows Security manually:\n\nStart → Settings → Windows Security → Virus & threat protection → Manage settings → Disable Real-time protection."
+                        )
+                );
+            }
+
+            if (cur === 4) {
+                document.getElementById('winrarLink')?.addEventListener('click', () => {
+                    zipDone = true;
+                    enableNext();
+                    window.open('https://www.win-rar.com/start.html?&L=0', '_blank');
+                });
+                document.getElementById('zip7Link')?.addEventListener('click', () => {
+                    zipDone = true;
+                    enableNext();
+                    window.open('https://www.7-zip.org/', '_blank');
+                });
+                document.getElementById('zipSkip')?.addEventListener('click', () =>
+                    showSkipConfirm(() => { zipDone = true;
+                        enableNext(); })
+                );
+            }
+
+            if (cur === 5) {
+                document.getElementById('aioLink')?.addEventListener('click', () => {
+                    aioDone = true;
+                    enableNext();
+                    const a = document.createElement('a');
+                    a.href = 'https://allinoneruntimes.org/files/aio-runtimes_v2.5.0.exe';
+                    a.download = '';
+                    a.click();
+                });
+                document.getElementById('aioSkip')?.addEventListener('click', () =>
+                    showSkipConfirm(() => { aioDone = true;
+                        enableNext(); })
+                );
+            }
+
+            if (cur === 6) {
+                const d = document.getElementById('rcDemo'),
+                    m = document.getElementById('rcMenu');
+                if (d && m) {
+                    d.oncontextmenu = (e) => {
+                        e.preventDefault();
+                        m.style.display = 'block';
+                        setTimeout(() => m.style.display = 'none', 2200);
+                        return false;
+                    };
+                    d.onclick = () => {
+                        m.style.display = 'block';
+                        setTimeout(() => m.style.display = 'none', 2200);
+                    };
+                }
+            }
+        }
+
+        function change(d) {
+            if (anim) return;
+            if (steps[cur]?.isTerms) return;
+            if (d === 1 && cur === steps.length - 1) {
+                window.location.href = 'https://goribercracks.github.io/';
+                return;
+            }
+            const n = cur + d;
+            if (n < 0 || n >= steps.length) return;
+            anim = true;
+            const a = d === 1 ? 'slide-next' : 'slide-prev';
+            cur = n;
+            render(a);
+            setTimeout(() => anim = false, 340);
+        }
+
+        prev.onclick = () => change(-1);
+        next.onclick = () => change(1);
+
+        document.getElementById('androidCard').onclick = () =>
+            window.open('https://goribercracks.github.io/android-tutorial.html', '_blank');
+        document.getElementById('windowsCard').onclick = () => {
+            cur = 0;
+            zipDone = false;
+            aioDone = false;
+            render(null);
+            document.getElementById('deviceSelection').classList.add('hidden');
+            document.getElementById('windowsTutorial').classList.remove('hidden');
+        };
+        document.getElementById('switchDeviceBtn').onclick = () => {
+            document.getElementById('deviceSelection').classList.remove('hidden');
+            document.getElementById('windowsTutorial').classList.add('hidden');
+            anim = false;
+        };
+
+        render(null);
+    </script>
+
+</body>
+</html>
