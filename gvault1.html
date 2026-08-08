@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Goriber Vault</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
         /* ─── RESET ─── */
@@ -277,23 +278,81 @@
         #page-content {
             display: none;
             width: 100%;
-            max-width: 900px;
-            text-align: center;
+            max-width: 1200px;
             padding: 2rem 1rem;
         }
 
-        #page-content h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #5e17eb;
-            margin-bottom: 1rem;
-        }
-
-        #page-content p {
-            color: #999;
+        #page-content .vault-header {
+            text-align: center;
             margin-bottom: 2rem;
         }
 
+        #page-content .vault-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #5e17eb;
+            margin-bottom: 0.3rem;
+        }
+
+        #page-content .vault-header h1 i {
+            color: #5e17eb;
+            margin-right: 0.3rem;
+        }
+
+        #page-content .vault-header p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* ─── GAME GRID ─── */
+        .vault-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .vault-game-card {
+            background: #171717;
+            border-radius: 16px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .vault-game-card:hover {
+            transform: translateY(-4px);
+            border-color: #5e17eb;
+            box-shadow: 0 8px 30px rgba(94, 23, 235, 0.15);
+        }
+
+        .vault-game-card .game-icon {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            border-radius: 12px;
+            object-fit: cover;
+            margin: 0 auto 0.6rem;
+            background: #2a2a2a;
+            display: block;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .vault-game-card .game-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            line-height: 1.2;
+        }
+
+        .vault-game-card .game-desc {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 0;
+        }
+
+        /* ─── BACK LINK ─── */
         .back-link {
             display: inline-block;
             margin-top: 1.5rem;
@@ -307,43 +366,293 @@
             color: #7a3cf0;
         }
 
+        /* ─── GAME DETAIL MODAL ─── */
+        .game-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: modalFade 0.3s ease;
+        }
+
+        .game-modal.active {
+            display: flex;
+        }
+
+        @keyframes modalFade {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .game-modal-content {
+            background: #1a1a1a;
+            border-radius: 24px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .game-modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .game-modal-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .game-modal-content::-webkit-scrollbar-thumb {
+            background: #5e17eb;
+            border-radius: 4px;
+        }
+
+        .game-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
+            font-family: var(--font);
+        }
+
+        .game-modal-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .game-modal-cover {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .game-modal-cover .blur-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px) brightness(0.4);
+            transform: scale(1.1);
+            z-index: 0;
+        }
+
+        .game-modal-cover .cover-img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .game-modal-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .game-modal-body .poster-row {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-modal-body .poster-row .poster {
+            width: 160px;
+            height: 213px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 3px solid #1a1a1a;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            flex-shrink: 0;
+            background: #2a2a2a;
+        }
+
+        .game-modal-body .poster-row .info {
+            flex: 1;
+            padding-top: 0.5rem;
+        }
+
+        .game-modal-body .poster-row .info h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .game-modal-body .poster-row .info .sub {
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-modal-body .poster-row .info .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .game-modal-body .poster-row .info .tags span {
+            font-size: 0.65rem;
+            background: rgba(94, 23, 235, 0.2);
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(94, 23, 235, 0.3);
+            color: #c084fc;
+        }
+
+        .game-modal-body .description {
+            margin-top: 1rem;
+            color: #b0b0b0;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .game-modal-body .download-section {
+            margin-top: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .game-modal-body .download-section .dl-label {
+            font-size: 0.7rem;
+            color: #888;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .game-modal-body .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            background: #5e17eb;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .game-modal-body .download-btn:hover {
+            background: #7a3cf0;
+            box-shadow: 0 0 30px rgba(94, 23, 235, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .game-modal-body .download-btn i {
+            font-size: 1rem;
+        }
+
+        .game-modal-body .download-btn-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .game-modal-body .close-modal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            background: transparent;
+            color: #888;
+            border: 1px solid #333;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+
+        .game-modal-body .close-modal-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
         /* ─── RESPONSIVE ─── */
-        @media (max-width: 420px) {
-            .card-body {
-                padding: 1.2rem 1rem 1.5rem;
+        @media (max-width: 640px) {
+            .vault-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
             }
-            .card-title {
-                font-size: 0.65rem;
-                letter-spacing: 0.08em;
+            .game-modal-body {
+                padding: 1rem;
             }
-            .form-group input {
-                font-size: 0.9rem;
+            .game-modal-body .poster-row {
+                flex-direction: column;
+                align-items: center;
+                margin-top: -30px;
             }
-            .submit-btn {
-                font-size: 0.85rem;
-                padding: 0.7em;
+            .game-modal-body .poster-row .poster {
+                width: 140px;
+                height: 186px;
             }
-            #page-content h1 {
-                font-size: 1.8rem;
+            .game-modal-body .poster-row .info {
+                text-align: center;
+            }
+            .game-modal-body .poster-row .info .tags {
+                justify-content: center;
+            }
+            .game-modal-cover {
+                height: 180px;
+            }
+            .game-modal-body .download-btn-wrap {
+                justify-content: center;
+            }
+            .game-modal-body .download-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .glitch-card {
-                animation: none !important;
+        @media (max-width: 420px) {
+            .vault-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.8rem;
             }
-            .form-group input:focus+.form-label::before,
-            .form-group input:focus+.form-label::after,
-            .submit-btn:hover::before,
-            .submit-btn:focus::before,
-            .submit-btn:hover::after,
-            .submit-btn:focus::after {
-                animation: none !important;
-                opacity: 0 !important;
-            }
-            .submit-btn:hover .btn-text {
-                opacity: 1 !important;
-            }
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5e17eb;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7a3cf0;
         }
     </style>
 </head>
@@ -383,15 +692,47 @@
 
     <!-- ─── MAIN CONTENT ─── -->
     <div id="page-content">
-        <h1>🔓 Goriber Vault</h1>
-        <p>Exclusive games and content are stored here.</p>
 
-        <div style="background:#1a1a1a; border-radius:16px; padding:3rem 1.5rem; border:1px solid rgba(94,23,235,0.2);">
-            <p style="color:#555; font-size:1.2rem;">No games added yet.</p>
-            <p style="color:#444; font-size:0.9rem;">Check back soon for exclusive content.</p>
+        <div class="vault-header">
+            <h1><i class="fas fa-lock-open"></i> Goriber Vault</h1>
+            <p>Exclusive games and content stored here.</p>
+        </div>
+
+        <div class="vault-grid" id="vaultGrid">
+            <!-- Games rendered by JavaScript -->
         </div>
 
         <a href="https://goribercracks.github.io/wgames.html" class="back-link">← Back to Games</a>
+
+    </div>
+
+    <!-- ─── GAME DETAIL MODAL ─── -->
+    <div class="game-modal" id="gameModal">
+        <div class="game-modal-content">
+            <button class="game-modal-close" id="modalCloseBtn">✕</button>
+            <div class="game-modal-cover" id="modalCover">
+                <div class="blur-bg" id="modalBlurBg"></div>
+                <img class="cover-img" id="modalCoverImg" src="" alt="Cover" />
+            </div>
+            <div class="game-modal-body">
+                <div class="poster-row">
+                    <img class="poster" id="modalPoster" src="" alt="Poster" />
+                    <div class="info">
+                        <h2 id="modalTitle">Game Title</h2>
+                        <div class="sub" id="modalSub">Publisher / Year</div>
+                        <div class="tags" id="modalTags"></div>
+                    </div>
+                </div>
+                <div class="description" id="modalDesc">Description goes here.</div>
+                <div class="download-section" id="modalDownloadSection">
+                    <div class="dl-label">Download</div>
+                    <div class="download-btn-wrap" id="modalDownloadWrap"></div>
+                </div>
+                <div style="margin-top: 1rem; display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                    <button class="close-modal-btn" id="modalCloseBtn2">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ─── SCRIPT ─── -->
@@ -399,7 +740,7 @@
         (function() {
             'use strict';
 
-            // ─── VAULT PASSWORD (case‑insensitive) ───
+            // ─── VAULT PASSWORD ───
             const ALLOWED_PASSWORDS = ['nigga', 'Nigga'];
 
             const overlay = document.getElementById('overlay');
@@ -466,6 +807,118 @@
             }, 400);
 
         })();
+    </script>
+
+    <!-- ─── GAME DATA & LOGIC ─── -->
+    <script>
+        // ─── GAME DATA ───
+        const vaultGames = [{
+            id: 'textorcist',
+            name: 'The Textorcist: Amen Edition',
+            publisher: 'Morbidware / Headup Games',
+            year: '2019',
+            tags: ['Action', 'Typing', 'Bullet Hell', 'Horror'],
+            poster: 'https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/textorcist.jpg',
+            cover: 'https://images.gog-statics.com/6af66950dba50ba394720f47570876a2218a6551aa0675747160a4c24c34a493.jpg',
+            description: 'The "The Textorcist: Amen Edition" includes:\n\nThe Textorcist\nThe Textorcist: The Village DLC\nThe Textorcist Original Soundtrack by Gost\nThe Textorcist: The Village DLC Original Soundtrack by Carbon Killer',
+            downloadLinks: [
+                { label: 'Download The Textorcist: Amen Edition', url: 'https://drive.google.com/file/d/1qisSxSHy5-lJ_WFmVVa5SAfeljCTx2tb/view?usp=sharing' }
+            ]
+        }];
+
+        // ─── DOM refs ───
+        const grid = document.getElementById('vaultGrid');
+        const modal = document.getElementById('gameModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalCloseBtn2 = document.getElementById('modalCloseBtn2');
+        const modalBlurBg = document.getElementById('modalBlurBg');
+        const modalCoverImg = document.getElementById('modalCoverImg');
+        const modalPoster = document.getElementById('modalPoster');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSub = document.getElementById('modalSub');
+        const modalTags = document.getElementById('modalTags');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalDownloadWrap = document.getElementById('modalDownloadWrap');
+
+        // ─── Render game cards ───
+        function renderGames() {
+            grid.innerHTML = '';
+            vaultGames.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'vault-game-card';
+                card.dataset.id = game.id;
+                card.innerHTML = `
+                    <img src="${game.poster}" alt="${game.name}" class="game-icon" onerror="this.src='https://placehold.co/200x300/2a2a2a/5e17eb?text=${game.name.charAt(0)}'">
+                    <div class="game-name">${game.name}</div>
+                    <div class="game-desc">${game.publisher} · ${game.year}</div>
+                `;
+                card.addEventListener('click', function() {
+                    openModal(game.id);
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        // ─── Open modal ───
+        function openModal(gameId) {
+            const game = vaultGames.find(g => g.id === gameId);
+            if (!game) return;
+
+            // Cover with blur
+            modalBlurBg.style.backgroundImage = `url('${game.cover}')`;
+            modalCoverImg.src = game.cover;
+            modalCoverImg.alt = game.name;
+
+            // Poster
+            modalPoster.src = game.poster;
+            modalPoster.alt = game.name;
+
+            // Info
+            modalTitle.textContent = game.name;
+            modalSub.textContent = game.publisher + ' · ' + game.year;
+            modalTags.innerHTML = game.tags.map(t => `<span>${t}</span>`).join('');
+            modalDesc.textContent = game.description;
+
+            // Download buttons
+            modalDownloadWrap.innerHTML = '';
+            game.downloadLinks.forEach(link => {
+                const a = document.createElement('a');
+                a.className = 'download-btn';
+                a.href = link.url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.innerHTML = `<i class="fas fa-download"></i> ${link.label}`;
+                modalDownloadWrap.appendChild(a);
+            });
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ─── Close modal ───
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ─── Modal event listeners ───
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalCloseBtn2.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ─── Init ───
+        renderGames();
     </script>
 
 </body>
