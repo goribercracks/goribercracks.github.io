@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Goriber Cracks</title>
 
+    <!-- ─── SEO META TAGS ─── -->
+    <meta name="description" content="Goriber Cracks is a nostalgic gaming site and community where retro games, classic video games, and vintage game collections are preserved and made easy to play. Relive your childhood games at Goriber Cracks – the ultimate retro gaming hub." />
+    <meta name="keywords" content="Goriber Cracks, nostalgic gaming site, retro games hub, classic games platform, vintage game collection, old-school gaming, retro gaming for nostalgia, childhood games hub" />
+    <link rel="canonical" href="https://goribercracks.github.io/" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
@@ -24,6 +29,23 @@
             min-height: 100vh;
             background: #212121;
             scroll-behavior: smooth;
+        }
+
+        /* ─── SEO HIDDEN TEXT ─── */
+        .seo-hidden {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            color: #212121;
+            background: #212121;
+            font-size: 1px;
+            line-height: 1;
+            opacity: 0;
+            pointer-events: none;
+            user-select: none;
         }
 
         /* ─── HEADER WITH LOGO ─── */
@@ -78,7 +100,7 @@
             width: 100%;
         }
 
-        /* ─── ROTATING TEXT ─── */
+        /* ─── ROTATING TEXT (H1 for SEO) ─── */
         .rotating-wrapper {
             display: inline-flex;
             align-items: center;
@@ -86,8 +108,7 @@
             flex-wrap: nowrap;
             white-space: nowrap;
             font-family: 'Poppins', sans-serif;
-            /* FIXED FONT SIZE – no longer grows with screen width */
-            font-size: 2.5rem;
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
             font-weight: 700;
             line-height: 1.3;
             color: #ffffff;
@@ -97,13 +118,23 @@
             text-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
         }
 
-        .static-text {
+        .rotating-wrapper h1 {
+            display: inline;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0;
+            text-shadow: inherit;
+        }
+
+        .rotating-wrapper .static-text {
             display: inline;
             white-space: nowrap;
             color: #ffffff;
         }
 
-        .rotate-container {
+        .rotating-wrapper .rotate-container {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -114,15 +145,14 @@
             white-space: nowrap;
         }
 
-        .char-wrapper {
+        .rotating-wrapper .char-wrapper {
             display: inline-block;
             overflow: hidden;
             padding: 0 0.02em;
             white-space: nowrap;
         }
 
-        /* ─── PILL STYLES KEPT ─── */
-        .char-el {
+        .rotating-wrapper .char-el {
             display: inline-block;
             padding: 0.08em 0.18em;
             border-radius: 0.35em;
@@ -141,7 +171,7 @@
             box-shadow: 0 2px 20px rgba(94, 23, 235, 0.4);
         }
 
-        .char-el.active {
+        .rotating-wrapper .char-el.active {
             transform: translateY(0%);
             opacity: 1;
             background: #5e17eb;
@@ -150,12 +180,12 @@
             animation: shimmer 3s ease-in-out infinite alternate;
         }
 
-        .char-el.exit {
+        .rotating-wrapper .char-el.exit {
             transform: translateY(-120%);
             opacity: 0;
         }
 
-        .char-el.space-char {
+        .rotating-wrapper .char-el.space-char {
             background: transparent !important;
             color: transparent !important;
             min-width: 0.25em;
@@ -169,6 +199,23 @@
         @keyframes shimmer {
             0% { background-position: 0% 0%; }
             100% { background-position: 100% 100%; }
+        }
+
+        /* ─── HERO SUBTEXT ─── */
+        .hero-sub {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 0.8rem;
+            letter-spacing: 0.05em;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-sub strong {
+            color: #c084fc;
+            font-weight: 600;
         }
 
         /* ─── SCROLL INDICATOR ─── */
@@ -308,7 +355,16 @@
             line-height: 1.6;
         }
 
-        /* ─── RESPONSIVE – smaller fixed sizes for mobile ─── */
+        .auth-footer {
+            color: #555;
+            font-size: 0.7rem;
+            margin-top: 1rem;
+            text-align: center;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* ─── RESPONSIVE ─── */
         @media (max-width: 640px) {
             .site-header .logo {
                 max-height: 45px;
@@ -318,14 +374,21 @@
                 padding: 2rem 1rem;
             }
             .rotating-wrapper {
-                font-size: 1.8rem;   /* fixed smaller size for tablets */
+                font-size: clamp(1.6rem, 5vw, 2.8rem);
             }
-            .rotate-container {
+            .rotating-wrapper .char-el {
+                padding: 0.06em 0.12em;
+                border-radius: 0.25em;
+            }
+            .rotating-wrapper .rotate-container {
                 height: 1.5em;
             }
             .auth-btn {
                 font-size: 1rem;
                 padding: 0.7rem 0.3rem;
+            }
+            .hero-sub {
+                font-size: 0.85rem;
             }
         }
 
@@ -335,7 +398,11 @@
                 padding: 1.5rem 0.8rem;
             }
             .rotating-wrapper {
-                font-size: 1.4rem;   /* fixed smallest size for phones */
+                font-size: clamp(1.2rem, 4.5vw, 2rem);
+            }
+            .rotating-wrapper .char-el {
+                padding: 0.04em 0.08em;
+                border-radius: 0.2em;
             }
             .auth-btn {
                 font-size: 0.9rem;
@@ -344,24 +411,27 @@
             .auth-sub {
                 font-size: 0.7rem;
             }
+            .hero-sub {
+                font-size: 0.75rem;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .char-el,
-            .char-el.active,
-            .char-el.exit {
+            .rotating-wrapper .char-el,
+            .rotating-wrapper .char-el.active,
+            .rotating-wrapper .char-el.exit {
                 transition: none !important;
                 animation: none !important;
             }
-            .char-el.active {
+            .rotating-wrapper .char-el.active {
                 transform: translateY(0) !important;
                 opacity: 1 !important;
             }
-            .char-el.exit {
+            .rotating-wrapper .char-el.exit {
                 transform: translateY(0) !important;
                 opacity: 0 !important;
             }
-            .char-el {
+            .rotating-wrapper .char-el {
                 background: #5e17eb !important;
             }
             .scroll-indicator {
@@ -925,11 +995,21 @@
     <!-- ─── HERO SECTION ─── -->
     <section class="hero">
         <div class="hero-content">
+
+            <!-- Rotating Text (H1 for SEO) -->
             <div class="rotating-wrapper">
-                <span class="static-text">We Keep Nostalgic&nbsp;</span>
-                <span class="rotate-container" id="rotateContainer" aria-label="Rotating text: GEMs or Games"></span>
+                <h1>
+                    <span class="static-text">We Keep Nostalgic&nbsp;</span>
+                    <span class="rotate-container" id="rotateContainer" aria-label="Rotating text: GEMs or Games"></span>
+                </h1>
             </div>
+
+            <p class="hero-sub">
+                <strong>Goriber Cracks</strong> – Relive your childhood games.
+            </p>
+
         </div>
+
         <div class="scroll-indicator">
             <span>Scroll</span>
             <div class="arrow"></div>
@@ -938,10 +1018,12 @@
 
     <!-- ─── LOGIN / SIGNUP BUTTONS ─── -->
     <section class="auth-section">
+
         <div class="auth-container">
             <a id="login-link" href="https://goribercracks.github.io/wgames.html" style="width:100%; text-decoration:none;">
                 <button class="auth-btn btn-login">Log in</button>
             </a>
+
             <a href="https://goribercracks.github.io/sign-up.html" style="width:100%; text-decoration:none;">
                 <button class="auth-btn btn-signup">
                     <span class="slide-bg"></span>
@@ -949,11 +1031,29 @@
                 </button>
             </a>
         </div>
+
         <p class="auth-sub">
             If you're new just sign-up no email needed.<br />
             If you forgot the password still just sign up again.
         </p>
+
     </section>
+
+    <!-- ─── HIDDEN SEO TEXT (completely invisible) ─── -->
+    <div class="seo-hidden" aria-hidden="true">
+        <h2>Goriber Cracks – Your gateway to nostalgic gaming</h2>
+        <p>
+            Goriber Cracks is a nostalgic gaming site and community where we collect and preserve
+            retro games, classic video games, and vintage game collections. Relive your childhood
+            memories with our carefully curated library of old-school gaming titles.
+        </p>
+        <p>
+            Goriber Cracks offers a wide collection of retro games, classic video games, and vintage
+            gaming titles. Our nostalgic gaming platform is dedicated to preserving old-school gaming
+            experiences for gamers of all ages. Join the Goriber Cracks community today and rediscover
+            your favorite childhood games.
+        </p>
+    </div>
 
     <!-- ─── ROTATING TEXT SCRIPT ─── -->
     <script>
