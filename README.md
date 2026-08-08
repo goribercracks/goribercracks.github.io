@@ -1,3 +1,3 @@
 # GoriberCracks
 
-Website: https://goribercracks.weebly.com/
+Website: https://goribercracks.github.io/
