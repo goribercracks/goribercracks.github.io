@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goriber Cracks - Browser Games</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #222222;
+            font-family: 'Lato', sans-serif;
+            min-height: 100vh;
+            padding: 2rem 1.5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ─── PASSWORD OVERLAY ─── */
+        #overlay {
+            position: fixed;
+            inset: 0;
+            background: #222222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            transition: opacity 0.5s ease;
+            font-family: 'Lato', sans-serif;
+        }
+
+        #overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay-box {
+            text-align: center;
+            max-width: 340px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .overlay-box h2 {
+            font-weight: 600;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .overlay-box input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #333;
+            color: #fff;
+            font-family: 'Lato', sans-serif;
+            outline: none;
+            margin-bottom: 12px;
+        }
+
+        .overlay-box input:focus {
+            border-color: #5e17eb;
+        }
+
+        .overlay-box .btn {
+            padding: 12px 28px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #5e17eb;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Lato', sans-serif;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .overlay-box .btn:hover {
+            background: #6f2ff0;
+        }
+
+        .overlay-box .error {
+            color: #f55;
+            display: none;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .loading-view {
+            display: none;
+        }
+
+        .loading-view .loader-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .loading-view .loader-wrap .label {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #ddd;
+        }
+
+        .loading-view .loader-wrap .label strong {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ─── MAIN CONTENT ─── */
+        #page-content {
+            display: none;
+            width: 100%;
+            max-width: 820px;
+        }
+
+        /* ─── HEADER ─── */
+        .games-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            width: 100%;
+        }
+
+        .games-header h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 0.03em;
+            color: #ffffff;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.6rem;
+        }
+
+        .games-header h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            border-radius: 4px;
+            background: #5e17eb;
+            box-shadow: 0 0 20px rgba(94, 23, 235, 0.5);
+        }
+
+        .games-header p {
+            color: #cccccc;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 0.8rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* ─── GAME CARD ─── */
+        .game-card {
+            width: 100%;
+            background: #2a2a2a;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(94, 23, 235, 0.08);
+            transition: box-shadow 0.4s ease, transform 0.4s ease;
+            min-height: 280px;
+            margin-bottom: 2.5rem;
+        }
+
+        .game-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .game-card:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(94, 23, 235, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .game-image {
+            flex: 0 0 auto;
+            width: 40%;
+            max-width: 300px;
+            background: #1a1a1a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .game-card:hover .game-image img {
+            transform: scale(1.04);
+        }
+
+        .game-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(to top, rgba(34, 34, 34, 0.5) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .game-info {
+            flex: 1 1 auto;
+            padding: 1.8rem 2rem 1.8rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .game-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.2rem;
+        }
+
+        .game-title .accent {
+            color: #ffffff;
+            font-weight: 900;
+        }
+
+        .game-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .game-meta span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #dddddd;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-meta .badge {
+            background: rgba(94, 23, 235, 0.2);
+            border-color: rgba(94, 23, 235, 0.2);
+            color: #dddddd;
+        }
+
+        .game-description {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #cccccc;
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.01em;
+            max-width: 90%;
+        }
+
+        .play-btn-wrap {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 0.8rem 2rem 0.8rem 1.8rem;
+            border-radius: 50px;
+            border: 2px solid #5e17eb;
+            background: #5e17eb;
+            color: #ffffff;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(94, 23, 235, 0.35);
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            user-select: none;
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        .play-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 50px;
+        }
+
+        .play-btn:hover {
+            background: #7a3cf0;
+            border-color: #7a3cf0;
+            box-shadow: 0 0 20px rgba(94, 23, 235, 0.6), 0 0 60px rgba(94, 23, 235, 0.25);
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .play-btn:active {
+            transform: scale(0.96) translateY(0);
+            box-shadow: 0 2px 12px rgba(94, 23, 235, 0.3);
+        }
+
+        .play-icon {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 12px solid #ffffff;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+        }
+
+        .play-btn:hover .play-icon {
+            transform: scale(1.1);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2.5rem;
+            color: #5e17eb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+            font-size: 1rem;
+        }
+
+        .back-link:hover {
+            color: #7a3cf0;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 700px) {
+            .game-card {
+                flex-direction: column;
+                margin-bottom: 2rem;
+            }
+
+            .game-image {
+                width: 100%;
+                max-width: 100%;
+                aspect-ratio: 16 / 9;
+                height: auto;
+            }
+
+            .game-image img {
+                object-fit: cover;
+                height: 100%;
+            }
+
+            .game-info {
+                padding: 1.5rem 1.5rem 2rem 1.5rem;
+            }
+
+            .game-title {
+                font-size: 1.4rem;
+            }
+
+            .game-description {
+                max-width: 100%;
+            }
+
+            .play-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.8rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 2rem 0.8rem 3rem;
+            }
+
+            .games-header h2 {
+                font-size: 1.7rem;
+            }
+
+            .game-title {
+                font-size: 1.2rem;
+            }
+
+            .play-btn {
+                font-size: 0.95rem;
+                padding: 0.7rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── PASSWORD OVERLAY ─── -->
+    <div id="overlay">
+        <div class="overlay-box">
+            <div id="prompt-view">
+                <h2>Enter Password</h2>
+                <input type="password" id="pw-input" placeholder="Password" autofocus />
+                <button class="btn" id="unlock-btn">Unlock</button>
+                <p class="error" id="error-msg">Wrong password. Try again.</p>
+            </div>
+            <div class="loading-view" id="loading-view">
+                <div class="loader-wrap">
+                    <div class="spinner"></div>
+                    <p class="label"><strong>Logging in…</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <div id="page-content">
+
+        <div class="games-header">
+            <h2>Browser Games</h2>
+            <p>Pick a game and start playing instantly</p>
+        </div>
+
+        <!-- GAME 1 – GTA Vice City Online (Quenq Web Player) -->
+        <div class="game-card">
+            <div class="game-image">
+                <img src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/gtavc.png" alt="GTA Vice City Online" loading="lazy" onerror="this.src='https://placehold.co/600x350/2a2a2a/5e17eb?text=GTA+VC'" />
+            </div>
+            <div class="game-info">
+                <div class="game-title">
+                    <span class="accent">GTA</span> Vice City Online
+                </div>
+                <div class="game-meta">
+                    <span class="badge">Action</span>
+                    <span>Open World</span>
+                    <span>Multiplayer</span>
+                </div>
+                <p class="game-description">
+                    Experience the neon-soaked 80s crime paradise with friends.
+                    Build your empire, race, and rule the streets of Vice City.
+                </p>
+                <div class="play-btn-wrap">
+                    <a href="https://quenq.com/apps/vc-web/#" target="_blank" rel="noopener noreferrer" class="play-btn" role="button">
+                        <span class="play-icon"></span>
+                        Play Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME 2 – Minecraft Online -->
+        <div class="game-card">
+            <div class="game-image">
+                <img src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/minecraft.png" alt="Minecraft Online" loading="lazy" onerror="this.src='https://placehold.co/600x350/2a2a2a/5e17eb?text=Minecraft'" />
+            </div>
+            <div class="game-info">
+                <div class="game-title">
+                    <span class="accent">Minecraft</span> Online
+                </div>
+                <div class="game-meta">
+                    <span class="badge">Adventure</span>
+                    <span>Survival</span>
+                    <span>Sandbox</span>
+                </div>
+                <p class="game-description">
+                    Dive into the limitless world of blocks. Craft, build,
+                    explore, and survive together in this iconic online
+                    sandbox adventure.
+                </p>
+                <div class="play-btn-wrap">
+                    <a href="https://goribercracks.github.io/minecraftb.html" class="play-btn" role="button">
+                        <span class="play-icon"></span>
+                        Play Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <a href="https://goribercracks.github.io/wgames.html" class="back-link">← Back to Games</a>
+
+    </div>
+
+    <!-- ─── PASSWORD SCRIPT ─── -->
+    <script>
+        (function() {
+            'use strict';
+
+            const PASSWORD = '5678';
+            const STORAGE_KEY = 'site_password';
+
+            const overlay = document.getElementById('overlay');
+            const pageContent = document.getElementById('page-content');
+            const promptView = document.getElementById('prompt-view');
+            const loadingView = document.getElementById('loading-view');
+            const pwInput = document.getElementById('pw-input');
+            const unlockBtn = document.getElementById('unlock-btn');
+            const errorMsg = document.getElementById('error-msg');
+
+            function showView(viewId) {
+                promptView.style.display = viewId === 'prompt' ? 'block' : 'none';
+                loadingView.style.display = viewId === 'loading' ? 'block' : 'none';
+            }
+
+            function showError(show) {
+                errorMsg.style.display = show ? 'block' : 'none';
+            }
+
+            function unlockPage() {
+                overlay.classList.add('hidden');
+                pageContent.style.display = 'block';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 600);
+            }
+
+            function savePassword(pw) {
+                try { localStorage.setItem(STORAGE_KEY, pw); } catch (_) {}
+            }
+
+            function loadSavedPassword() {
+                try { return localStorage.getItem(STORAGE_KEY); } catch (_) { return null; }
+            }
+
+            function attemptLogin(inputPw, fromSaved) {
+                const pw = (inputPw || '').trim();
+                showView('loading');
+
+                const delay = fromSaved ? 800 : 1400;
+                setTimeout(() => {
+                    if (pw === PASSWORD) {
+                        savePassword(pw);
+                        unlockPage();
+                    } else {
+                        if (fromSaved) {
+                            try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+                            showView('prompt');
+                            pwInput.value = '';
+                            pwInput.focus();
+                            showError(true);
+                        } else {
+                            showView('prompt');
+                            pwInput.value = '';
+                            pwInput.focus();
+                            showError(true);
+                        }
+                    }
+                }, delay);
+            }
+
+            function handleSubmit() {
+                const val = pwInput.value.trim();
+                if (!val) { pwInput.focus(); return; }
+                showError(false);
+                attemptLogin(val, false);
+            }
+
+            function init() {
+                const saved = loadSavedPassword();
+                if (saved) {
+                    showView('loading');
+                    attemptLogin(saved, true);
+                } else {
+                    showView('prompt');
+                    pwInput.focus();
+                    showError(false);
+                }
+            }
+
+            unlockBtn.addEventListener('click', handleSubmit);
+            pwInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { e.preventDefault();
+                    handleSubmit(); }
+            });
+
+            init();
+        })();
+    </script>
+
+</body>
+</html>
