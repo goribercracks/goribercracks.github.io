@@ -67,14 +67,8 @@
         }
 
         @keyframes cardFadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.95) translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .card-header {
@@ -113,15 +107,9 @@
             background: #333;
             margin-left: 6px;
         }
-        .card-dots span:nth-child(1) {
-            background: #ff5f57;
-        }
-        .card-dots span:nth-child(2) {
-            background: #ffbd2e;
-        }
-        .card-dots span:nth-child(3) {
-            background: #28c840;
-        }
+        .card-dots span:nth-child(1) { background: #ff5f57; }
+        .card-dots span:nth-child(2) { background: #ffbd2e; }
+        .card-dots span:nth-child(3) { background: #28c840; }
 
         .card-body {
             padding: 1.8rem 1.5rem 2rem;
@@ -192,30 +180,12 @@
         }
 
         @keyframes glitch-anim {
-            0% {
-                transform: translate(0);
-                clip-path: inset(0 0 0 0);
-            }
-            20% {
-                transform: translate(-5px, 3px);
-                clip-path: inset(50% 0 20% 0);
-            }
-            40% {
-                transform: translate(3px, -2px);
-                clip-path: inset(20% 0 60% 0);
-            }
-            60% {
-                transform: translate(-4px, 2px);
-                clip-path: inset(80% 0 5% 0);
-            }
-            80% {
-                transform: translate(4px, -3px);
-                clip-path: inset(30% 0 45% 0);
-            }
-            100% {
-                transform: translate(0);
-                clip-path: inset(0 0 0 0);
-            }
+            0% { transform: translate(0); clip-path: inset(0 0 0 0); }
+            20% { transform: translate(-5px, 3px); clip-path: inset(50% 0 20% 0); }
+            40% { transform: translate(3px, -2px); clip-path: inset(20% 0 60% 0); }
+            60% { transform: translate(-4px, 2px); clip-path: inset(80% 0 5% 0); }
+            80% { transform: translate(4px, -3px); clip-path: inset(30% 0 45% 0); }
+            100% { transform: translate(0); clip-path: inset(0 0 0 0); }
         }
 
         .submit-btn {
@@ -416,14 +386,8 @@
         }
 
         @keyframes modalFade {
-            0% {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .game-modal-content {
@@ -848,7 +812,7 @@
 
     <!-- ─── GAME DATA & LOGIC ─── -->
     <script>
-        // ─── GAME DATA ───
+        // ─── GAME DATA (now includes Blasphemous) ───
         const vaultGames = [{
             id: 'textorcist',
             name: 'The Textorcist: Amen Edition',
@@ -872,6 +836,18 @@
             description: 'Hotline Miami is a 2012 top-down shooter video game developed by Dennaton Games and published by Devolver Digital. The game is set in an alternate 1989 Miami, where players take control of an unnamed hitman known as "Jacket" who receives cryptic messages on his answering machine instructing him to eliminate the Russian mafia. The gameplay is fast-paced and brutal, with a distinctive neon-soaked 1980s aesthetic, a killer soundtrack, and a narrative that explores themes of violence, identity, and consequence.',
             downloadLinks: [
                 { label: 'Download Hotline Miami', url: 'https://drive.google.com/file/d/1bN2McdlkEMMCKJRJTPpXYIA_ONj2Jk_6/view?usp=sharing' }
+            ]
+        }, {
+            id: 'blasphemous',
+            name: 'Blasphemous',
+            publisher: 'Team17',
+            year: '2019',
+            tags: ['Action', 'Platformer', 'Dark Fantasy', 'Metroidvania'],
+            poster: 'https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/blasphemous.png',
+            cover: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Blasphemous_cover_art.jpg/800px-Blasphemous_cover_art.jpg',
+            description: 'A dark gothic action-platformer where you play as The Penitent One in a cursed land. Explore a nightmarish world, fight brutal enemies, and uncover the secrets of the Miracle.',
+            downloadLinks: [
+                { label: 'Download Blasphemous', url: 'https://drive.google.com/file/d/1A6xD3BL3B_HaoCQKpcZBEv8p9hRn8G_l/view' }
             ]
         }];
 
@@ -897,10 +873,10 @@
                 card.className = 'vault-game-card';
                 card.dataset.id = game.id;
                 card.innerHTML = `
-                        <img src="${game.poster}" alt="${game.name}" class="game-icon" onerror="this.src='https://placehold.co/200x300/2a2a2a/5e17eb?text=${game.name.charAt(0)}'">
-                        <div class="game-name">${game.name}</div>
-                        <div class="game-desc">${game.publisher} · ${game.year}</div>
-                    `;
+                    <img src="${game.poster}" alt="${game.name}" class="game-icon" onerror="this.src='https://placehold.co/200x300/2a2a2a/5e17eb?text=${game.name.charAt(0)}'">
+                    <div class="game-name">${game.name}</div>
+                    <div class="game-desc">${game.publisher} · ${game.year}</div>
+                `;
                 card.addEventListener('click', function() {
                     openModal(game.id);
                 });
