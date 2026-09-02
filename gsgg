@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Goriber Search GG</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #212121;
+            color: #fff;
+            min-height: 100vh;
+            height: auto !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            position: static !important;
+        }
+
+        /* ─── COMPACT HERO ─── */
+        .hero {
+            width: 100%;
+            min-height: 28vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem 1.5rem 0.8rem;
+            background-image: url('https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/homebg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .logo-wrap {
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-wrap img {
+            max-height: 55px;
+            width: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: clamp(2.2rem, 7vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 30%, #5e17eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(94, 23, 235, 0.2);
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        /* ─── SEARCH SECTION ─── */
+        .search-section {
+            background: #212121;
+            padding: 1.5rem 1.5rem 4rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1 0 auto;
+        }
+
+        .search-inner {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ─── ENGINE TABS ─── */
+        .engine-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.8rem;
+            width: 100%;
+        }
+
+        .engine-tab {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .engine-tab:hover {
+            border-color: rgba(94, 23, 235, 0.5);
+            color: #fff;
+            background: rgba(94, 23, 235, 0.1);
+        }
+
+        .engine-tab.active {
+            background: #5e17eb;
+            border-color: #5e17eb;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(94, 23, 235, 0.3);
+        }
+
+        /* ─── SEARCH BAR ─── */
+        .search-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .gsc-control-cse {
+            background-color: transparent !important;
+            max-width: 750px !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            border: none !important;
+            font-family: 'Poppins', sans-serif !important;
+            height: auto !important;
+            overflow: visible !important;
+        }
+
+        .gsc-control-cse .gsc-search-box {
+            width: 100% !important;
+        }
+
+        .gsc-control-cse .gsc-input-box,
+        .gsc-control-cse .gsc-input-box-hover,
+        .gsc-control-cse .gsc-input-box-focus {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            border: 2px solid rgba(255, 255, 255, 0.15) !important;
+            border-radius: 50px !important;
+            height: 58px !important;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+            flex: 1 !important;
+        }
+
+        .gsc-control-cse .gsc-input-box-focus {
+            border-color: #5e17eb !important;
+            box-shadow: 0 0 0 4px rgba(94, 23, 235, 0.25) !important;
+        }
+
+        .gsc-control-cse .gsc-input {
+            background-color: transparent !important;
+            color: #ffffff !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 1rem !important;
+            padding: 0 20px !important;
+            height: 100% !important;
+            line-height: 58px !important;
+        }
+
+        .gsc-control-cse .gsc-input::placeholder {
+            color: rgba(255, 255, 255, 0.4) !important;
+            opacity: 1;
+        }
+
+        .gsc-search-button .gsc-search-button-v2 {
+            background-color: #5e17eb !important;
+            border: none !important;
+            border-radius: 50px !important;
+            height: 58px !important;
+            width: 58px !important;
+            padding: 0 !important;
+            margin-left: 10px !important;
+            cursor: pointer;
+            transition: all 0.25s ease !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0 !important;
+        }
+
+        .gsc-search-button .gsc-search-button-v2:hover {
+            background-color: #7a3cf0 !important;
+            transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(94, 23, 235, 0.5);
+        }
+
+        .gsc-search-button .gsc-search-button-v2 svg {
+            width: 24px !important;
+            height: 24px !important;
+        }
+
+        .gsc-search-button .gsc-search-button-v2 svg path {
+            fill: #ffffff !important;
+        }
+
+        /* ─── FORCE INLINE RESULTS & SCROLL ─── */
+        .gsc-results-wrapper-overlay {
+            position: static !important;
+            display: block !important;
+            visibility: visible !important;
+            height: auto !important;
+            width: 100% !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            overflow: visible !important;
+            transform: none !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+            z-index: auto !important;
+            max-height: none !important;
+        }
+
+        body.gsc-overflow-hidden {
+            overflow: visible !important;
+            position: static !important;
+        }
+
+        .gsc-results-wrapper-visible {
+            position: static !important;
+            display: block !important;
+            overflow: visible !important;
+            height: auto !important;
+        }
+
+        .gsc-modal-background-image,
+        .gsc-modal-background-image-visible {
+            display: none !important;
+        }
+
+        .gsc-wrapper {
+            overflow: visible !important;
+            height: auto !important;
+            width: 100% !important;
+        }
+
+        /* ─── DISABLE AUTOCOMPLETE ─── */
+        .gsc-completion-container,
+        .gssb_c {
+            display: none !important;
+        }
+
+        /* ─── HIGHLIGHTS IN PURPLE ─── */
+        .gsc-highlight,
+        b.gsc-highlight,
+        span.gsc-highlight,
+        .gs-snippet .gsc-highlight,
+        .gs-title .gsc-highlight {
+            color: #5e17eb !important;
+            font-weight: 700 !important;
+            background: transparent !important;
+        }
+
+        /* ─── RESULTS ─── */
+        .gsc-results {
+            background-color: transparent !important;
+            padding: 20px 0 8px !important;
+            border: none !important;
+            height: auto !important;
+            overflow: visible !important;
+            max-height: none !important;
+        }
+
+        .gsc-webResult.gsc-result {
+            background: rgba(0, 0, 0, 0.4) !important;
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border-radius: 16px !important;
+            padding: 18px 22px !important;
+            margin-bottom: 14px !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .gsc-webResult.gsc-result:hover {
+            border-color: #5e17eb !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .gs-webResult .gs-title a {
+            color: #ffffff !important;
+            font-size: 1.15rem !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        .gs-webResult .gs-title a:hover {
+            text-decoration: underline !important;
+            opacity: 0.85;
+        }
+
+        .gs-webResult .gs-snippet {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-size: 0.9rem !important;
+            font-family: 'Poppins', sans-serif !important;
+            margin-top: 4px !important;
+            line-height: 1.6 !important;
+        }
+
+        .gs-webResult .gs-visibleUrl {
+            color: #6fcf97 !important;
+            font-size: 0.75rem !important;
+            font-family: 'Poppins', sans-serif !important;
+            opacity: 0.8;
+            margin-top: 6px !important;
+        }
+
+        .gs-webResult .gs-visibleUrl-short {
+            display: none !important;
+        }
+
+        /* ─── PAGINATION ─── */
+        .gsc-cursor {
+            display: flex !important;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 24px 0 10px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 8px;
+        }
+
+        .gsc-cursor-page {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 0.9rem !important;
+            color: rgba(255, 255, 255, 0.6) !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 40px !important;
+            padding: 6px 18px !important;
+            min-width: 40px;
+            text-align: center;
+            transition: all 0.2s ease !important;
+            cursor: pointer;
+        }
+
+        .gsc-cursor-page:hover {
+            border-color: #5e17eb !important;
+            color: #fff !important;
+            background: rgba(94, 23, 235, 0.15) !important;
+        }
+
+        .gsc-cursor-current-page {
+            background: #5e17eb !important;
+            color: #fff !important;
+            border-color: #5e17eb !important;
+            pointer-events: none;
+        }
+
+        /* ─── HIDE GOOGLE CRUFT ─── */
+        .gcsc-more-maybe-branding-root,
+        .gsc-orderby,
+        .gsc-adBlock,
+        .gcsc-find-more-on-google-root,
+        .gsc-thumbnail,
+        .gs-image,
+        .gsc-refinementsArea,
+        .gsc-tabsArea,
+        .gsc-above-wrapper-area {
+            display: none !important;
+        }
+
+        .gsc-result-info {
+            color: rgba(255, 255, 255, 0.4) !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 0.85rem !important;
+            padding: 4px 0 14px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+            margin-bottom: 14px !important;
+        }
+
+        .gssb_a {
+            background: rgba(0, 0, 0, 0.8) !important;
+            color: #fff !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .gssb_a:hover {
+            background: rgba(94, 23, 235, 0.2) !important;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 22vh;
+                padding: 1rem 1rem 0.5rem;
+            }
+            .logo-wrap img {
+                max-height: 42px;
+            }
+            .page-title {
+                font-size: clamp(1.8rem, 6vw, 2.8rem);
+            }
+            .search-section {
+                padding: 1.2rem 1rem 3rem;
+            }
+            .engine-tab {
+                font-size: 0.7rem;
+                padding: 6px 14px;
+            }
+            .gsc-control-cse .gsc-input-box {
+                height: 50px !important;
+            }
+            .gsc-control-cse .gsc-input {
+                font-size: 0.9rem !important;
+                line-height: 50px !important;
+            }
+            .gsc-search-button .gsc-search-button-v2 {
+                height: 50px !important;
+                width: 50px !important;
+            }
+            .gsc-search-button .gsc-search-button-v2 svg {
+                width: 20px !important;
+                height: 20px !important;
+            }
+            .gsc-webResult.gsc-result {
+                padding: 14px 16px !important;
+            }
+            .gsc-cursor-page {
+                font-size: 0.8rem !important;
+                padding: 5px 14px !important;
+                min-width: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 18vh;
+                padding: 0.8rem 0.8rem 0.3rem;
+            }
+            .logo-wrap img {
+                max-height: 35px;
+            }
+            .page-title {
+                font-size: clamp(1.4rem, 5vw, 2rem);
+            }
+            .search-section {
+                padding: 1rem 0.8rem 2rem;
+            }
+            .engine-tab {
+                font-size: 0.55rem;
+                padding: 5px 10px;
+            }
+            .gsc-control-cse .gsc-input-box {
+                height: 44px !important;
+            }
+            .gsc-control-cse .gsc-input {
+                font-size: 0.8rem !important;
+                line-height: 44px !important;
+                padding: 0 12px !important;
+            }
+            .gsc-search-button .gsc-search-button-v2 {
+                height: 44px !important;
+                width: 44px !important;
+                margin-left: 6px !important;
+            }
+            .gsc-search-button .gsc-search-button-v2 svg {
+                width: 16px !important;
+                height: 16px !important;
+            }
+            .gsc-webResult.gsc-result {
+                padding: 10px 12px !important;
+            }
+            .gs-webResult .gs-title a {
+                font-size: 0.95rem !important;
+            }
+            .gs-webResult .gs-snippet {
+                font-size: 0.8rem !important;
+            }
+            .gsc-cursor-page {
+                font-size: 0.7rem !important;
+                padding: 4px 10px !important;
+                min-width: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo-wrap">
+                <img
+                    src="https://raw.githubusercontent.com/goribercracks/goribercracks.github.io/main/images/goribercrackslogo.png"
+                    alt="Goriber Cracks Logo"
+                />
+            </div>
+            <h1 class="page-title">Goriber Search GG</h1>
+        </div>
+    </section>
+
+    <!-- ─── SEARCH SECTION ─── -->
+    <section class="search-section">
+        <div class="search-inner">
+
+            <!-- Engine Tabs (all centered) -->
+            <div class="engine-tabs" id="engineTabs">
+                <button class="engine-tab active" data-engine="games">PC Games</button>
+                <button class="engine-tab" data-engine="software">PC Softwares</button>
+                <button class="engine-tab" data-engine="android">Android</button>
+            </div>
+
+            <!-- Search Container (centered) -->
+            <div class="search-container" id="searchContainer">
+                <div class="gcse-search" data-autocomplete="off" data-linktarget="_self"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ── CSE IDs ──
+            const ENGINES = {
+                games: {
+                    cx: '006516753008110874046:cbjowp5sdqg',
+                    placeholder: 'Search for PC games...',
+                    title: 'Goriber Search GG - PC Games'
+                },
+                software: {
+                    cx: 'ae17d0c72fa6cbcd4',
+                    placeholder: 'Search for PC software...',
+                    title: 'Goriber Search GG - PC Softwares'
+                },
+                android: {
+                    cx: 'e0d1769ccf74236e8',
+                    placeholder: 'Search for Android APKs...',
+                    title: 'Goriber Search GG - Android'
+                }
+            };
+
+            let currentEngine = 'games';
+            const container = document.getElementById('searchContainer');
+            const tabs = document.querySelectorAll('.engine-tab');
+
+            // ── Enter key ──
+            function setupEnterListener() {
+                const input = document.getElementById('gsc-i-id1');
+                if (!input) return false;
+
+                input.removeEventListener('keydown', enterHandler);
+                input.addEventListener('keydown', enterHandler);
+                return true;
+            }
+
+            function enterHandler(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const searchBtn = document.querySelector('.gsc-search-button-v2');
+                    if (searchBtn) {
+                        searchBtn.click();
+                    } else {
+                        const form = document.querySelector('form.gsc-search-box');
+                        if (form) form.submit();
+                    }
+                }
+            }
+
+            // ── Load engine ──
+            function loadEngine(engine) {
+                const config = ENGINES[engine];
+                if (!config) return;
+
+                currentEngine = engine;
+
+                tabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.engine === engine);
+                });
+
+                container.innerHTML = `<div class="gcse-search" data-autocomplete="off" data-linktarget="_self"></div>`;
+
+                const oldScript = document.querySelector('script[data-gcs]');
+                if (oldScript) oldScript.remove();
+
+                const script = document.createElement('script');
+                script.setAttribute('data-gcs', 'true');
+                script.type = 'text/javascript';
+                script.async = true;
+                script.src = 'https://cse.google.com/cse.js?cx=' + encodeURIComponent(config.cx) + '&num=8';
+                script.onload = function() {
+                    attemptSetPlaceholder(engine);
+                    let attempts = 0;
+                    const interval = setInterval(function() {
+                        if (setupEnterListener() || attempts > 30) {
+                            clearInterval(interval);
+                        }
+                        attempts++;
+                    }, 200);
+                };
+                document.head.appendChild(script);
+            }
+
+            function attemptSetPlaceholder(engine) {
+                const config = ENGINES[engine];
+                if (!config) return;
+
+                const input = document.getElementById('gsc-i-id1');
+                if (input) {
+                    input.placeholder = config.placeholder;
+                    input.title = config.title;
+                    input.setAttribute('aria-label', config.title);
+                    return true;
+                }
+                return false;
+            }
+
+            function watchForInput(engine) {
+                if (attemptSetPlaceholder(engine) && setupEnterListener()) return;
+
+                let attempts = 0;
+                const interval = setInterval(function() {
+                    const placed = attemptSetPlaceholder(engine);
+                    const listen = setupEnterListener();
+                    if ((placed && listen) || attempts > 60) {
+                        clearInterval(interval);
+                    }
+                    attempts++;
+                }, 200);
+            }
+
+            // ── Tabs ──
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const engine = this.dataset.engine;
+                    if (engine && engine !== currentEngine) {
+                        loadEngine(engine);
+                        setTimeout(() => watchForInput(engine), 500);
+                    }
+                });
+            });
+
+            // ── Init ──
+            loadEngine('games');
+            setTimeout(() => watchForInput('games'), 600);
+
+            // ── Observer ──
+            const observer = new MutationObserver(function() {
+                attemptSetPlaceholder(currentEngine);
+                setupEnterListener();
+                document.body.style.overflow = 'auto';
+                document.body.style.position = 'static';
+                document.documentElement.style.overflow = 'auto';
+                document.documentElement.style.position = 'static';
+                document.body.classList.remove('gsc-overflow-hidden');
+            });
+            observer.observe(container, { childList: true, subtree: true, attributes: false });
+
+            // ── Scroll fix interval ──
+            setInterval(function() {
+                document.body.style.overflow = 'auto';
+                document.body.style.position = 'static';
+                document.documentElement.style.overflow = 'auto';
+                document.documentElement.style.position = 'static';
+                document.body.classList.remove('gsc-overflow-hidden');
+                const wrappers = document.querySelectorAll('.gsc-results-wrapper-overlay, .gsc-results-wrapper-visible, .gsc-control-cse, .gsc-wrapper, .gsc-results');
+                wrappers.forEach(el => {
+                    el.style.overflow = 'visible';
+                    el.style.maxHeight = 'none';
+                    el.style.height = 'auto';
+                });
+            }, 500);
+
+        })();
+    </script>
+
+</body>
+</html>
